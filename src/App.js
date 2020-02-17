@@ -1,26 +1,23 @@
+/* UI5 imports */
+import { ThemeProvider } from '@ui5/webcomponents-react/lib/ThemeProvider';
+import "@ui5/webcomponents/dist/json-imports/i18n.js"
+import "@ui5/webcomponents-fiori/dist/json-imports/i18n.js"; 
+import "@ui5/webcomponents-icons/dist/json-imports/i18n.js";
+
+/* React imports */
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+/* Local imports */
+import { ClimateHeroApp } from './ClimateHeroApp'
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <ThemeProvider withToastContainer>
+            <ClimateHeroApp />
+        </ThemeProvider>
+    );
 }
 
 export default App;
