@@ -1,0 +1,7 @@
+---
+applications:
+- name: climatehero-web
+  memory: 512M
+  command: npm start
+  router.route_services_recommended_https: true
+  router.disable_http: true
