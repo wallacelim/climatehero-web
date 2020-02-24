@@ -9,8 +9,12 @@
     "@ui5/webcomponents-react": "^0.7.3",
     "@ui5/webcomponents-react-base": "^0.8.4",
     "@ui5/webcomponents-react-charts": "^0.8.2",
+    "bootstrap": "^4.4.1",
+    "framer-motion": "^1.8.4",
     "react": "^16.12.0",
+    "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
+    "react-grid-layout": "^0.17.1",
     "react-jss": "^10.0.4",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0"
@@ -35,8 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "file-loader": "^5.0.2"
   }
 }

@@ -19,23 +19,27 @@ export function ClimateHeroApp() {
 
     const history = createBrowserHistory();
     const handleLogoClick = () => {
-      history.push("/");
+        history.push("/");
     }
     return (
-      <Router history={history}>
-        <ShellBar
-          logo={SAP_logo}
-          onLogoClick={handleLogoClick}
-          profile={stub_profile_logo}
-          primaryTitle={"Climate Hero"}
-        >
-          <ShellBarItem icon="add" text="Add" />
-        </ShellBar>
-        <Switch>
-          <Route path="/home" component={HomePage} />
-          <Route path="/detail" component={Detail} />
-          <Redirect from="/" to="/home" />
-        </Switch>
-      </Router>
+        <Router history={history}>
+            <ShellBar
+                logo={SAP_logo}
+                onLogoClick={handleLogoClick}
+                profile={stub_profile_logo}
+                primaryTitle={"Climate Hero"}
+                notification-count="99+"
+                show-notifications
+                show-product-switch
+                show-co-pilot
+            >
+                <ShellBarItem icon="add" text="Add" />
+            </ShellBar>
+            <Switch>
+                <Route path="/home" component={HomePage} />
+                <Route path="/detail" component={Detail} />
+                <Redirect from="/" to="/home" />
+            </Switch>
+        </Router>
     )
-  }
+}

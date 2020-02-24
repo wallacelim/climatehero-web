@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Row, Col } from 'react-bootstrap'
+import { motion } from 'framer-motion'
 import {
     Card,
     Text,
@@ -10,7 +11,6 @@ import {
     Title,
     TitleLevel,
     FlexBox,
-    FlexBoxDirection,
     FlexBoxJustifyContent,
     FlexBoxWrap,
     AnalyticalTable,
@@ -23,7 +23,8 @@ import "@ui5/webcomponents-icons/dist/icons/list.js";
 import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import { spacing } from "@ui5/webcomponents-react-base";
 import { BarChart, LineChart } from "@ui5/webcomponents-react-charts";
-import { SampleCustomComponent} from '../Components/SampleCustomComponent'
+import { SampleCustomComponent } from '../Components/SampleCustomComponent'
+import { GoalsCard } from '../Components/GoalsCard'
 
 export function HomePage() {
 
@@ -70,7 +71,7 @@ export function HomePage() {
             goal: `Goal #${index}`,
             datetime: new Date().toString(),
             reduction: (Math.random() * 10).toFixed(2),
-            recurrence: (Math.round(Math.random())) ? 'Weekly' : 'N/A' 
+            recurrence: (Math.round(Math.random())) ? 'Weekly' : 'N/A'
         };
     });
 
@@ -93,77 +94,77 @@ export function HomePage() {
         }
     ];
 
-    let history = useHistory();
-    const handleProgressHeaderClick = () => {
-        history.push("/detail");
-    };
-
     return (
-        <div>
+        <motion.div animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}>
             <FlexBox
                 justifyContent={FlexBoxJustifyContent.Center}
                 wrap={FlexBoxWrap.Wrap} >
-                <Card
-                    style={{ width: "300px", ...spacing.sapUiContentPadding }}
-                    headerInteractive
-                    onHeaderClick={handleHeaderClick}
-                    avatar={<Icon name={toggleCharts === "lineChart" ? 'line-chart' : 'horizontal-bar-chart'} />}
-                    heading="Your Reduction Trends"
-                    subtitle={`Click me to switch to ${switchToChart}`}>
-                    <Text style={spacing.sapUiContentPadding}>{contentTitle}</Text>
-                    {toggleCharts === "lineChart" ?
-                        <LineChart datasets={datasets} labels={labels} loading={loading} />
-                        :
-                        <BarChart datasets={datasets} labels={labels} loading={loading} />
-                    }
-                </Card>
-                <Card
-                    heading="Your Carbon Footprint Reduction Goals"
-                    subtitle="List"
-                    style={{ width: "300px", ...spacing.sapUiContentPadding }}
-                    headerInteractive
-                    onHeaderClick={handleProgressHeaderClick} 
-                    avatar={<Icon name='list' />}>
-                    <List>
-                        <StandardListItem info="finished" infoState={ValueState.Success}>
-                            Line-dry laundry
-                    </StandardListItem>
-                        <StandardListItem info="failed" infoState={ValueState.Error}>
-                            Sell the car, buy a horse
-                    </StandardListItem>
-                        <StandardListItem
-                            info="in progress"
-                            infoState={ValueState.Warning}
-                            style={{ height: "80px" }}>
-                            <FlexBox direction={FlexBoxDirection.Column}>
-                                <Title level={TitleLevel.H5}>Eat veggie lunches</Title>
-                                <ProgressIndicator
-                                    displayValue="89%"
-                                    percentValue={89}
-                                    width="180px"
-                                    state={ValueState.Success} />
-                            </FlexBox>
-                        </StandardListItem>
-                        <StandardListItem
-                            info="in progress"
-                            infoState={ValueState.Warning}
-                            style={{ height: "80px" }}>
-                            <FlexBox direction={FlexBoxDirection.Column}>
-                                <Title level={TitleLevel.H5}>Cycle to work</Title>
-                                <ProgressIndicator
-                                    displayValue="5%"
-                                    percentValue={5}
-                                    width="180px"
-                                    state={ValueState.Error} />
-                            </FlexBox>
-                        </StandardListItem>
-                    </List>
-                </Card>
-                <Card heading="AnalyticalTable" subtitle="List" style={{ width: "900px", ...spacing.sapUiContentPadding }} avatar={<Icon name="table-view" />}>
-                    <AnalyticalTable data={tableData} columns={tableColumns} visibleRows={5} />
-                </Card>
+                <Row className="container-fluid">
+                    <Col xs={12} md={3}>
+                        <motion.div
+                            style={{ width: "100%", height: "auto", display: "flex", justifyContent: "center", alignItems: "top" }}
+                            drag
+                            dragConstraints={{
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                            }}
+
+                        >
+                            <Card
+                                style={{ ...spacing.sapUiContentPadding }}
+                                headerInteractive
+                                onHeaderClick={handleHeaderClick}
+                                avatar={<Icon name={toggleCharts === "lineChart" ? 'line-chart' : 'horizontal-bar-chart'} />}
+                                heading="Your Reduction Trends"
+                                subtitle={`Click me to switch to ${switchToChart}`}>
+                                <Text style={spacing.sapUiContentPadding}>{contentTitle}</Text>
+                                {toggleCharts === "lineChart" ?
+                                    <LineChart datasets={datasets} labels={labels} loading={loading} />
+                                    :
+                                    <BarChart datasets={datasets} labels={labels} loading={loading} />
+                                }
+                            </Card>
+                        </motion.div>
+                    </Col>
+
+                    {/* Goals */}
+                    <Col xs={12} md={3}>
+                        <motion.div
+                            style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "top" }}
+                            drag
+                            dragConstraints={{
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                            }}
+
+                        >
+                            <GoalsCard style={{...spacing.sapUiContentPadding}}/>
+                        </motion.div>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <motion.div
+                            style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "top" }}
+                            drag
+                            dragConstraints={{
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                            }}
+                        >
+                            <Card heading="Your Reduction History" subtitle="List" style={{ ...spacing.sapUiContentPadding }} avatar={<Icon name="table-view" />}>
+                                <AnalyticalTable data={tableData} columns={tableColumns} visibleRows={5} />
+                            </Card>
+                        </motion.div>
+                    </Col>
+                </Row>
             </FlexBox>
-            <SampleCustomComponent/>
-        </div>
+            <SampleCustomComponent />
+        </motion.div>
     )
 }
