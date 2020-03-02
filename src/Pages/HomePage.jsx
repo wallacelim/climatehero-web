@@ -13,9 +13,7 @@ import "@ui5/webcomponents-icons/dist/icons/list.js";
 import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import { spacing } from "@ui5/webcomponents-react-base";
 import SampleCustomComponent from "../Components/SampleCustomComponent";
-import GoalsCard from "../Components/GoalsCard";
-import TrendsCard from "../Components/TrendsCard";
-import HistoryCard from "../Components/HistoryCard";
+import DraggableCard from "../Components/Containers/DraggableCard";
 
 export function HomePage() {
     return (
@@ -26,68 +24,24 @@ export function HomePage() {
             >
                 <Row className="container-fluid">
                     <Col xs={12} md={3}>
-                        <motion.div
-                            style={{
-                                width: "100%",
-                                height: "auto",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "top"
-                            }}
-                            drag
-                            dragConstraints={{
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0
-                            }}
-                        >
-                            <TrendsCard
-                                style={{ ...spacing.sapUiContentPadding }}
-                            />
-                        </motion.div>
+                        <DraggableCard
+                            style={spacing.sapUiContentPadding}
+                            card="Trends"
+                        />
                     </Col>
 
                     {/* Goals */}
                     <Col xs={12} md={3}>
-                        <motion.div
-                            style={{
-                                width: "100%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "top"
-                            }}
-                            drag
-                            dragConstraints={{
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0
-                            }}
-                        >
-                            <GoalsCard
-                                style={{ ...spacing.sapUiContentPadding }}
-                            />
-                        </motion.div>
+                        <DraggableCard
+                            style={spacing.sapUiContentPadding}
+                            card="Goals"
+                        />
                     </Col>
                     <Col xs={12} md={6}>
-                        <motion.div
-                            style={{
-                                width: "100%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "top"
-                            }}
-                            drag
-                            dragConstraints={{
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0
-                            }}
-                        >
-                            <HistoryCard style={spacing.sapUiContentPadding} />
-                        </motion.div>
+                        <DraggableCard
+                            style={spacing.sapUiContentPadding}
+                            card="History"
+                        />
                     </Col>
                 </Row>
             </FlexBox>
