@@ -5,3 +5,6 @@ applications:
   command: serve -s build
   router.route_services_recommended_https: true
   router.disable_http: true
+  services:
+    - climatehero-uaa
+    - climate-hero-dest
