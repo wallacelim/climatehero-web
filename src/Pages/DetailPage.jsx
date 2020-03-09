@@ -1,23 +1,22 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
     Button,
     ObjectPage,
     ObjectPageSection
 } from "@ui5/webcomponents-react";
-import { spacing } from "@ui5/webcomponents-react-base";
 import { CalendarView } from "../Components/Calendar";
-import { ActivitySummary } from "../Components/ActivitySummary";
-import { ActivityDialog } from "../Components/ActivityDialog";
+import ActivitySummary from "../Components/ActivitySummary";
+import AddActivityModal from "../Components/AddActivityModal";
+import { TOGGLE_ADD_ACTIVITY_MODAL } from "../constants/actionTypes";
 
-export function DetailPage() {
-    const [openDialog, setOpenDialog] = React.useState(false);
+const DetailPage = ({ toggleAddActivityModal }) => {
     const [steps, setSteps] = React.useState(0);
     const [bikeMins, setBikeMins] = React.useState(0);
     const [busMins, setBusMins] = React.useState(0);
     const [veggieMeals, setVeggieMeals] = React.useState(0);
     const handleStepsChange = React.useCallback(
         event => {
-            console.log(event);
             const step = event.originalEvent.target.value;
             setSteps(step);
         },
@@ -44,21 +43,13 @@ export function DetailPage() {
         },
         [setVeggieMeals]
     );
-    const handleTrackClick = React.useCallback(
-        e => {
-            setOpenDialog(true);
-            e.preventDefault();
-            // alert(`Steps ${steps}, Bike Minutes ${bikeMins}, Bus Minutes ${busMins}, VeggieMeasl ${veggieMeals}`);
-        },
-        [setVeggieMeals]
-    );
 
     return (
         <div>
             <ObjectPage
                 title="Climate Hero"
                 headerActions={[
-                    <Button onClick={handleTrackClick}>Track</Button>
+                    <Button onClick={toggleAddActivityModal}>Track</Button>
                 ]}
             >
                 <ObjectPageSection title="Calendar View" id="calenderView">
@@ -68,15 +59,18 @@ export function DetailPage() {
                     title="Activity Summary"
                     id="activitySummary"
                 >
-                    <ActivitySummary
-                        style={{
-                            width: "100%",
-                            ...spacing.sapUiContentPadding
-                        }}
-                    />
+                    <ActivitySummary />
                 </ObjectPageSection>
             </ObjectPage>
-            <ActivityDialog openDialog={openDialog} />
+            <AddActivityModal />
         </div>
     );
-}
+};
+
+const mapDispatchToProps = dispatch => ({
+    toggleAddActivityModal: () => {
+        dispatch({ type: TOGGLE_ADD_ACTIVITY_MODAL });
+    }
+});
+
+export default connect(null, mapDispatchToProps)(DetailPage);

@@ -9,8 +9,8 @@ import "@ui5/webcomponents-icons/dist/icons/list.js";
 import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import SAP_logo from "./Assets/Images/SAP_logo.svg";
 import stub_profile_logo from "./Assets/Images/stub_profile_logo.png";
-import { HomePage } from "./Pages/HomePage";
-import { DetailPage } from "./Pages/DetailPage";
+import HomePage from "./Pages/HomePage";
+import DetailPage from "./Pages/DetailPage";
 
 export function ClimateHeroApp() {
     const history = createBrowserHistory();

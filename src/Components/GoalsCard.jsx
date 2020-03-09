@@ -72,8 +72,8 @@ function GoalsCard({ goals }) {
     );
 }
 
-const mapStateToProps = state => {
-    return { goals: state.goals };
+const mapStateToProps = ({ goals }) => {
+    return { goals };
 };
 const mapDispatchToProps = null;
 

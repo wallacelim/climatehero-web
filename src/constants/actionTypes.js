@@ -1,0 +1,7 @@
+export const ADD_GOAL = "ADD_GOAL";
+export const DELETE_GOAL = "DELETE_GOAL";
+
+export const ADD_ACTIVITY = "ADD_ACTIVITY";
+export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
+
+export const TOGGLE_ADD_ACTIVITY_MODAL = "TOGGLE_ADD_ACTIVITY_MODAL";

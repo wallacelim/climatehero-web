@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import {
@@ -14,7 +15,7 @@ import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import { spacing } from "@ui5/webcomponents-react-base";
 import DraggableCard from "../Components/Containers/DraggableCard";
 
-export function HomePage() {
+const HomePage = () => {
     return (
         <motion.div animate={{ scale: 1 }} transition={{ duration: 0.5 }}>
             <FlexBox
@@ -46,4 +47,6 @@ export function HomePage() {
             </FlexBox>
         </motion.div>
     );
-}
+};
+
+export default connect()(HomePage);

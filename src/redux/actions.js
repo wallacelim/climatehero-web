@@ -1,12 +1,13 @@
 import {
     ADD_GOAL,
     DELETE_GOAL,
-    ADD_REDUCTION,
-    DELETE_REDUCTION
-} from "./actionTypes";
+    ADD_ACTIVITY,
+    DELETE_ACTIVITY,
+    TOGGLE_ADD_ACTIVITY_MODAL
+} from "../constants/actionTypes";
 
 let nextGoalId = 0;
-let nextReductionId = 0;
+let nextActivityId = 0;
 
 export const addGoal = goal => ({
     type: ADD_GOAL,
@@ -23,17 +24,24 @@ export const deleteGoal = id => ({
     }
 });
 
-export const addReduction = reduction => ({
-    type: ADD_REDUCTION,
+export const addActivity = activity => ({
+    type: ADD_ACTIVITY,
     payload: {
-        id: ++nextReductionId,
-        reduction
+        id: ++nextActivityId,
+        activity
     }
 });
 
-export const deleteReduction = id => ({
-    type: DELETE_REDUCTION,
+export const deleteActivity = id => ({
+    type: DELETE_ACTIVITY,
     payload: {
         id
     }
 });
+
+export const toggleAddActivityModal = () => {
+    console.log("called");
+    return {
+        type: TOGGLE_ADD_ACTIVITY_MODAL
+    };
+};

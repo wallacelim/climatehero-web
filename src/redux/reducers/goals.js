@@ -1,4 +1,4 @@
-import { ADD_GOAL, DELETE_GOAL } from "../actionTypes";
+import { ADD_GOAL, DELETE_GOAL } from "../../constants/actionTypes";
 
 const initialState = [
     {
