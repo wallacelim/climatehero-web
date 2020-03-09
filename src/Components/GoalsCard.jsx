@@ -1,7 +1,7 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { ActivityPopover } from '../Components/ActivityPopover'
-import { List } from '@ui5/webcomponents-react/lib/List'
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useHistory } from "react-router-dom";
+import { List } from "@ui5/webcomponents-react/lib/List";
 import {
     ListMode,
     Card,
@@ -14,68 +14,94 @@ import {
     TitleLevel,
     FlexBox,
     FlexBoxDirection
-} from '@ui5/webcomponents-react'
-import Goal from './Goal'
+} from "@ui5/webcomponents-react";
+import GoalWithPopover from "./GoalWithPopover";
 
-export function GoalsCard(props) {
-
-
+export default function GoalsCard(props) {
     let history = useHistory();
     const handleProgressHeaderClick = () => {
         history.push("/detail");
     };
-
-    // const handleGoalSelectionChange = goal => {
-    //     console.log(goal)
-    // }
-
-    const handleGoalClick = goal => {
-        console.log(goal.parameters.item.children)
-        // goal.parameters.item.children.push(React.createElement(ActivityPopover, { title:"test2"}, null))
-
-    }
-
+    const handleItemClick = item => {
+        console.log(item.parameters.item);
+    };
+    const [isOpen, setIsOpen] = useState(false);
     return (
-
         <Card
             heading="Your Carbon Footprint Reduction Goals"
             subtitle="List"
             style={props.style}
             headerInteractive
             onHeaderClick={handleProgressHeaderClick}
-            avatar={<Icon name='list' />}>
-            <List
-            mode={ListMode.SingleSelect}
-            // onSelectionChange={handleGoalSelectionChange}
-            onItemClick={handleGoalClick}>
-                <StandardListItem id="test1" info="finished" 
-                infoState={ValueState.Success} 
-                children={[<ActivityPopover display="block" title="test"/>, <Text>Test</Text>]}>
-                    {/* Line-dry laundry */}
-                    </StandardListItem>
-
-                <StandardListItem info="failed" infoState={ValueState.Error}>
-                    Sell the car, buy a horse
-                            </StandardListItem>
-                <Goal 
-                info="in progress"
-                infoState={ValueState.Warning}
-                progress={89}
-                text="Eat Veggie Lunches"/>
+            avatar={<Icon name="list" />}
+        >
+            <List mode={ListMode.SingleSelect} onItemClick={handleItemClick}>
                 <StandardListItem
+                    key={1}
+                    id="test1"
+                    info="finished"
+                    style={{ height: "80px" }}
+                    infoState={ValueState.Success}
+                >
+                    <GoalWithPopover
+                        infoState={ValueState.Success}
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        style={{ height: "80px" }}
+                        progress={100}
+                        text={"Sell the car, buy a horse"}
+                    />
+                </StandardListItem>
+
+                <StandardListItem
+                    info="failed"
+                    infoState={ValueState.Error}
+                    key={2}
+                    style={{ height: "80px" }}
+                >
+                    <GoalWithPopover
+                        info="in progress"
+                        infoState={ValueState.Error}
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        style={{ height: "80px" }}
+                        progress={0}
+                        text={"Sell the car, buy a horse"}
+                    />
+                </StandardListItem>
+                <StandardListItem
+                    key={3}
+                    style={{ height: "80px" }}
                     info="in progress"
                     infoState={ValueState.Warning}
-                    style={{ height: "80px" }}>
+                >
+                    <GoalWithPopover
+                        infoState={ValueState.Warning}
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        style={{ height: "80px" }}
+                        progress={89}
+                        text={"Eat veggie lunches"}
+                    />
+                </StandardListItem>
+
+                <StandardListItem
+                    key={4}
+                    info="in progress"
+                    infoState={ValueState.Warning}
+                    style={{ height: "80px" }}
+                >
                     <FlexBox direction={FlexBoxDirection.Column}>
                         <Title level={TitleLevel.H5}>Cycle to work</Title>
                         <ProgressIndicator
                             displayValue="5%"
                             percentValue={5}
                             width="180px"
-                            state={ValueState.Error} />
+                            state={ValueState.Error}
+                        />
                     </FlexBox>
                 </StandardListItem>
             </List>
         </Card>
-    )
+    );
 }
