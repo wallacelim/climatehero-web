@@ -12,7 +12,6 @@ import "@ui5/webcomponents-icons/dist/icons/add.js";
 import "@ui5/webcomponents-icons/dist/icons/list.js";
 import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import { spacing } from "@ui5/webcomponents-react-base";
-import SampleCustomComponent from "../Components/SampleCustomComponent";
 import DraggableCard from "../Components/Containers/DraggableCard";
 
 export function HomePage() {
@@ -45,7 +44,6 @@ export function HomePage() {
                     </Col>
                 </Row>
             </FlexBox>
-            <SampleCustomComponent />
         </motion.div>
     );
 }

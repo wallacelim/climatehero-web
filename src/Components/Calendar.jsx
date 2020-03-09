@@ -1,10 +1,10 @@
-import React from 'react';
-import { Calendar, FlexBox, FlexBoxJustifyContent, FlexBoxAlignItems } from "@ui5/webcomponents-react";
+import React from "react";
+import { Calendar } from "@ui5/webcomponents-react";
 
 export function CalendarView() {
-  return (
-    <div>
-        <Calendar></Calendar>
-    </div>
-  )
+    return (
+        <div>
+            <Calendar></Calendar>
+        </div>
+    );
 }

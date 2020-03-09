@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     ProgressIndicator,
     Title,
@@ -8,14 +8,12 @@ import {
 } from "@ui5/webcomponents-react";
 
 export default function Goal(props) {
-    const [progress, setProgress] = useState(props.progress);
-
     return (
         <FlexBox direction={FlexBoxDirection.Column}>
             <Title level={TitleLevel.H5}>{props.text}</Title>
             <ProgressIndicator
-                displayValue={progress + "%"}
-                percentValue={progress}
+                displayValue={props.progress + "%"}
+                percentValue={props.progress}
                 width="180px"
                 state={props.infoState}
             />
