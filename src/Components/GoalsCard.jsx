@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { List } from "@ui5/webcomponents-react/lib/List";
@@ -7,12 +7,7 @@ import {
     Card,
     Icon,
     StandardListItem,
-    ValueState,
-    ProgressIndicator,
-    Title,
-    TitleLevel,
-    FlexBox,
-    FlexBoxDirection
+    ValueState
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
@@ -26,7 +21,23 @@ function GoalsCard({ goals }) {
         console.log(item.parameters.item.id);
         console.log();
     };
-    const [isOpen, setIsOpen] = useState(false);
+    const getMetaData = progress => {
+        let infoState, info;
+        if (progress <= 0) {
+            infoState = ValueState.Error;
+            info = "Started";
+        } else if (progress >= 100) {
+            infoState = ValueState.Success;
+            info = "Completed";
+        } else {
+            infoState = ValueState.Warning;
+            info = "In Progress";
+        }
+        return {
+            infoState,
+            info
+        };
+    };
     return (
         <Card
             heading="Your Carbon Footprint Reduction Goals"
@@ -37,89 +48,25 @@ function GoalsCard({ goals }) {
             avatar={<Icon name="list" />}
         >
             <List mode={ListMode.None} onItemClick={handleItemClick}>
-                {goals.map(goal => (
-                    <StandardListItem
-                        key={1}
-                        id="test1"
-                        info="finished"
-                        style={{ height: "80px" }}
-                        infoState={ValueState.Success}
-                    >
-                        <Goal
-                            infoState={ValueState.Success}
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
+                {goals.map(goal => {
+                    const metadata = getMetaData(goal.progress);
+                    return (
+                        <StandardListItem
+                            key={goal.id}
+                            id="test1"
+                            info={metadata.info}
                             style={{ height: "80px" }}
-                            progress={100}
-                            text={"Sell the car, buy a horse"}
-                        />
-                    </StandardListItem>
-                ))}
-                <StandardListItem
-                    key={1}
-                    id="test1"
-                    info="finished"
-                    style={{ height: "80px" }}
-                    infoState={ValueState.Success}
-                >
-                    <Goal
-                        infoState={ValueState.Success}
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                        style={{ height: "80px" }}
-                        progress={100}
-                        text={"Sell the car, buy a horse"}
-                    />
-                </StandardListItem>
-
-                <StandardListItem
-                    info="failed"
-                    infoState={ValueState.Error}
-                    key={2}
-                    style={{ height: "80px" }}
-                >
-                    <Goal
-                        info="in progress"
-                        infoState={ValueState.Error}
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                        style={{ height: "80px" }}
-                        progress={0}
-                        text={"Sell the car, buy a horse"}
-                    />
-                </StandardListItem>
-                <StandardListItem
-                    key={3}
-                    style={{ height: "80px" }}
-                    info="in progress"
-                    infoState={ValueState.Warning}
-                >
-                    <Goal
-                        infoState={ValueState.Warning}
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                        style={{ height: "80px" }}
-                        progress={89}
-                        text={"Eat veggie lunches"}
-                    />
-                </StandardListItem>
-
-                <StandardListItem
-                    key={4}
-                    info="in progress"
-                    infoState={ValueState.Warning}
-                    style={{ height: "80px" }}
-                >
-                    <FlexBox direction={FlexBoxDirection.Column}>
-                        <Title level={TitleLevel.H5}>Cycle to work</Title>
-                        <ProgressIndicator
-                            displayValue="5%"
-                            percentValue={5}
-                            width="180px"
-                            state={ValueState.Error}
-                        />
-                    </FlexBox>
-                </StandardListItem>
+                            infoState={metadata.infoState}
+                        >
+                            <Goal
+                                style={{ height: "80px" }}
+                                progress={goal.progress}
+                                text={goal.text}
+                                infoState={metadata.infoState}
+                            />
+                        </StandardListItem>
+                    );
+                })}
             </List>
         </Card>
     );
