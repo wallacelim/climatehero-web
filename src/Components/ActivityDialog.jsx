@@ -12,15 +12,21 @@ import "@material-ui/icons/DirectionsBike.js";
 export function ActivityDialog() {
   const [openDialog, setOpenDialog] = React.useState(true);
   const [activities, setActivities] = React.useState(0);
+  const [activityTypes, setActivityTypes] = React.useState("step");
+
   const handleActivityChange = React.useCallback((event) => {
     const activity = event.originalEvent.target.value;
-    console.log(activity);
     setActivities(activity);
   }, [setActivities]);
+  const handleActivitySelectChange = React.useCallback((event) => {
+    const activityType = event.parameters.selectedOption.value;
+    setActivityTypes(activityType);
+  }, [setActivityTypes]);
   const handleAddClick = React.useCallback(() => {
     setOpenDialog(false);
-    console.log(`Steps: ${activities}`);
-  }, [setOpenDialog]);
+    console.log(`${activityTypes}: ${activities}`);
+  }, [activityTypes, activities, setOpenDialog]);
+
   return (
     <div>
       {/* <Button design={ButtonDesign.Emphasized} onClick={handleButtonClick}>Open Dialog</Button> */}
@@ -38,12 +44,12 @@ export function ActivityDialog() {
             style={sapUiContentPadding}
             direction={FlexBoxDirection.Column}
             justifyContent={FlexBoxJustifyContent.Center}>
-            <Select style={{...spacing.sapUiSmallMarginBottom}}>
-              <Option icon="physical-activity">Steps</Option>
-              <Option icon="DirectionsBike">Bike</Option>
-              <Option icon="bus-public-transport">Bus</Option>
-              <Option icon="passenger-train">Train</Option>
-              <Option icon="meal">Vegetarian Meal</Option>
+            <Select style={{...spacing.sapUiSmallMarginBottom}} onChange={handleActivitySelectChange}>
+              <Option icon="physical-activity" value="steps">Steps</Option>
+              <Option icon="DirectionsBike" value="bike">Bike(km)</Option>
+              <Option icon="bus-public-transport" value="bus">Bus(km)</Option>
+              <Option icon="passenger-train" value="train">Train(km)</Option>
+              <Option icon="meal" value="vegetarianMeal">Vegetarian Meal</Option>
             </Select>
             <Input type={InputType.Number} value={activities} onChange={handleActivityChange}></Input>
           </FlexBox>

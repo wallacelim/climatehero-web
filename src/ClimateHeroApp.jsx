@@ -13,10 +13,11 @@ import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import SAP_logo from './Assets/Images/SAP_logo.svg'
 import stub_profile_logo from './Assets/Images/stub_profile_logo.png'
 import { HomePage } from './Pages/HomePage'
-import { Detail } from './Components/Detail'
+import { DetailPage } from './Pages/DetailPage'
+import { ActivityDialog } from './Components/ActivityDialog'
 
 export function ClimateHeroApp() {
-
+    const [openDialog, setOpenDialog] = React.useState(true);
     const history = createBrowserHistory();
     const handleLogoClick = () => {
         history.push("/");
@@ -37,7 +38,7 @@ export function ClimateHeroApp() {
             </ShellBar>
             <Switch>
                 <Route path="/home" component={HomePage} />
-                <Route path="/detail" component={Detail} />
+                <Route path="/detail" component={DetailPage} />
                 <Redirect from="/" to="/home" />
             </Switch>
         </Router>
