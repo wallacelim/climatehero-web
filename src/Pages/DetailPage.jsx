@@ -4,8 +4,10 @@ import { List, ListMode, ListSeparators, Button, Input, InputType, FlexBox, Text
 import { spacing } from "@ui5/webcomponents-react-base";
 import { CalendarView } from "../Components/Calendar";
 import { ActivitySummary } from "../Components/ActivitySummary";
+import { ActivityDialog} from "../Components/ActivityDialog";
 
 export function DetailPage() {
+  const [openDialog, setOpenDialog] = React.useState(false);
   const [steps, setSteps] = React.useState(0);
   const [bikeMins, setBikeMins] = React.useState(0);
   const [busMins, setBusMins] = React.useState(0);
@@ -27,13 +29,17 @@ export function DetailPage() {
     const veggieMeal = event.originalEvent.target.value;
     setVeggieMeals(veggieMeal);
   }, [setVeggieMeals]);
-  const handleClick = e => {
+  const handleTrackClick = React.useCallback((e) => {
+    setOpenDialog(true);
     e.preventDefault();
-    alert(`Steps ${steps}, Bike Minutes ${bikeMins}, Bus Minutes ${busMins}, VeggieMeasl ${veggieMeals}`);
-  };
+    // alert(`Steps ${steps}, Bike Minutes ${bikeMins}, Bus Minutes ${busMins}, VeggieMeasl ${veggieMeals}`);
+  },[setVeggieMeals]);
+
   return (
     <div>
-      <ObjectPage>
+      <ObjectPage
+        title="Climate Hero"
+        headerActions={[<Button onClick={handleTrackClick}>Track</Button>]}>
         <ObjectPageSection title="Calendar View" id="calenderView">
           <CalendarView />
         </ObjectPageSection>
@@ -41,6 +47,7 @@ export function DetailPage() {
           <ActivitySummary style={{width:"100%", ...spacing.sapUiContentPadding}} />
         </ObjectPageSection>
       </ObjectPage>
+      <ActivityDialog openDialog={openDialog} />
     </div>
   );
 }
