@@ -7,11 +7,11 @@ import HistoryCard from "../HistoryCard";
 export default function DraggableCard(props) {
     const renderContent = card => {
         if (card === "Goals") {
-            return <GoalsCard style={props.style} />;
+            return <GoalsCard style={{ ...props.style, height: "100%" }} />;
         } else if (card === "Trends") {
-            return <TrendsCard style={props.style} />;
+            return <TrendsCard style={{ ...props.style, height: "100%" }} />;
         } else if (card === "History") {
-            return <HistoryCard style={props.style} />;
+            return <HistoryCard style={{ ...props.style, height: "100%" }} />;
         }
     };
 
@@ -19,8 +19,7 @@ export default function DraggableCard(props) {
         <motion.div
             style={{
                 width: "100%",
-                height: "auto",
-                display: "flex",
+                height: "100%",
                 justifyContent: "center",
                 alignItems: "top",
                 display: "block"

@@ -36,11 +36,7 @@ export default function HistoryCard(props) {
             style={props.style}
             avatar={<Icon name="table-view" />}
         >
-            <AnalyticalTable
-                data={tableData}
-                columns={tableColumns}
-                visibleRows={5}
-            />
+            <AnalyticalTable data={tableData} columns={tableColumns} />
         </Card>
     );
 }
