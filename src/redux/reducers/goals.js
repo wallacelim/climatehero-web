@@ -1,37 +1,37 @@
-import { ADD_GOAL, DELETE_GOAL } from "../../constants/actionTypes";
+import {
+    ADD_GOAL,
+    DELETE_GOAL,
+    UPDATE_GOALS
+} from "../../constants/actionTypes";
 
-const initialState = [
-    {
-        progress: 100,
-        text: "Sell the car, buy a horse",
-        id: 1
-    },
-    {
-        progress: 100,
-        text: "Sell the car, buy a horse",
-        id: 2
-    },
-    {
-        progress: 5,
-        text: "Cycle to work",
-        id: 3
-    },
-    {
-        progress: 89,
-        text: "Eat veggie lunches",
-        id: 4
-    }
-];
+const initialState = [];
 
 export default function(state = initialState, action) {
     switch (action.type) {
         case ADD_GOAL:
-            return [...state, action.payload.goal];
+            return [...state, action.payload];
         case DELETE_GOAL:
             return [
                 ...state.slice(0, action.payload.id),
                 ...state.slice(++action.payload.id)
             ];
+        case UPDATE_GOALS:
+            const updatedState = [...state];
+            updatedState.forEach(goal => {
+                if (goal.type === action.payload.type) {
+                    console.log(
+                        `changing ${goal.currentMeasurement} by ${action.payload.measurement}`
+                    );
+                    goal.currentMeasurement += action.payload.measurement;
+                    console.log(goal.currentMeasurement);
+                    goal.progress = Math.round(
+                        (goal.currentMeasurement * 100) / goal.targetMeasurement
+                    );
+                    console.log(goal.progress);
+                }
+            });
+            console.log(updatedState);
+            return updatedState;
         default:
             return state;
     }

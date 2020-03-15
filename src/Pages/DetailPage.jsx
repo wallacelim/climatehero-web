@@ -7,8 +7,7 @@ import {
 } from "@ui5/webcomponents-react";
 import { CalendarView } from "../Components/Calendar";
 import ActivityHistory from "../Components/ActivityHistory";
-import AddActivityModal from "../Components/AddActivityModal";
-import { TOGGLE_ADD_ACTIVITY_MODAL } from "../constants/actionTypes";
+import { toggleAddActivityModal } from "../redux/actionCreators";
 import { spacing } from "@ui5/webcomponents-react-base";
 
 const DetailPage = ({ toggleAddActivityModal }) => {
@@ -59,15 +58,12 @@ const DetailPage = ({ toggleAddActivityModal }) => {
             <ObjectPageSection title="Activity History" id="activityHistory">
                 <ActivityHistory />
             </ObjectPageSection>
-            <AddActivityModal />
         </ObjectPage>
     );
 };
 
 const mapDispatchToProps = dispatch => ({
-    toggleAddActivityModal: () => {
-        dispatch({ type: TOGGLE_ADD_ACTIVITY_MODAL });
-    }
+    toggleAddActivityModal: () => dispatch(toggleAddActivityModal())
 });
 
 export default connect(null, mapDispatchToProps)(DetailPage);

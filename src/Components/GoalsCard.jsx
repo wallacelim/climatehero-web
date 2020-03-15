@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { List } from "@ui5/webcomponents-react/lib/List";
 import {
     ListMode,
@@ -11,12 +10,13 @@ import {
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
+import { toggleAddGoalModal } from "../redux/actionCreators";
 
-function GoalsCard({ goals }) {
+function GoalsCard({ goals, toggleAddGoalModal }) {
     const handleItemClick = item => {
-        console.log(item.parameters.item.id);
-        console.log();
+        // TODO: enable editing of goals
     };
+
     const getMetaData = progress => {
         let infoState, info;
         if (progress <= 0) {
@@ -34,10 +34,13 @@ function GoalsCard({ goals }) {
             info
         };
     };
+
     return (
         <Card
             heading="Your Carbon Footprint Reduction Goals"
-            subtitle="List"
+            subtitle="Click to add a goal"
+            headerInteractive
+            onHeaderClick={toggleAddGoalModal}
             style={{ ...spacing.sapUiContentPadding, height: "100%" }}
             avatar={<Icon name="list" />}
         >
@@ -47,7 +50,7 @@ function GoalsCard({ goals }) {
                     return (
                         <StandardListItem
                             key={goal.id}
-                            id="test1"
+                            id={goal.id}
                             info={metadata.info}
                             style={{ height: "80px" }}
                             infoState={metadata.infoState}
@@ -55,7 +58,10 @@ function GoalsCard({ goals }) {
                             <Goal
                                 style={{ height: "80px" }}
                                 progress={goal.progress}
-                                text={goal.text}
+                                name={goal.name}
+                                startDate={goal.startDate}
+                                targetDate={goal.targetDate}
+                                target={`${goal.targetMeasurement} ${goal.metric}`}
                                 infoState={metadata.infoState}
                             />
                         </StandardListItem>
@@ -66,9 +72,15 @@ function GoalsCard({ goals }) {
     );
 }
 
-const mapStateToProps = ({ goals }) => {
-    return { goals };
-};
-const mapDispatchToProps = null;
+const mapStateToProps = ({ goals }) => ({
+    goals
+});
+
+const mapDispatchToProps = dispatch => ({
+    toggleAddGoalModal: () => {
+        console.log("header Clicked");
+        dispatch(toggleAddGoalModal());
+    }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalsCard);

@@ -6,8 +6,7 @@ import { ObjectPageSection } from "@ui5/webcomponents-react/lib/ObjectPageSectio
 import { spacing } from "@ui5/webcomponents-react-base";
 import { Button } from "@ui5/webcomponents-react/lib/Button";
 import DraggableCard from "../Components/Containers/DraggableCard";
-import AddActivityModal from "../Components/AddActivityModal";
-import { TOGGLE_ADD_ACTIVITY_MODAL } from "../constants/actionTypes";
+import { toggleAddActivityModal } from "../redux/actionCreators";
 
 function ProfilePage({ toggleAddActivityModal }) {
     return (
@@ -38,15 +37,12 @@ function ProfilePage({ toggleAddActivityModal }) {
                     card="History"
                 />
             </ObjectPageSection>
-            <AddActivityModal />
         </ObjectPage>
     );
 }
 
 const mapDispatchToProps = dispatch => ({
-    toggleAddActivityModal: () => {
-        dispatch({ type: TOGGLE_ADD_ACTIVITY_MODAL });
-    }
+    toggleAddActivityModal: () => dispatch(toggleAddActivityModal())
 });
 
 export default connect(null, mapDispatchToProps)(ProfilePage);

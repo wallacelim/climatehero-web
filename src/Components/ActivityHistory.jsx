@@ -15,10 +15,11 @@ const ActivityHistory = ({ activities }) => {
     //   useEffect(() => {
     //     fetchActivityData();
     //   });
+
     const activityColumns = [
         {
             Header: "Date",
-            accessor: "date" // String-based value accessors!
+            accessor: "date"
         },
         {
             Header: "Activity Type",
@@ -56,6 +57,8 @@ const ActivityHistory = ({ activities }) => {
     );
 };
 
-const mapStateToProps = ({ activities }) => ({ activities });
+const mapStateToProps = ({ activities }) => ({
+    activities
+});
 
 export default connect(mapStateToProps, null)(ActivityHistory);

@@ -12,7 +12,7 @@ export default function TrendsCard(props) {
             setTimeout(() => {
                 setLoading(false);
                 setToggleCharts("barChart");
-            }, 2000);
+            }, 200);
         } else {
             setLoading(true);
             setTimeout(() => {
