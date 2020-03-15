@@ -13,10 +13,6 @@ import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
 
 function GoalsCard({ goals }) {
-    const history = useHistory();
-    const handleHeaderClick = () => {
-        history.push("/detail");
-    };
     const handleItemClick = item => {
         console.log(item.parameters.item.id);
         console.log();
@@ -43,8 +39,6 @@ function GoalsCard({ goals }) {
             heading="Your Carbon Footprint Reduction Goals"
             subtitle="List"
             style={{ ...spacing.sapUiContentPadding, height: "100%" }}
-            headerInteractive
-            onHeaderClick={handleHeaderClick}
             avatar={<Icon name="list" />}
         >
             <List mode={ListMode.None} onItemClick={handleItemClick}>

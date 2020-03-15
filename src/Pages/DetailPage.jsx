@@ -6,9 +6,10 @@ import {
     ObjectPageSection
 } from "@ui5/webcomponents-react";
 import { CalendarView } from "../Components/Calendar";
-import ActivitySummary from "../Components/ActivitySummary";
+import ActivityHistory from "../Components/ActivityHistory";
 import AddActivityModal from "../Components/AddActivityModal";
 import { TOGGLE_ADD_ACTIVITY_MODAL } from "../constants/actionTypes";
+import { spacing } from "@ui5/webcomponents-react-base";
 
 const DetailPage = ({ toggleAddActivityModal }) => {
     const [steps, setSteps] = React.useState(0);
@@ -50,12 +51,13 @@ const DetailPage = ({ toggleAddActivityModal }) => {
             headerActions={[
                 <Button onClick={toggleAddActivityModal}>Track</Button>
             ]}
+            style={{ height: "100vh", ...spacing.sapUiContentPadding }}
         >
             <ObjectPageSection title="Calendar View" id="calenderView">
                 <CalendarView />
             </ObjectPageSection>
-            <ObjectPageSection title="Activity Summary" id="activitySummary">
-                <ActivitySummary />
+            <ObjectPageSection title="Activity History" id="activityHistory">
+                <ActivityHistory />
             </ObjectPageSection>
             <AddActivityModal />
         </ObjectPage>

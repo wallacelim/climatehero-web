@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { AnalyticalTable } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 
-const ActivitySummary = ({ activities }) => {
+const ActivityHistory = ({ activities }) => {
     //   async function fetchActivityData() {
     //     const res = await fetch(`/api/reductions/user=${user_id}`);
     //     res
@@ -58,4 +58,4 @@ const ActivitySummary = ({ activities }) => {
 
 const mapStateToProps = ({ activities }) => ({ activities });
 
-export default connect(mapStateToProps, null)(ActivitySummary);
+export default connect(mapStateToProps, null)(ActivityHistory);

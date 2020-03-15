@@ -13,7 +13,7 @@ function ProfilePage({ toggleAddActivityModal }) {
     return (
         <ObjectPage
             title="Profile Page"
-            subTitle="Test User"
+            subTitle="Welcome, Test User"
             headerActions={[
                 <Button onClick={toggleAddActivityModal}>Track</Button>
             ]}

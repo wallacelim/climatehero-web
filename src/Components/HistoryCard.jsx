@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Card, AnalyticalTable, Icon } from "@ui5/webcomponents-react";
+import ActivityHistory from "./ActivityHistory";
 
 export default function HistoryCard(props) {
     const history = useHistory();
@@ -14,7 +15,7 @@ export default function HistoryCard(props) {
     });
 
     const handleHeaderClick = () => {
-        history.push("/profile");
+        history.push("/detail");
     };
 
     const tableColumns = [
@@ -44,7 +45,7 @@ export default function HistoryCard(props) {
             style={props.style}
             avatar={<Icon name="table-view" />}
         >
-            <AnalyticalTable data={tableData} columns={tableColumns} />
+            <ActivityHistory />
         </Card>
     );
 }
