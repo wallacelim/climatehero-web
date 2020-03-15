@@ -11,6 +11,8 @@ import SAP_logo from "./Assets/Images/SAP_logo.svg";
 import stub_profile_logo from "./Assets/Images/stub_profile_logo.png";
 import DetailPage from "./Pages/DetailPage";
 import ProfilePage from "./Pages/ProfilePage";
+import AddActivityModal from "./Components/AddActivityModal";
+import AddGoalModal from "./Components/AddGoalModal";
 
 export function ClimateHeroApp() {
     const history = createBrowserHistory();
@@ -36,6 +38,8 @@ export function ClimateHeroApp() {
                 <Route path="/profile" component={ProfilePage} />
                 <Redirect from="/" to="/profile" />
             </Switch>
+            <AddActivityModal />
+            <AddGoalModal />
         </Router>
     );
 }
