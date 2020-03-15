@@ -36,7 +36,7 @@ const AddActivityModal = ({ show, handleClick, handleAddActivity }) => {
     const [input, setInput] = useState(0);
 
     const handleAdd = () => {
-        if (input == 0) {
+        if (input === 0) {
             alert("please enter a non-zero value");
             return;
         }

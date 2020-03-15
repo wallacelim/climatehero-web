@@ -45,25 +45,20 @@ const DetailPage = ({ toggleAddActivityModal }) => {
     );
 
     return (
-        <div>
-            <ObjectPage
-                title="Climate Hero"
-                headerActions={[
-                    <Button onClick={toggleAddActivityModal}>Track</Button>
-                ]}
-            >
-                <ObjectPageSection title="Calendar View" id="calenderView">
-                    <CalendarView />
-                </ObjectPageSection>
-                <ObjectPageSection
-                    title="Activity Summary"
-                    id="activitySummary"
-                >
-                    <ActivitySummary />
-                </ObjectPageSection>
-            </ObjectPage>
+        <ObjectPage
+            title="Climate Hero"
+            headerActions={[
+                <Button onClick={toggleAddActivityModal}>Track</Button>
+            ]}
+        >
+            <ObjectPageSection title="Calendar View" id="calenderView">
+                <CalendarView />
+            </ObjectPageSection>
+            <ObjectPageSection title="Activity Summary" id="activitySummary">
+                <ActivitySummary />
+            </ObjectPageSection>
             <AddActivityModal />
-        </div>
+        </ObjectPage>
     );
 };
 

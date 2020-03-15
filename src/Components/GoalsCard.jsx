@@ -13,8 +13,8 @@ import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
 
 function GoalsCard({ goals }) {
-    let history = useHistory();
-    const handleProgressHeaderClick = () => {
+    const history = useHistory();
+    const handleHeaderClick = () => {
         history.push("/detail");
     };
     const handleItemClick = item => {
@@ -44,7 +44,7 @@ function GoalsCard({ goals }) {
             subtitle="List"
             style={{ ...spacing.sapUiContentPadding, height: "100%" }}
             headerInteractive
-            onHeaderClick={handleProgressHeaderClick}
+            onHeaderClick={handleHeaderClick}
             avatar={<Icon name="list" />}
         >
             <List mode={ListMode.None} onItemClick={handleItemClick}>

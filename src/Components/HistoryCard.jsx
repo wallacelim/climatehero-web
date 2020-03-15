@@ -1,7 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Card, AnalyticalTable, Icon } from "@ui5/webcomponents-react";
 
 export default function HistoryCard(props) {
+    const history = useHistory();
     const tableData = new Array(500).fill(null).map((_, index) => {
         return {
             goal: `Goal #${index}`,
@@ -10,6 +12,10 @@ export default function HistoryCard(props) {
             recurrence: Math.round(Math.random()) ? "Weekly" : "N/A"
         };
     });
+
+    const handleHeaderClick = () => {
+        history.push("/profile");
+    };
 
     const tableColumns = [
         {
@@ -32,6 +38,8 @@ export default function HistoryCard(props) {
     return (
         <Card
             heading="Your Reduction History"
+            headerInteractive
+            onHeaderClick={handleHeaderClick}
             subtitle="List"
             style={props.style}
             avatar={<Icon name="table-view" />}

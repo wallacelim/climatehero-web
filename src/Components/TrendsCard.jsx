@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BarChart, LineChart } from "@ui5/webcomponents-react-charts";
 import { Card, Text, Icon } from "@ui5/webcomponents-react";
+import { spacing } from "@ui5/webcomponents-react-base";
 
 export default function TrendsCard(props) {
     const [toggleCharts, setToggleCharts] = useState("lineChart");
@@ -65,12 +66,16 @@ export default function TrendsCard(props) {
             <Text style={props.style}>{contentTitle}</Text>
             {toggleCharts === "lineChart" ? (
                 <LineChart
+                    width={"100%"}
                     datasets={datasets}
                     labels={labels}
                     loading={loading}
+                    style={spacing.sapUiContentPadding}
                 />
             ) : (
                 <BarChart
+                    width={"100%"}
+                    style={spacing.sapUiContentPadding}
                     datasets={datasets}
                     labels={labels}
                     loading={loading}
