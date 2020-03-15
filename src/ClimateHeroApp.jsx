@@ -9,7 +9,6 @@ import "@ui5/webcomponents-icons/dist/icons/list.js";
 import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import SAP_logo from "./Assets/Images/SAP_logo.svg";
 import stub_profile_logo from "./Assets/Images/stub_profile_logo.png";
-import HomePage from "./Pages/HomePage";
 import DetailPage from "./Pages/DetailPage";
 import ProfilePage from "./Pages/ProfilePage";
 
@@ -33,10 +32,9 @@ export function ClimateHeroApp() {
                 <ShellBarItem icon="add" text="Add" />
             </ShellBar>
             <Switch>
-                <Route path="/home" component={HomePage} />
                 <Route path="/detail" component={DetailPage} />
                 <Route path="/profile" component={ProfilePage} />
-                <Redirect from="/" to="/home" />
+                <Redirect from="/" to="/profile" />
             </Switch>
         </Router>
     );
