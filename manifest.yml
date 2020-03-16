@@ -2,9 +2,9 @@
 applications:
 - name: climatehero-web
   memory: 512M
-  command: serve -s build
+  command: npm start
   router.route_services_recommended_https: true
   router.disable_http: true
   services:
     - climatehero-uaa
-    - climate-hero-dest
+    - climatehero-destination
