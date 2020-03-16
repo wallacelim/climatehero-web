@@ -18,16 +18,18 @@ export default function Goal(props) {
             justifyContent={FlexBoxJustifyContent.SpaceBetween}
             style={sapUiContentPadding}
         >
-            <Title level={TitleLevel.H3}>{props.name}</Title>
-            <Title level={TitleLevel.H5}>
+            <Title level={TitleLevel.H3} style={{ width: "200px" }}>
+                {props.name}
+            </Title>
+            <Title level={TitleLevel.H5} style={{ width: "100px" }}>
                 <p style={{ color: "grey" }}>Start Date:</p>
                 {props.startDate}
             </Title>
-            <Title level={TitleLevel.H5}>
+            <Title level={TitleLevel.H5} style={{ width: "100px" }}>
                 <p style={{ color: "grey" }}>Target Date:</p>
                 {props.targetDate}
             </Title>
-            <Title level={TitleLevel.H5}>
+            <Title level={TitleLevel.H5} style={{ width: "100px" }}>
                 <p style={{ color: "grey" }}>Target:</p>
                 {props.target}
             </Title>
