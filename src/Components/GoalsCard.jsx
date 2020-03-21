@@ -53,7 +53,6 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
                         <StandardListItem
                             key={goal.id}
                             id={goal.id}
-                            info={metadata.info}
                             style={{ height: "80px" }}
                             infoState={metadata.infoState}
                         >

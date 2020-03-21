@@ -23,6 +23,7 @@ import {
     CalendarType
 } from "@ui5/webcomponents-react";
 import { DatePicker } from "@ui5/webcomponents-react/lib/DatePicker";
+import moment from "moment";
 import {
     sapUiContentPadding,
     sapUiTinyMargin,
@@ -54,12 +55,14 @@ const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
             return;
         }
         toggleAddGoalModal();
-        const [targetDay, targetMonth, targetYear] = selectedDate.split("/");
-        const targetDate = new Date(targetYear, targetMonth, targetDay);
+
+        const targetDate = moment(selectedDate, "DD/MM/YYYY").format(
+            "DD/MM/YYYY"
+        );
         const goal = {
             name: name,
-            startDate: new Date().toLocaleDateString(),
-            targetDate: targetDate.toLocaleDateString(),
+            startDate: moment().format("DD/MM/YYYY"),
+            targetDate: targetDate,
             type: activityType,
             currentMeasurement: 0,
             targetMeasurement: parseInt(target),

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import moment from "moment";
 import {
     WALKING,
     BUS_RIDE,
@@ -49,7 +50,7 @@ const AddActivityModal = ({
         }
         toggleAddActivityModal();
         const activity = {
-            date: new Date().toLocaleString(),
+            date: moment().format("MMMM Do YYYY, h:mm:ss a"),
             type: activityType,
             measurement: parseInt(input),
             metric: activityType.metric,

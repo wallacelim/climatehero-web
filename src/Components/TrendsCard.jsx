@@ -14,13 +14,13 @@ export default function TrendsCard(props) {
             setTimeout(() => {
                 setLoading(false);
                 setToggleCharts("barChart");
-            }, 200);
+            }, 800);
         } else {
             setLoading(true);
             setTimeout(() => {
                 setLoading(false);
                 setToggleCharts("lineChart");
-            }, 2000);
+            }, 800);
         }
     };
 
