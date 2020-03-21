@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import GoalsCard from "../GoalsCard";
 import TrendsCard from "../TrendsCard";
 import HistoryCard from "../HistoryCard";
+import CalendarCard from "../CalendarCard";
 
 export default function DraggableCard(props) {
     const renderContent = card => {
@@ -12,13 +13,15 @@ export default function DraggableCard(props) {
             return <TrendsCard style={{ ...props.style, height: "100%" }} />;
         } else if (card === "History") {
             return <HistoryCard style={{ ...props.style, height: "100%" }} />;
+        } else if (card === "Calendar") {
+            return <CalendarCard style={{ ...props.style, height: "100%" }} />;
         }
     };
 
     return (
         <motion.div
             style={{
-                width: "100%",
+                width: "auto",
                 height: "100%",
                 justifyContent: "center",
                 alignItems: "top",

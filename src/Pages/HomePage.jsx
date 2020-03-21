@@ -4,6 +4,10 @@ import { ObjectPage } from "@ui5/webcomponents-react/lib/ObjectPage";
 import { ObjectPageMode } from "@ui5/webcomponents-react/lib/ObjectPageMode";
 import { ObjectPageSection } from "@ui5/webcomponents-react/lib/ObjectPageSection";
 import { Label } from "@ui5/webcomponents-react/lib/Label";
+import { FlexBox } from "@ui5/webcomponents-react/lib/FlexBox";
+import { FlexBoxDirection } from "@ui5/webcomponents-react/lib/FlexBoxDirection";
+import { Calendar } from "@ui5/webcomponents-react";
+import { CalendarType } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import { Button } from "@ui5/webcomponents-react/lib/Button";
 import DraggableCard from "../Components/Containers/DraggableCard";
@@ -12,7 +16,7 @@ import { toggleAddActivityModal } from "../redux/actionCreators";
 function HomePage({ toggleAddActivityModal }) {
     return (
         <ObjectPage
-            title="Profile Page"
+            title="Home Page"
             subTitle="Welcome, Test User"
             headerActions={[
                 <Button onClick={toggleAddActivityModal}>Track</Button>
@@ -20,21 +24,28 @@ function HomePage({ toggleAddActivityModal }) {
             mode={ObjectPageMode.Default}
             style={{ ...spacing.sapUiContentPadding }}
         >
-            <ObjectPageSection title="Trends" id="profilePageTrendsSection">
+            <ObjectPageSection title="Calendar" id="HomePageCalendarSection">
+                <Label>Calendar</Label>
+                <DraggableCard
+                    style={spacing.sapUiContentPadding}
+                    card="Calendar"
+                />
+            </ObjectPageSection>
+            <ObjectPageSection title="Trends" id="HomePageTrendsSection">
                 <Label>Trends</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
                     card="Trends"
                 />
             </ObjectPageSection>
-            <ObjectPageSection title="Goals" id="profilePageGoalsSection">
+            <ObjectPageSection title="Goals" id="HomePageGoalsSection">
                 <Label>Goals</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
                     card="Goals"
                 />
             </ObjectPageSection>
-            <ObjectPageSection title="History" id="profile">
+            <ObjectPageSection title="History" id="HomePageHistorySection">
                 <Label>History</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}

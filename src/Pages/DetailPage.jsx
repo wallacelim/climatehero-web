@@ -5,7 +5,7 @@ import {
     ObjectPage,
     ObjectPageSection
 } from "@ui5/webcomponents-react";
-import { CalendarView } from "../Components/Calendar";
+import CalendarCard from "../Components/CalendarCard";
 import ActivityHistory from "../Components/ActivityHistory";
 import { toggleAddActivityModal } from "../redux/actionCreators";
 import { spacing } from "@ui5/webcomponents-react-base";
@@ -53,7 +53,7 @@ const DetailPage = ({ toggleAddActivityModal }) => {
             style={{ height: "100vh", ...spacing.sapUiContentPadding }}
         >
             <ObjectPageSection title="Calendar View" id="calenderView">
-                <CalendarView />
+                <CalendarCard />
             </ObjectPageSection>
             <ObjectPageSection title="Activity History" id="activityHistory">
                 <ActivityHistory />
