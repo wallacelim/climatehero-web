@@ -3,6 +3,14 @@ import moment from "moment";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import {
+    Form,
+    FormGroup,
+    FormItem,
+    Input,
+    InputType,
+    Select,
+    Option,
+    CheckBox,
     Card,
     FlexBox,
     FlexBoxJustifyContent,
@@ -31,14 +39,12 @@ export default function CalendarCard() {
                 alignItems={FlexBoxAlignItems.Center}
             >
                 <Calendar
+                    calendarType="ISO 8601"
                     onChange={date =>
                         setSelectedDate(moment(date).format("YYYY-MM-DD"))
                     }
-                    style={{ width: "1000px" }}
+                    width="1000px"
                 />
-                {/* <Card
-                    style={{ ...spacing.sapUiContentPadding, height: "100%" }}
-                > */}
                 <FlexBox
                     justifyContent={FlexBoxJustifyContent.Center}
                     alignItems={FlexBoxAlignItems.Center}
@@ -48,9 +54,12 @@ export default function CalendarCard() {
                         height: "100%"
                     }}
                 >
-                    <p>Select a date to edit</p>
+                    {selectedDate ? (
+                        <h5>Some information for the date: {selectedDate}</h5>
+                    ) : (
+                        <p>Select a date to edit</p>
+                    )}
                 </FlexBox>
-                {/* </Card> */}
             </FlexBox>
         </Card>
     );
