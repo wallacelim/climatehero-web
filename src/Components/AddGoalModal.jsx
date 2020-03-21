@@ -28,7 +28,7 @@ import {
     sapUiTinyMargin,
     sapUiSmallMarginBottom
 } from "@ui5/webcomponents-react-base/lib/spacing";
-import { addGoal, toggleAddGoalModal } from "../redux/actionCreators";
+import { Goal, UI } from "../redux/actionCreators";
 import "@ui5/webcomponents-icons/dist/icons/meal.js";
 import "@ui5/webcomponents-icons/dist/icons/passenger-train.js";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity.js";
@@ -195,8 +195,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleAddGoalModal: () => dispatch(toggleAddGoalModal()),
-    addGoal: goal => dispatch(addGoal(goal))
+    toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
+    addGoal: goal => dispatch(Goal.add(goal))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddGoalModal);

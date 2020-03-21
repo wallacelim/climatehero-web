@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { Card, Icon } from "@ui5/webcomponents-react";
 import ActivityHistory from "./ActivityHistory";
 
+import "@ui5/webcomponents-icons/dist/icons/table-view.js";
+
 export default function HistoryCard(props) {
     const history = useHistory();
 

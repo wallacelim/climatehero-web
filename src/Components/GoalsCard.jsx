@@ -10,7 +10,9 @@ import {
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
-import { toggleAddGoalModal } from "../redux/actionCreators";
+import { UI } from "../redux/actionCreators";
+
+import "@ui5/webcomponents-icons/dist/icons/list.js";
 
 function GoalsCard({ goals, toggleAddGoalModal }) {
     const handleItemClick = item => {
@@ -77,10 +79,7 @@ const mapStateToProps = ({ goals }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleAddGoalModal: () => {
-        console.log("header Clicked");
-        dispatch(toggleAddGoalModal());
-    }
+    toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalsCard);

@@ -30,11 +30,8 @@ import "@ui5/webcomponents-icons/dist/icons/meal.js";
 import "@ui5/webcomponents-icons/dist/icons/passenger-train.js";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity.js";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport.js";
-import {
-    addActivity,
-    toggleAddActivityModal,
-    updateGoals
-} from "../redux/actionCreators";
+import "@ui5/webcomponents-icons/dist/icons/supplier.js";
+import { Activity, UI, Goals } from "../redux/actionCreators";
 
 const AddActivityModal = ({
     showAddActivityModal,
@@ -144,7 +141,7 @@ const AddActivityModal = ({
                         <Option icon="physical-activity" value={WALKING.name}>
                             {WALKING.displayName} ({WALKING.metric})
                         </Option>
-                        <Option icon="" value={BIKE_RIDE.name}>
+                        <Option icon="supplier" value={BIKE_RIDE.name}>
                             {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
                         </Option>
                         <Option
@@ -176,9 +173,9 @@ const mapStateToProps = ({ showAddActivityModal }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleAddActivityModal: () => dispatch(toggleAddActivityModal()),
-    addActivity: activity => dispatch(addActivity(activity)),
-    updateGoals: activity => dispatch(updateGoals(activity))
+    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
+    addActivity: activity => dispatch(Activity.add(activity)),
+    updateGoals: activity => dispatch(Goals.update(activity))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddActivityModal);

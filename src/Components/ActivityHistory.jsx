@@ -4,17 +4,16 @@ import { AnalyticalTable } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 
 const ActivityHistory = ({ activities }) => {
-    //   async function fetchActivityData() {
-    //     const res = await fetch(`/api/reductions/user=${user_id}`);
-    //     res
-    //       .json()
-    //       .then(res => setReductionData(res))
-    //       .catch(err => setErrors(err));
-    //   }
+    async function fetchActivityData() {
+        const res = await fetch(`http://localhost:8080/reductions`);
+        res.json()
+            .then(res => console.log(res[0].type))
+            .catch(err => console.log(err));
+    }
 
-    //   useEffect(() => {
-    //     fetchActivityData();
-    //   });
+    useEffect(() => {
+        fetchActivityData();
+    });
 
     const activityColumns = [
         {
@@ -39,10 +38,11 @@ const ActivityHistory = ({ activities }) => {
         }
     ];
 
+    console.log(activities);
     return (
         <AnalyticalTable
             columns={activityColumns}
-            data={activities.map(activity => {
+            data={activities.data.map(activity => {
                 return {
                     date: activity.date,
                     activityType: activity.type.displayName,

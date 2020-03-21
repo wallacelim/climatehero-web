@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { BarChart, LineChart } from "@ui5/webcomponents-react-charts";
 import { Card, Text, Icon } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
+import "@ui5/webcomponents-icons/dist/icons/horizontal-bar-chart.js";
+import "@ui5/webcomponents-icons/dist/icons/line-chart.js";
 
 export default function TrendsCard(props) {
     const [toggleCharts, setToggleCharts] = useState("lineChart");
