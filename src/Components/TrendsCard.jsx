@@ -36,7 +36,7 @@ const TrendsCard = ({ activities }) => {
     const labels = activities.data.map(activity => {
         const date = moment(activity.date, "MMMM Do YYYY, h:mm:ss a");
         const month = getAbbreviatedMonthStringFromNumber(date.get("month"));
-        const year = date.year();
+        const year = date.year().toString();
         return month + " " + year.slice(2);
     });
 
