@@ -10,7 +10,7 @@ import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import SAP_logo from "./Assets/Images/SAP_logo.svg";
 import stub_profile_logo from "./Assets/Images/stub_profile_logo.png";
 import DetailPage from "./Pages/DetailPage";
-import ProfilePage from "./Pages/ProfilePage";
+import HomePage from "./Pages/HomePage";
 import AddActivityModal from "./Components/AddActivityModal";
 import AddGoalModal from "./Components/AddGoalModal";
 
@@ -21,22 +21,10 @@ export function ClimateHeroApp() {
     };
     return (
         <Router history={history}>
-            <ShellBar
-                logo={SAP_logo}
-                onLogoClick={handleLogoClick}
-                profile={stub_profile_logo}
-                primaryTitle={"Climate Hero"}
-                notification-count="99+"
-                show-notifications
-                show-product-switch
-                show-co-pilot
-            >
-                <ShellBarItem icon="add" text="Add" />
-            </ShellBar>
             <Switch>
                 <Route path="/detail" component={DetailPage} />
-                <Route path="/profile" component={ProfilePage} />
-                <Redirect from="/" to="/profile" />
+                <Route path="/home" component={HomePage} />
+                <Redirect from="/" to="/home" />
             </Switch>
             <AddActivityModal />
             <AddGoalModal />

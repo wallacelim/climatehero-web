@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { ObjectPage } from "@ui5/webcomponents-react/lib/ObjectPage";
 import { ObjectPageMode } from "@ui5/webcomponents-react/lib/ObjectPageMode";
 import { ObjectPageSection } from "@ui5/webcomponents-react/lib/ObjectPageSection";
-import { Label } from '@ui5/webcomponents-react/lib/Label';
+import { Label } from "@ui5/webcomponents-react/lib/Label";
 import { spacing } from "@ui5/webcomponents-react-base";
 import { Button } from "@ui5/webcomponents-react/lib/Button";
 import DraggableCard from "../Components/Containers/DraggableCard";
 import { toggleAddActivityModal } from "../redux/actionCreators";
 
-function ProfilePage({ toggleAddActivityModal }) {
+function HomePage({ toggleAddActivityModal }) {
     return (
         <ObjectPage
             title="Profile Page"
@@ -28,14 +28,14 @@ function ProfilePage({ toggleAddActivityModal }) {
                 />
             </ObjectPageSection>
             <ObjectPageSection title="Goals" id="profilePageGoalsSection">
-            <Label>Goals</Label>
+                <Label>Goals</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
                     card="Goals"
-              />
+                />
             </ObjectPageSection>
             <ObjectPageSection title="History" id="profile">
-            <Label>History</Label>
+                <Label>History</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
                     card="History"
@@ -49,4 +49,4 @@ const mapDispatchToProps = dispatch => ({
     toggleAddActivityModal: () => dispatch(toggleAddActivityModal())
 });
 
-export default connect(null, mapDispatchToProps)(ProfilePage);
+export default connect(null, mapDispatchToProps)(HomePage);
