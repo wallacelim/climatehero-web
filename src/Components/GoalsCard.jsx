@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { List } from "@ui5/webcomponents-react/lib/List";
 import {
+    Button,
     ListMode,
     Card,
     Icon,
@@ -12,7 +13,9 @@ import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
 import { UI } from "../redux/actionCreators";
 
-import "@ui5/webcomponents-icons/dist/icons/list.js";
+import "@ui5/webcomponents-icons/dist/icons/activities.js";
+
+import "@ui5/webcomponents-icons/dist/icons/add-activity.js";
 
 function GoalsCard({ goals, toggleAddGoalModal }) {
     const handleItemClick = item => {
@@ -38,38 +41,53 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
     };
 
     return (
-        <Card
-            heading="Your Carbon Footprint Reduction Goals"
-            subtitle="Click to add a goal"
-            headerInteractive
-            onHeaderClick={toggleAddGoalModal}
-            style={{ ...spacing.sapUiContentPadding, height: "100%" }}
-            avatar={<Icon name="list" />}
-        >
-            <List mode={ListMode.None} onItemClick={handleItemClick}>
-                {goals.map(goal => {
-                    const metadata = getMetaData(goal.progress);
-                    return (
-                        <StandardListItem
-                            key={goal.id}
-                            id={goal.id}
-                            style={{ height: "80px" }}
-                            infoState={metadata.infoState}
-                        >
-                            <Goal
+        <>
+            <Card
+                heading={"Your Carbon Footprint Reduction Goals"}
+                subtitle="Click to add a goal"
+                style={{
+                    ...spacing.sapUiContentPadding,
+                    height: "100%"
+                }}
+                avatar={<Icon name="activities" />}
+            >
+                <List mode={ListMode.None} onItemClick={handleItemClick}>
+                    {goals.map(goal => {
+                        const metadata = getMetaData(goal.progress);
+                        return (
+                            <StandardListItem
+                                key={goal.id}
+                                id={goal.id}
                                 style={{ height: "80px" }}
-                                progress={goal.progress}
-                                name={goal.name}
-                                startDate={goal.startDate}
-                                targetDate={goal.targetDate}
-                                target={`${goal.targetMeasurement} ${goal.metric}`}
                                 infoState={metadata.infoState}
-                            />
-                        </StandardListItem>
-                    );
-                })}
-            </List>
-        </Card>
+                            >
+                                <Goal
+                                    style={{ height: "80px" }}
+                                    progress={goal.progress}
+                                    name={goal.name}
+                                    startDate={goal.startDate}
+                                    targetDate={goal.targetDate}
+                                    target={`${goal.targetMeasurement} ${goal.metric}`}
+                                    infoState={metadata.infoState}
+                                />
+                            </StandardListItem>
+                        );
+                    })}
+                </List>
+            </Card>
+            <Button
+                icon="add-activity"
+                onClick={toggleAddGoalModal}
+                style={{
+                    float: "right",
+                    padding: "5px 10px",
+                    marginRight: "15px",
+                    marginTop: "-320px"
+                }}
+            >
+                Add a goal
+            </Button>
+        </>
     );
 }
 
