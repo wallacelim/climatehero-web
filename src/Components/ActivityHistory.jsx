@@ -38,7 +38,6 @@ const ActivityHistory = ({ activities }) => {
         }
     ];
 
-    console.log(activities);
     return (
         <AnalyticalTable
             columns={activityColumns}

@@ -34,6 +34,7 @@ import "@ui5/webcomponents-icons/dist/icons/meal.js";
 import "@ui5/webcomponents-icons/dist/icons/passenger-train.js";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity.js";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport.js";
+import "@ui5/webcomponents-icons/dist/icons/supplier.js";
 
 const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
     const [name, setName] = useState("");
@@ -56,13 +57,10 @@ const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
         }
         toggleAddGoalModal();
 
-        const targetDate = moment(selectedDate, "DD/MM/YYYY").format(
-            "DD/MM/YYYY"
-        );
         const goal = {
             name: name,
             startDate: moment().format("DD/MM/YYYY"),
-            targetDate: targetDate,
+            targetDate: selectedDate,
             type: activityType,
             currentMeasurement: 0,
             targetMeasurement: parseInt(target),
@@ -153,7 +151,7 @@ const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
                         <Option icon="physical-activity" value={WALKING.name}>
                             {WALKING.displayName} ({WALKING.metric})
                         </Option>
-                        <Option icon="" value={BIKE_RIDE.name}>
+                        <Option icon="supplier" value={BIKE_RIDE.name}>
                             {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
                         </Option>
                         <Option
@@ -178,7 +176,7 @@ const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
                     />
                     <DatePicker
                         valueState={ValueState.None}
-                        formatPattern={"dd/MM/yyyy"}
+                        formatPattern={"yyyy-MM-dd"}
                         primaryCalendarType={CalendarType.Gregorian}
                         disabled={false}
                         readonly={false}

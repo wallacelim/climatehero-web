@@ -6,6 +6,7 @@ import { ObjectPageSection } from "@ui5/webcomponents-react/lib/ObjectPageSectio
 import { Label } from "@ui5/webcomponents-react/lib/Label";
 import { spacing } from "@ui5/webcomponents-react-base";
 import { Button } from "@ui5/webcomponents-react/lib/Button";
+import CalendarCard from "../Components/CalendarCard";
 import DraggableCard from "../Components/Containers/DraggableCard";
 import { UI } from "../redux/actionCreators";
 
@@ -14,9 +15,9 @@ function HomePage({ toggleAddActivityModal }) {
         <ObjectPage
             title="Home Page"
             subTitle="Welcome, Test User"
-            headerActions={[
+            headerActions={
                 <Button onClick={toggleAddActivityModal}>Track</Button>
-            ]}
+            }
             mode={ObjectPageMode.Default}
             style={{ ...spacing.sapUiContentPadding, overflow: "hidden" }}
         >

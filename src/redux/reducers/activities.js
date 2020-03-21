@@ -60,7 +60,6 @@ export default (state = initialState, action) => {
                 isFetching: true
             });
         case RECEIVE_ACTIVITIES:
-            console.log(action);
             return Object.assign({}, state, {
                 isFetching: false,
                 fetched: true,

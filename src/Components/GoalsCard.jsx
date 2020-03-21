@@ -42,6 +42,17 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
 
     return (
         <>
+            <Button
+                icon="add-activity"
+                onClick={toggleAddGoalModal}
+                style={{
+                    float: "right",
+                    padding: "5px 10px",
+                    marginRight: "15px"
+                }}
+            >
+                Add a goal
+            </Button>
             <Card
                 heading={"Your Carbon Footprint Reduction Goals"}
                 subtitle="Click to add a goal"
@@ -75,18 +86,6 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
                     })}
                 </List>
             </Card>
-            <Button
-                icon="add-activity"
-                onClick={toggleAddGoalModal}
-                style={{
-                    float: "right",
-                    padding: "5px 10px",
-                    marginRight: "15px",
-                    marginTop: "-320px"
-                }}
-            >
-                Add a goal
-            </Button>
         </>
     );
 }

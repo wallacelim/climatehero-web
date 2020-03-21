@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import {
@@ -50,7 +50,7 @@ const AddActivityModal = ({
         }
         toggleAddActivityModal();
         const activity = {
-            date: moment().format("MMMM Do YYYY, h:mm:ss a"),
+            date: moment().format("YYYY-MM-DD, h:mm:ss a"),
             type: activityType,
             measurement: parseInt(input),
             metric: activityType.metric,
@@ -84,12 +84,6 @@ const AddActivityModal = ({
         }
     };
 
-    // useEffect(() =>
-    //   fetch("/api/reduction")
-    //     .then(res => res.json())
-    //     .then(res => this.setState({ planets: res }))
-    //     .catch(() => this.setState({ hasErrors: true }))
-    // );
     return (
         <Dialog
             style={sapUiContentPadding}

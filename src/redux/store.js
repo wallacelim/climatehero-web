@@ -5,11 +5,10 @@ import rootReducer from "./reducers";
 import { Activity } from "./actionCreators";
 
 const loggerMiddleware = createLogger();
-console.log(process.env.LOCAL_API);
 const store = createStore(
     rootReducer,
     applyMiddleware(thunkMiddleware, loggerMiddleware)
 );
 
-store.dispatch(Activity.fetchAll()).then(() => console.log(store.getState()));
+store.dispatch(Activity.fetchAll());
 export default store;

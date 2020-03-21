@@ -63,8 +63,12 @@ export default function(state = initialState, action) {
                     );
                     goal.currentMeasurement += action.payload.measurement;
                     console.log(goal.currentMeasurement);
-                    goal.progress = Math.round(
-                        (goal.currentMeasurement * 100) / goal.targetMeasurement
+                    goal.progress = Math.min(
+                        100,
+                        Math.round(
+                            (goal.currentMeasurement * 100) /
+                                goal.targetMeasurement
+                        )
                     );
                     console.log(goal.progress);
                 }

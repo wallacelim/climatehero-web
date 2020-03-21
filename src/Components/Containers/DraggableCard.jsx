@@ -15,6 +15,8 @@ export default function DraggableCard(props) {
             return <HistoryCard style={{ ...props.style, height: "100%" }} />;
         } else if (card === "Calendar") {
             return <CalendarCard style={{ ...props.style, height: "100%" }} />;
+        } else {
+            console.error("Attempted to render invalid Card");
         }
     };
 

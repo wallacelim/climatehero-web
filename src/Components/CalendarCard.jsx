@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import moment from "moment";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import {
     Card,
     FlexBox,
     FlexBoxJustifyContent,
     FlexBoxAlignItems
 } from "@ui5/webcomponents-react";
-import { Calendar } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import { Icon } from "@ui5/webcomponents-react/lib/Icon";
 
 import "@ui5/webcomponents-icons/dist/icons/appointment-2.js";
 
 export default function CalendarCard() {
+    const [selectedDate, setSelectedDate] = useState(null);
+    console.log(selectedDate);
+
     return (
         <Card
             heading="Your Calendar"
@@ -25,7 +30,12 @@ export default function CalendarCard() {
                 justifyContent={FlexBoxJustifyContent.Start}
                 alignItems={FlexBoxAlignItems.Center}
             >
-                <Calendar />
+                <Calendar
+                    onChange={date =>
+                        setSelectedDate(moment(date).format("YYYY-MM-DD"))
+                    }
+                    style={{ width: "1000px" }}
+                />
                 {/* <Card
                     style={{ ...spacing.sapUiContentPadding, height: "100%" }}
                 > */}
