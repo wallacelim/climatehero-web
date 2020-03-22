@@ -16,7 +16,6 @@ import {
     CalendarType,
 } from "@ui5/webcomponents-react";
 import { DatePicker } from "@ui5/webcomponents-react/lib/DatePicker";
-import moment from "moment";
 import {
     sapUiContentPadding,
     sapUiTinyMargin,
@@ -35,6 +34,7 @@ import "@ui5/webcomponents-icons/dist/icons/passenger-train";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
+import { getCurrentDateString } from "../util/datetime";
 
 const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
     const [name, setName] = useState("");
@@ -59,7 +59,7 @@ const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
 
         const goal = {
             name,
-            startDate: moment().format("DD/MM/YYYY"),
+            startDate: getCurrentDateString(),
             targetDate: selectedDate,
             type: activityType,
             currentMeasurement: 0,

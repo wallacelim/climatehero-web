@@ -35,7 +35,9 @@ export const getAbbreviatedMonthStringFromNumber = (monthNumber) => {
     }
 };
 
-export const getCurrentDateTimeString = () => moment().format();
+export const getCurrentDateTimeString = () => moment().format(DATE_TIME_STRING_FORMAT);
+
+export const getCurrentDateString = () => moment().format(DATE_STRING_FORMAT);
 
 export const getDateAsString = (date) => moment(date).format(DATE_STRING_FORMAT);
 

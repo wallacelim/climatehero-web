@@ -16,7 +16,7 @@ const initialState = {
     data: [
         // {
         //     id: -1,
-        //     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+        //     date: getCurrentDateTimeString(),
         //     type: VEGETARIAN_MEAL,
         //     measurement: 5,
         //     metric: "meals",
@@ -25,7 +25,7 @@ const initialState = {
         // },
         // {
         //     id: -2,
-        //     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+        //     date: getCurrentDateTimeString(),
         //     type: BIKE_RIDE,
         //     measurement: 30,
         //     metric: "km",
@@ -34,7 +34,7 @@ const initialState = {
         // },
         // {
         //     id: -3,
-        //     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+        //     date: getCurrentDateTimeString(),
         //     type: BUS_RIDE,
         //     measurement: 90,
         //     metric: "km",
