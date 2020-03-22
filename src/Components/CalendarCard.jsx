@@ -11,7 +11,7 @@ import { spacing } from "@ui5/webcomponents-react-base";
 import { Icon } from "@ui5/webcomponents-react/lib/Icon";
 import "@ui5/webcomponents-icons/dist/icons/appointment-2";
 
-import { getDateAsString } from "../util/datetime";
+import { getDateAsString } from "../util/dateTime";
 
 export default function CalendarCard() {
     const [selectedDate, setSelectedDate] = useState(null);

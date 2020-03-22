@@ -7,10 +7,10 @@ import React, { useState } from "react";
 
 import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
-import { getDateTimeFromString, getAbbreviatedMonthStringFromNumber } from "../util/datetime";
+// import { getDateTimeFromString, getAbbreviatedMonthStringFromNumber } from "../util/dateTime";
 
 
-const TrendsCard = ({ activities }) => {
+const TrendsCard = (/* { activities } */) => {
     const [toggleCharts, setToggleCharts] = useState("lineChart");
     const [loading, setLoading] = useState(false);
 
@@ -33,22 +33,22 @@ const TrendsCard = ({ activities }) => {
         }
     };
 
-    const labels = activities.data.map((activity) => {
-        const date = getDateTimeFromString(activity.date);
-        const month = getAbbreviatedMonthStringFromNumber(date.month());
-        const year = date.year().toString();
-        return `${month} ${year.slice(2)}`;
-    });
+    // const monthLabels = activities.data.map((activity) => {
+    //     const date = getDateTimeFromString(activity.date);
+    //     const month = getAbbreviatedMonthStringFromNumber(date.month());
+    //     const year = date.year().toString();
+    //     return `${month} ${year.slice(2)}`;
+    // });
 
-    const datasets = {
-        label: "Carbon Footprint Reductions",
-        data: labels.map((month) => activities.data.filter(
-            (activity) => getDateTimeFromString(activity.date).month()
-                    === month,
-        )),
-    };
+    // const reductionData = {
+    //     label: "Carbon Footprint Reductions",
+    //     data: monthLabels.map((month) => activities.data.filter(
+    //         (activity) => getDateTimeFromString(activity.date).month()
+    //                 === month,
+    //     )),
+    // };
 
-    const stubLabels = [
+    const stubMonthLabels = [
         "January",
         "February",
         "March",
@@ -58,7 +58,7 @@ const TrendsCard = ({ activities }) => {
         "July",
     ];
 
-    const stubDatasets = [
+    const stubReductionData = [
         {
             label: "Carbon Footprint Reductions",
             data: [65, 59, 80, 81, 56, 55, 40],
@@ -86,8 +86,8 @@ const TrendsCard = ({ activities }) => {
             {toggleCharts === "lineChart" ? (
                 <LineChart
                     width="100%"
-                    datasets={stubDatasets}
-                    labels={stubLabels}
+                    datasets={stubReductionData}
+                    labels={stubMonthLabels}
                     loading={loading}
                     style={spacing.sapUiContentPadding}
                 />
@@ -95,8 +95,8 @@ const TrendsCard = ({ activities }) => {
                 <BarChart
                     width="100%"
                     style={spacing.sapUiContentPadding}
-                    datasets={datasets}
-                    labels={labels}
+                    datasets={stubReductionData}
+                    labels={stubMonthLabels}
                     loading={loading}
                 />
             )}

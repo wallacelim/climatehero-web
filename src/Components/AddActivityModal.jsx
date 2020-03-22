@@ -33,7 +33,7 @@ import {
     WALKING,
 } from "../constants/activityTypes";
 import { Activity, Goals, UI } from "../redux/actionCreators";
-import { getCurrentDateTimeString } from "../util/datetime";
+import { getCurrentDateTimeString } from "../util/dateTime";
 
 const AddActivityModal = ({
     showAddActivityModal,

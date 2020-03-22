@@ -34,7 +34,7 @@ import "@ui5/webcomponents-icons/dist/icons/passenger-train";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
-import { getCurrentDateString } from "../util/datetime";
+import { getCurrentDateString } from "../util/dateTime";
 
 const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
     const [name, setName] = useState("");
