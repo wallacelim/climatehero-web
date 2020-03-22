@@ -1,23 +1,25 @@
 import React from "react";
 import { motion } from "framer-motion";
-import GoalsCard from "../GoalsCard";
-import TrendsCard from "../TrendsCard";
-import HistoryCard from "../HistoryCard";
 import CalendarCard from "../CalendarCard";
+import GoalsCard from "../GoalsCard";
+import HistoryCard from "../HistoryCard";
+import TrendsCard from "../TrendsCard";
 
-export default function DraggableCard(props) {
-    const renderContent = card => {
-        if (card === "Goals") {
-            return <GoalsCard style={{ ...props.style, height: "100%" }} />;
-        } else if (card === "Trends") {
-            return <TrendsCard style={{ ...props.style, height: "100%" }} />;
-        } else if (card === "History") {
-            return <HistoryCard style={{ ...props.style, height: "100%" }} />;
-        } else if (card === "Calendar") {
-            return <CalendarCard style={{ ...props.style, height: "100%" }} />;
-        } else {
-            console.error("Attempted to render invalid Card");
+export default function DraggableCard({ cardType, style }) {
+    const renderContent = (type) => {
+        if (type === "Goals") {
+            return <GoalsCard style={{ ...style, height: "100%" }} />;
         }
+        if (type === "Trends") {
+            return <TrendsCard style={{ ...style, height: "100%" }} />;
+        }
+        if (type === "History") {
+            return <HistoryCard style={{ ...style, height: "100%" }} />;
+        }
+        if (type === "Calendar") {
+            return <CalendarCard style={{ ...style, height: "100%" }} />;
+        }
+        throw new Error(`Attempted to render invalid Card: ${type}`);
     };
 
     return (
@@ -27,17 +29,17 @@ export default function DraggableCard(props) {
                 height: "100%",
                 justifyContent: "center",
                 alignItems: "top",
-                display: "block"
+                display: "block",
             }}
             drag
             dragConstraints={{
                 top: 0,
                 left: 0,
                 right: 0,
-                bottom: 0
+                bottom: 0,
             }}
         >
-            {renderContent(props.card)}
+            {renderContent(cardType)}
         </motion.div>
     );
 }

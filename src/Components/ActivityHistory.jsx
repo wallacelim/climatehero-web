@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+
 import { AnalyticalTable } from "@ui5/webcomponents-react";
+import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
 
 const ActivityHistory = ({ activities }) => {
     async function fetchActivityData() {
-        const res = await fetch(`http://localhost:8080/reductions`);
-        res.json()
-            .then(res => console.log(res[0].type))
-            .catch(err => console.log(err));
+        const result = await fetch("http://localhost:8080/reductions");
+        result.json()
+            .then((res) => console.log(res[0].type))
+            .catch((err) => console.log(err));
     }
 
     useEffect(() => {
@@ -18,46 +19,43 @@ const ActivityHistory = ({ activities }) => {
     const activityColumns = [
         {
             Header: "Date",
-            accessor: "date"
+            accessor: "date",
         },
         {
             Header: "Activity Type",
-            accessor: "activityType"
+            accessor: "activityType",
         },
         {
             Header: "Measurement",
-            accessor: "measurement"
+            accessor: "measurement",
         },
         {
             Header: "CO2 Reduction",
-            accessor: "reduction"
+            accessor: "reduction",
         },
         {
             Header: "Recurrence",
-            accessor: "recurrence"
-        }
+            accessor: "recurrence",
+        },
     ];
 
     return (
         <AnalyticalTable
             columns={activityColumns}
-            data={activities.data.map(activity => {
-                return {
-                    date: activity.date,
-                    activityType: activity.type.displayName,
-                    measurement: activity.measurement + " " + activity.metric,
-                    reduction: activity.reduction,
-                    recurrence: activity.recurrence
-                };
-            })}
-        >
-            style={{ width: "100%", ...spacing.sapUiContentPadding }}>
-        </AnalyticalTable>
+            data={activities.data.map((activity) => ({
+                date: activity.date,
+                activityType: activity.type.displayName,
+                measurement: `${activity.measurement} ${activity.metric}`,
+                reduction: activity.reduction,
+                recurrence: activity.recurrence,
+            }))}
+            style={{ width: "100%", ...spacing.sapUiContentPadding }}
+        />
     );
 };
 
 const mapStateToProps = ({ activities }) => ({
-    activities
+    activities,
 });
 
 export default connect(mapStateToProps, null)(ActivityHistory);

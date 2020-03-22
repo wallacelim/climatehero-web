@@ -7,5 +7,5 @@ export default combineReducers({
     goals,
     activities,
     showAddActivityModal,
-    showAddGoalModal
+    showAddGoalModal,
 });

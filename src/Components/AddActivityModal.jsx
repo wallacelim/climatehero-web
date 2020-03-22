@@ -1,44 +1,45 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import moment from "moment";
+import "@ui5/webcomponents-icons/dist/icons/meal";
+import "@ui5/webcomponents-icons/dist/icons/passenger-train";
+import "@ui5/webcomponents-icons/dist/icons/physical-activity";
+import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
+import "@ui5/webcomponents-icons/dist/icons/supplier";
+
 import {
-    WALKING,
-    BUS_RIDE,
-    TRAIN_RIDE,
-    BIKE_RIDE,
-    VEGETARIAN_MEAL
-} from "../constants/activityTypes";
-import {
-    Dialog,
-    Select,
-    Input,
-    Option,
     Button,
-    FlexBox,
     ButtonDesign,
-    InputType,
+    Dialog,
+    FlexBox,
+    FlexBoxAlignItems,
     FlexBoxDirection,
     FlexBoxJustifyContent,
-    FlexBoxAlignItems
+    Input,
+    InputType,
+    Option,
+    Select,
 } from "@ui5/webcomponents-react";
+import React, { useState } from "react";
 import {
     sapUiContentPadding,
+    sapUiSmallMarginBottom,
     sapUiTinyMargin,
-    sapUiSmallMarginBottom
 } from "@ui5/webcomponents-react-base/lib/spacing";
 
-import "@ui5/webcomponents-icons/dist/icons/meal.js";
-import "@ui5/webcomponents-icons/dist/icons/passenger-train.js";
-import "@ui5/webcomponents-icons/dist/icons/physical-activity.js";
-import "@ui5/webcomponents-icons/dist/icons/bus-public-transport.js";
-import "@ui5/webcomponents-icons/dist/icons/supplier.js";
-import { Activity, UI, Goals } from "../redux/actionCreators";
+import { connect } from "react-redux";
+import {
+    BIKE_RIDE,
+    BUS_RIDE,
+    TRAIN_RIDE,
+    VEGETARIAN_MEAL,
+    WALKING,
+} from "../constants/activityTypes";
+import { Activity, Goals, UI } from "../redux/actionCreators";
+import { getCurrentDateTimeString } from "../util/datetime";
 
 const AddActivityModal = ({
     showAddActivityModal,
     toggleAddActivityModal,
     addActivity,
-    updateGoals
+    updateGoals,
 }) => {
     const [activityType, setActivityType] = React.useState(WALKING);
     const [input, setInput] = useState(0);
@@ -50,37 +51,37 @@ const AddActivityModal = ({
         }
         toggleAddActivityModal();
         const activity = {
-            date: moment().format("YYYY-MM-DD, h:mm:ss a"),
+            date: getCurrentDateTimeString,
             type: activityType,
-            measurement: parseInt(input),
+            measurement: parseInt(input, 10),
             metric: activityType.metric,
             reduction: (Math.random() * 10).toFixed(2),
-            recurrence: Math.round(Math.random()) ? "Weekly" : "N/A"
+            recurrence: Math.round(Math.random()) ? "Weekly" : "N/A",
         };
         addActivity(activity);
         updateGoals(activity);
     };
 
-    const handleSelectType = e => {
+    const handleSelectType = (e) => {
         const name = e.parameters.selectedOption.value;
         switch (name) {
-            case WALKING.name:
-                setActivityType(WALKING);
-                break;
-            case BIKE_RIDE.name:
-                setActivityType(BIKE_RIDE);
-                break;
-            case BUS_RIDE.name:
-                setActivityType(BUS_RIDE);
-                break;
-            case TRAIN_RIDE.name:
-                setActivityType(TRAIN_RIDE);
-                break;
-            case VEGETARIAN_MEAL.name:
-                setActivityType(VEGETARIAN_MEAL);
-                break;
-            default:
-                console.error("Error setting activityType");
+        case WALKING.name:
+            setActivityType(WALKING);
+            break;
+        case BIKE_RIDE.name:
+            setActivityType(BIKE_RIDE);
+            break;
+        case BUS_RIDE.name:
+            setActivityType(BUS_RIDE);
+            break;
+        case TRAIN_RIDE.name:
+            setActivityType(TRAIN_RIDE);
+            break;
+        case VEGETARIAN_MEAL.name:
+            setActivityType(VEGETARIAN_MEAL);
+            break;
+        default:
+            console.error("Error setting activityType");
         }
     };
 
@@ -102,7 +103,7 @@ const AddActivityModal = ({
                     >
                         Close
                     </Button>
-                </FlexBox>
+                </FlexBox>,
             ]}
             stretch={false}
             open={showAddActivityModal}
@@ -156,21 +157,21 @@ const AddActivityModal = ({
                     <Input
                         type={InputType.Number}
                         value={input}
-                        onChange={e => setInput(e.parameters.value)}
-                    ></Input>
+                        onChange={(e) => setInput(e.parameters.value)}
+                    />
                 </FlexBox>
             </section>
         </Dialog>
     );
 };
 const mapStateToProps = ({ showAddActivityModal }) => ({
-    showAddActivityModal
+    showAddActivityModal,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
-    addActivity: activity => dispatch(Activity.add(activity)),
-    updateGoals: activity => dispatch(Goals.update(activity))
+    addActivity: (activity) => dispatch(Activity.add(activity)),
+    updateGoals: (activity) => dispatch(Goals.update(activity)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddActivityModal);

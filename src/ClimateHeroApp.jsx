@@ -1,17 +1,17 @@
 import React from "react";
-import { Switch, Route, Redirect, Router } from "react-router-dom";
+import {
+    Switch, Route, Redirect, Router,
+} from "react-router-dom";
 import { createBrowserHistory } from "history";
-import "@ui5/webcomponents-icons/dist/icons/add.js";
+import "@ui5/webcomponents-icons/dist/icons/add";
 import DetailPage from "./Pages/DetailPage";
 import HomePage from "./Pages/HomePage";
 import AddActivityModal from "./Components/AddActivityModal";
 import AddGoalModal from "./Components/AddGoalModal";
 
-export function ClimateHeroApp() {
+export default function ClimateHeroApp() {
     const history = createBrowserHistory();
-    const handleLogoClick = () => {
-        history.push("/");
-    };
+
     return (
         <Router history={history}>
             <Switch>

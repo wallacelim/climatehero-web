@@ -6,6 +6,7 @@
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.4.0",
         "@testing-library/user-event": "^7.2.1",
+        "@ui5/webcomponents-icons": "^1.0.0-rc.5",
         "@ui5/webcomponents-react": "^0.7.3",
         "@ui5/webcomponents-react-base": "^0.8.4",
         "@ui5/webcomponents-react-charts": "^0.8.2",
@@ -13,6 +14,7 @@
         "bootstrap": "^4.4.1",
         "cross-fetch": "^3.0.4",
         "framer-motion": "^1.8.4",
+        "history": "^4.10.1",
         "moment": "^2.24.0",
         "react": "^16.12.0",
         "react-bootstrap": "^1.0.0-beta.16",
@@ -49,6 +51,15 @@
         ]
     },
     "devDependencies": {
-        "dotenv": "^8.2.0"
+        "dotenv": "^8.2.0",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb": "^18.1.0",
+        "eslint-config-google": "^0.14.0",
+        "eslint-config-prettier": "^6.10.0",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.2",
+        "eslint-plugin-react": "^7.19.0",
+        "eslint-plugin-react-hooks": "^2.5.1"
     }
 }

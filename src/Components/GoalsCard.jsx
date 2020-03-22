@@ -7,23 +7,24 @@ import {
     Card,
     Icon,
     StandardListItem,
-    ValueState
+    ValueState,
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
 import { UI } from "../redux/actionCreators";
 
-import "@ui5/webcomponents-icons/dist/icons/activities.js";
+import "@ui5/webcomponents-icons/dist/icons/activities";
 
-import "@ui5/webcomponents-icons/dist/icons/add-activity.js";
+import "@ui5/webcomponents-icons/dist/icons/add-activity";
 
 function GoalsCard({ goals, toggleAddGoalModal }) {
-    const handleItemClick = item => {
-        // TODO: enable editing of goals
-    };
+    // const handleItemClick = (item) => {
+    // TODO: enable editing of goals
+    // };
 
-    const getMetaData = progress => {
-        let infoState, info;
+    const getMetaData = (progress) => {
+        let infoState; let
+            info;
         if (progress <= 0) {
             infoState = ValueState.Error;
             info = "Started";
@@ -36,7 +37,7 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
         }
         return {
             infoState,
-            info
+            info,
         };
     };
 
@@ -48,22 +49,22 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
                 style={{
                     float: "right",
                     padding: "5px 10px",
-                    marginRight: "15px"
+                    marginRight: "15px",
                 }}
             >
                 Add a goal
             </Button>
             <Card
-                heading={"Your Carbon Footprint Reduction Goals"}
+                heading="Your Carbon Footprint Reduction Goals"
                 subtitle="Click to add a goal"
                 style={{
                     ...spacing.sapUiContentPadding,
-                    height: "100%"
+                    height: "100%",
                 }}
                 avatar={<Icon name="activities" />}
             >
-                <List mode={ListMode.None} onItemClick={handleItemClick}>
-                    {goals.map(goal => {
+                <List mode={ListMode.None} /* onItemClick={handleItemClick} */>
+                    {goals.data.map((goal) => {
                         const metadata = getMetaData(goal.progress);
                         return (
                             <StandardListItem
@@ -91,11 +92,11 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
 }
 
 const mapStateToProps = ({ goals }) => ({
-    goals
+    goals,
 });
 
-const mapDispatchToProps = dispatch => ({
-    toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal())
+const mapDispatchToProps = (dispatch) => ({
+    toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalsCard);

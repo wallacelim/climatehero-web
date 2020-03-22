@@ -1,14 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
+import { Button } from "@ui5/webcomponents-react/lib/Button";
+import { Label } from "@ui5/webcomponents-react/lib/Label";
 import { ObjectPage } from "@ui5/webcomponents-react/lib/ObjectPage";
 import { ObjectPageMode } from "@ui5/webcomponents-react/lib/ObjectPageMode";
 import { ObjectPageSection } from "@ui5/webcomponents-react/lib/ObjectPageSection";
-import { Label } from "@ui5/webcomponents-react/lib/Label";
+import React from "react";
+import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
-import { Button } from "@ui5/webcomponents-react/lib/Button";
-import CalendarCard from "../Components/CalendarCard";
-import DraggableCard from "../Components/Containers/DraggableCard";
 import { UI } from "../redux/actionCreators";
+import DraggableCard from "../Components/Containers/DraggableCard";
 
 function HomePage({ toggleAddActivityModal }) {
     return (
@@ -25,36 +24,36 @@ function HomePage({ toggleAddActivityModal }) {
                 <Label>Calendar</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
-                    card="Calendar"
+                    cardType="Calendar"
                 />
             </ObjectPageSection>
             <ObjectPageSection title="Trends" id="HomePageTrendsSection">
                 <Label>Trends</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
-                    card="Trends"
+                    cardType="Trends"
                 />
             </ObjectPageSection>
             <ObjectPageSection title="Goals" id="HomePageGoalsSection">
                 <Label>Goals</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
-                    card="Goals"
+                    cardType="Goals"
                 />
             </ObjectPageSection>
             <ObjectPageSection title="History" id="HomePageHistorySection">
                 <Label>History</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
-                    card="History"
+                    cardType="History"
                 />
             </ObjectPageSection>
         </ObjectPage>
     );
 }
 
-const mapDispatchToProps = dispatch => ({
-    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal())
+const mapDispatchToProps = (dispatch) => ({
+    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
 });
 
 export default connect(null, mapDispatchToProps)(HomePage);

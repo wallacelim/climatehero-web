@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import { Card, Icon } from "@ui5/webcomponents-react";
 import ActivityHistory from "./ActivityHistory";
 
-import "@ui5/webcomponents-icons/dist/icons/table-view.js";
+import "@ui5/webcomponents-icons/dist/icons/table-view";
 
-export default function HistoryCard(props) {
+export default function HistoryCard({ style }) {
     const history = useHistory();
 
     // To remove
@@ -28,7 +28,7 @@ export default function HistoryCard(props) {
             headerInteractive
             onHeaderClick={handleHeaderClick}
             subtitle="List"
-            style={props.style}
+            style={ style }
             avatar={<Icon name="table-view" />}
         >
             <ActivityHistory />

@@ -6,11 +6,13 @@ import {
     TitleLevel,
     FlexBoxDirection,
     FlexBoxAlignItems,
-    FlexBoxJustifyContent
+    FlexBoxJustifyContent,
 } from "@ui5/webcomponents-react";
 import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 
-export default function Goal(props) {
+export default function Goal({
+    name, startDate, targetDate, target, progress, infoState,
+}) {
     return (
         <FlexBox
             direction={FlexBoxDirection.Row}
@@ -22,35 +24,35 @@ export default function Goal(props) {
                 level={TitleLevel.H3}
                 style={{ width: "30%", margin: "0px" }}
             >
-                {props.name}
+                { name }
             </Title>
             <Title
                 level={TitleLevel.H5}
                 style={{ width: "15%", margin: "0px" }}
             >
                 <p style={{ color: "grey" }}>Start Date:</p>
-                {props.startDate}
+                {startDate}
             </Title>
             <Title
                 level={TitleLevel.H5}
                 style={{ width: "15%", margin: "0px" }}
             >
                 <p style={{ color: "grey" }}>Target Date:</p>
-                {props.targetDate}
+                {targetDate}
             </Title>
             <Title
                 level={TitleLevel.H5}
                 style={{ width: "15%", margin: "0px" }}
             >
                 <p style={{ color: "grey" }}>Target:</p>
-                {props.target}
+                {target}
             </Title>
             <ProgressIndicator
-                displayValue={props.progress + "%"}
-                percentValue={props.progress}
+                displayValue={`${progress}%`}
+                percentValue={progress}
                 width="20%"
                 style={{ margin: "0px" }}
-                state={props.infoState}
+                state={infoState}
             />
         </FlexBox>
     );

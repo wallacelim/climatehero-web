@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import moment from "moment";
-import { getAbbreviatedMonthStringFromNumber } from "../util/datetime";
+import "@ui5/webcomponents-icons/dist/icons/horizontal-bar-chart";
+import "@ui5/webcomponents-icons/dist/icons/line-chart";
+
 import { BarChart, LineChart } from "@ui5/webcomponents-react-charts";
-import { Card, Text, Icon } from "@ui5/webcomponents-react";
+import { Card, Icon, Text } from "@ui5/webcomponents-react";
+import React, { useState } from "react";
+
+import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
-import "@ui5/webcomponents-icons/dist/icons/horizontal-bar-chart.js";
-import "@ui5/webcomponents-icons/dist/icons/line-chart.js";
+import { getDateTimeFromString, getAbbreviatedMonthStringFromNumber } from "../util/datetime";
+
 
 const TrendsCard = ({ activities }) => {
     const [toggleCharts, setToggleCharts] = useState("lineChart");
+    const [loading, setLoading] = useState(false);
 
-    const contentTitle =
-        toggleCharts === "lineChart" ? "Line Chart" : "Bar Chart";
-
-    const switchToChart =
-        toggleCharts === "lineChart" ? "Bar Chart" : "Line Chart";
+    const contentTitle = toggleCharts === "lineChart" ? "Line Chart" : "Bar Chart";
+    const switchToChart = toggleCharts === "lineChart" ? "Bar Chart" : "Line Chart";
 
     const handleHeaderClick = () => {
         if (toggleCharts === "lineChart") {
@@ -33,22 +33,19 @@ const TrendsCard = ({ activities }) => {
         }
     };
 
-    const labels = activities.data.map(activity => {
-        const date = moment(activity.date, "MMMM Do YYYY, h:mm:ss a");
-        const month = getAbbreviatedMonthStringFromNumber(date.get("month"));
+    const labels = activities.data.map((activity) => {
+        const date = getDateTimeFromString(activity.date);
+        const month = getAbbreviatedMonthStringFromNumber(date.month());
         const year = date.year().toString();
-        return month + " " + year.slice(2);
+        return `${month} ${year.slice(2)}`;
     });
 
     const datasets = {
         label: "Carbon Footprint Reductions",
-        data: labels.map(month => {
-            return activities.data.filter(
-                activity =>
-                    moment(activity.date, "MMMM Do YYYY, h:mm:ss a").month() ==
-                    month
-            );
-        })
+        data: labels.map((month) => activities.data.filter(
+            (activity) => getDateTimeFromString(activity.date).month()
+                    === month,
+        )),
     };
 
     const stubLabels = [
@@ -58,17 +55,15 @@ const TrendsCard = ({ activities }) => {
         "April",
         "May",
         "June",
-        "July"
+        "July",
     ];
 
     const stubDatasets = [
         {
             label: "Carbon Footprint Reductions",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        }
+            data: [65, 59, 80, 81, 56, 55, 40],
+        },
     ];
-
-    const [loading, setLoading] = useState(false);
 
     return (
         <Card
@@ -90,7 +85,7 @@ const TrendsCard = ({ activities }) => {
             <Text style={spacing.sapUiContentPadding}>{contentTitle}</Text>
             {toggleCharts === "lineChart" ? (
                 <LineChart
-                    width={"100%"}
+                    width="100%"
                     datasets={stubDatasets}
                     labels={stubLabels}
                     loading={loading}
@@ -98,7 +93,7 @@ const TrendsCard = ({ activities }) => {
                 />
             ) : (
                 <BarChart
-                    width={"100%"}
+                    width="100%"
                     style={spacing.sapUiContentPadding}
                     datasets={datasets}
                     labels={labels}
