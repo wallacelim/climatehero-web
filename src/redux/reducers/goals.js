@@ -22,7 +22,7 @@ const initialState = {
             currentMeasurement: 5,
             targetMeasurement: 10,
             metric: "meals",
-            progress: 50,
+            // progress: 50,
         },
         {
             id: -2,
@@ -33,7 +33,7 @@ const initialState = {
             currentMeasurement: 30,
             targetMeasurement: 100,
             metric: "km",
-            progress: 30,
+            // progress: 30,
         },
         {
             id: -3,
@@ -44,7 +44,7 @@ const initialState = {
             currentMeasurement: 90,
             targetMeasurement: 100,
             metric: "km",
-            progress: 90,
+            // progress: 90,
         },
     ],
 };

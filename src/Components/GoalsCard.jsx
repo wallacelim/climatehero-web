@@ -22,22 +22,22 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
     // TODO: enable editing of goals
     // };
 
-    const getMetaData = (progress) => {
-        let infoState; let
-            info;
+    const getMetaData = ({ currentMeasurement, targetMeasurement }) => {
+        const progress = Math.round((currentMeasurement / targetMeasurement) * 100);
+        console.log(progress);
+        let infoState;
         if (progress <= 0) {
             infoState = ValueState.Error;
-            info = "Started";
         } else if (progress >= 100) {
             infoState = ValueState.Success;
-            info = "Completed";
-        } else {
+        } else if (progress <= 30) {
             infoState = ValueState.Warning;
-            info = "In Progress";
+        } else {
+            infoState = ValueState.Information;
         }
         return {
+            progress,
             infoState,
-            info,
         };
     };
 
@@ -65,7 +65,7 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
             >
                 <List mode={ListMode.None} /* onItemClick={handleItemClick} */>
                     {goals.data.map((goal) => {
-                        const metadata = getMetaData(goal.progress);
+                        const metadata = getMetaData(goal);
                         return (
                             <StandardListItem
                                 key={goal.id}
@@ -75,7 +75,7 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
                             >
                                 <Goal
                                     style={{ height: "80px" }}
-                                    progress={goal.progress}
+                                    progress={metadata.progress}
                                     name={goal.name}
                                     startDate={goal.startDate}
                                     targetDate={goal.targetDate}
