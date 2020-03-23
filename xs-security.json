@@ -1,0 +1,9 @@
+{
+  "xsappname": "climatehero-uaa",
+  "tenant-mode": "dedicated",
+  "oauth2-configuration": {
+    "allowedproviders": [
+      "accounts.sap.com"
+    ]
+  }
+}
