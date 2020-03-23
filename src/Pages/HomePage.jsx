@@ -1,5 +1,4 @@
 import { Button } from "@ui5/webcomponents-react/lib/Button";
-import { Label } from "@ui5/webcomponents-react/lib/Label";
 import { ObjectPage } from "@ui5/webcomponents-react/lib/ObjectPage";
 import { ObjectPageMode } from "@ui5/webcomponents-react/lib/ObjectPageMode";
 import { ObjectPageSection } from "@ui5/webcomponents-react/lib/ObjectPageSection";
@@ -12,7 +11,7 @@ import DraggableCard from "../Components/Containers/DraggableCard";
 function HomePage({ user, toggleAddActivityModal }) {
     return (
         <ObjectPage
-            title="Home Page"
+            title="Climate Hero"
             subTitle={`Welcome, ${user.data.firstName} ${user.data.lastName}`}
             headerActions={
                 <Button onClick={toggleAddActivityModal}>Track</Button>
