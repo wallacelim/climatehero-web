@@ -1,7 +1,7 @@
 import moment from "moment";
 
-const DATE_STRING_FORMAT = "YYYY-MM-DD";
-const DATE_TIME_STRING_FORMAT = "YYYY-MM-DD, h:mm:ss a";
+const DATE_STRING_FORMAT = "DD/MM/YYYY";
+const DATE_TIME_STRING_FORMAT = "DD/MM/YYYY HH:mm:ss";
 
 
 export const getAbbreviatedMonthStringFromNumber = (monthNumber) => {
