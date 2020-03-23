@@ -1,8 +1,9 @@
 ---
 applications:
 - name: climatehero-web
+  path: build/
   memory: 512M
-  command: npm start
+  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
   router.route_services_recommended_https: true
   router.disable_http: true
   services:
