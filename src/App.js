@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
-import "babel-polyfill";
+import "react-app-polyfill/stable";
 /* UI5 imports */
 import { ThemeProvider } from "@ui5/webcomponents-react/lib/ThemeProvider";
 
