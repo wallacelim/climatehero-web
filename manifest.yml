@@ -1,11 +1,12 @@
 ---
 applications:
 - name: climatehero-web
-  path: build/
-  memory: 512M
-  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  path: build/ 
+  memory: 64M
   router.route_services_recommended_https: true
   router.disable_http: true
   services:
     - climatehero-uaa
     - climatehero-destination
+  buildpacks: 
+    - https://github.com/cloudfoundry/staticfile-buildpack.git
