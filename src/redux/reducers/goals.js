@@ -68,18 +68,15 @@ export default function (state = initialState, action) {
         return {
             ...state,
             data: state.data.map((goal) => {
-                const updatedCurrentMeasurement = goal.currentMeasurement
-                        + action.payload.measurement;
-                return {
-                    ...goal,
-                    currentMeasurement: updatedCurrentMeasurement,
-                    progress: Math.min(
-                        100,
-                        Math.round(
-                            (updatedCurrentMeasurement / goal.targetMeasurement) * 100,
-                        ),
-                    ),
-                };
+                if (goal.type === action.payload.type) {
+                    const updatedCurrentMeasurement = goal.currentMeasurement
+                    + action.payload.measurement;
+                    return {
+                        ...goal,
+                        currentMeasurement: updatedCurrentMeasurement,
+                    };
+                }
+                return goal;
             }),
         };
     default:
