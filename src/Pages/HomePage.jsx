@@ -23,28 +23,24 @@ function HomePage({ user, toggleAddActivityModal }) {
             }}
         >
             <ObjectPageSection title="Calendar" id="HomePageCalendarSection">
-                <Label>Calendar</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
                     cardType="Calendar"
                 />
             </ObjectPageSection>
             <ObjectPageSection title="Trends" id="HomePageTrendsSection">
-                <Label>Trends</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
                     cardType="Trends"
                 />
             </ObjectPageSection>
             <ObjectPageSection title="Goals" id="HomePageGoalsSection">
-                <Label>Goals</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
                     cardType="Goals"
                 />
             </ObjectPageSection>
             <ObjectPageSection title="History" id="HomePageHistorySection">
-                <Label>History</Label>
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
                     cardType="History"

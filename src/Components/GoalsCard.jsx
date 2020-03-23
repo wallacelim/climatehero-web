@@ -52,8 +52,8 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
                 Add a goal
             </Button>
             <Card
-                heading="Your Carbon Footprint Reduction Goals"
-                subtitle="Click to add a goal"
+                heading="Your Reduction Goals"
+                subtitle="Click any goal to edit or delete"
                 style={{
                     ...spacing.sapUiContentPadding,
                     height: "100%",
