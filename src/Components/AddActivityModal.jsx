@@ -34,6 +34,7 @@ import {
 } from "../constants/activityTypes";
 import { Activity, Goals, UI } from "../redux/actionCreators";
 import { getCurrentDateTimeString } from "../util/dateTime";
+import { getActivityTypeFromString } from "../util/activities";
 
 const AddActivityModal = ({
     showAddActivityModal,
@@ -44,6 +45,7 @@ const AddActivityModal = ({
     const [activityType, setActivityType] = React.useState(WALKING);
     const [input, setInput] = useState(0);
 
+
     const handleAdd = () => {
         if (!input) {
             alert("please enter a non-zero value");
@@ -51,7 +53,7 @@ const AddActivityModal = ({
         }
         toggleAddActivityModal();
         const activity = {
-            date: getCurrentDateTimeString,
+            date: getCurrentDateTimeString(),
             type: activityType,
             measurement: parseInt(input, 10),
             metric: activityType.metric,
@@ -64,25 +66,7 @@ const AddActivityModal = ({
 
     const handleSelectType = (e) => {
         const name = e.parameters.selectedOption.value;
-        switch (name) {
-        case WALKING.name:
-            setActivityType(WALKING);
-            break;
-        case BIKE_RIDE.name:
-            setActivityType(BIKE_RIDE);
-            break;
-        case BUS_RIDE.name:
-            setActivityType(BUS_RIDE);
-            break;
-        case TRAIN_RIDE.name:
-            setActivityType(TRAIN_RIDE);
-            break;
-        case VEGETARIAN_MEAL.name:
-            setActivityType(VEGETARIAN_MEAL);
-            break;
-        default:
-            console.error("Error setting activityType");
-        }
+        setActivityType(getActivityTypeFromString(name));
     };
 
     return (

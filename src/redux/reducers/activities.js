@@ -49,14 +49,19 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
     case ADD_ACTIVITY:
-        return { ...state, ...action.payload };
+        return {
+            ...state,
+            data: [...state.data, action.payload],
+        };
 
     case DELETE_ACTIVITY:
-        return [
+        return {
             ...state,
-            ...state.data.slice(0, action.payload.id),
-            ...state.data.slice(action.payload.id + 1),
-        ];
+            data: [
+                ...state.data.slice(0, action.payload.id),
+                ...state.data.slice(action.payload.id + 1),
+            ],
+        };
     case REQUEST_ACTIVITIES:
         return { ...state, isFetching: true };
     case RECEIVE_ACTIVITIES:

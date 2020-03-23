@@ -39,6 +39,8 @@ const ActivityHistory = ({ activities }) => {
                 recurrence: activity.recurrence,
             }))}
             style={{ width: "100%", ...spacing.sapUiContentPadding }}
+            visibleRows={10}
+            minRows = {10}
         />
     );
 };
