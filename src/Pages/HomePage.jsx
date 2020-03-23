@@ -9,11 +9,11 @@ import { spacing } from "@ui5/webcomponents-react-base";
 import { UI } from "../redux/actionCreators";
 import DraggableCard from "../Components/Containers/DraggableCard";
 
-function HomePage({ toggleAddActivityModal }) {
+function HomePage({ user, toggleAddActivityModal }) {
     return (
         <ObjectPage
             title="Home Page"
-            subTitle="Welcome, Test User"
+            subTitle={`Welcome, ${user.data.firstName} ${user.data.lastName}`}
             headerActions={
                 <Button onClick={toggleAddActivityModal}>Track</Button>
             }
@@ -54,8 +54,10 @@ function HomePage({ toggleAddActivityModal }) {
     );
 }
 
+const mapStateToProps = ({ user }) => ({ user });
+
 const mapDispatchToProps = (dispatch) => ({
     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
 });
 
-export default connect(null, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

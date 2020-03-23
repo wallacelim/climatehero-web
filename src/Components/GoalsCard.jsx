@@ -25,14 +25,12 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
     const getMetaData = ({ currentMeasurement, targetMeasurement }) => {
         const progress = Math.min(Math.round((currentMeasurement / targetMeasurement) * 100), 100);
         let infoState;
-        if (progress <= 0) {
-            infoState = ValueState.Error;
-        } else if (progress >= 100) {
+        if (progress >= 100) {
             infoState = ValueState.Success;
         } else if (progress <= 30) {
-            infoState = ValueState.Warning;
+            infoState = ValueState.Error;
         } else {
-            infoState = ValueState.Information;
+            infoState = ValueState.Warning;
         }
         return {
             progress,

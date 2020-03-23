@@ -9,6 +9,7 @@ import {
     REQUEST_ACTIVITIES,
     TOGGLE_ADD_ACTIVITY_MODAL,
     TOGGLE_ADD_GOAL_MODAL,
+    USER_LOGIN,
 } from "../constants/actionTypes";
 
 const nextGoalId = 0;
@@ -104,4 +105,14 @@ export const Activity = {
             .then((response) => response.json())
             .then((json) => dispatch(Activity.receive(json)));
     },
+};
+
+export const User = {
+    loginDummyUser: () => ({
+        type: USER_LOGIN,
+        payload: {
+            firstName: "Firstname",
+            lastName: "Lastname",
+        },
+    }),
 };
