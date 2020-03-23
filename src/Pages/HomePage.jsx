@@ -18,7 +18,7 @@ function HomePage({ toggleAddActivityModal }) {
                 <Button onClick={toggleAddActivityModal}>Track</Button>
             }
             mode={ObjectPageMode.Default}
-            style={{ ...spacing.sapUiContentPadding, maxHeight: "105vh", overflow: "hidden" }}
+            style={{ ...spacing.sapUiContentPadding, maxHeight: "100vh" }}
         >
             <ObjectPageSection title="Calendar" id="HomePageCalendarSection">
                 <Label>Calendar</Label>

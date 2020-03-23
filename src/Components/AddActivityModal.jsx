@@ -1,8 +1,10 @@
-import "@ui5/webcomponents-icons/dist/icons/meal";
-import "@ui5/webcomponents-icons/dist/icons/passenger-train";
-import "@ui5/webcomponents-icons/dist/icons/physical-activity";
-import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
-import "@ui5/webcomponents-icons/dist/icons/supplier";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+// import "@ui5/webcomponents-icons/dist/icons/meal";
+// import "@ui5/webcomponents-icons/dist/icons/passenger-train";
+// import "@ui5/webcomponents-icons/dist/icons/physical-activity";
+// import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
+// import "@ui5/webcomponents-icons/dist/icons/supplier";
 
 import {
     Button,
@@ -17,14 +19,12 @@ import {
     Option,
     Select,
 } from "@ui5/webcomponents-react";
-import React, { useState } from "react";
 import {
     sapUiContentPadding,
     sapUiSmallMarginBottom,
     sapUiTinyMargin,
 } from "@ui5/webcomponents-react-base/lib/spacing";
 
-import { connect } from "react-redux";
 import {
     BIKE_RIDE,
     BUS_RIDE,
