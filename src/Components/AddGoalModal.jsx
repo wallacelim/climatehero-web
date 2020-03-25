@@ -35,6 +35,7 @@ import "@ui5/webcomponents-icons/dist/icons/physical-activity";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
 import { getCurrentDateString } from "../util/dateTime";
+import { getActivityTypeFromString } from "../util/activities";
 
 const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
     const [name, setName] = useState("");
@@ -72,25 +73,7 @@ const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
 
     const handleSelectType = (e) => {
         const name = e.parameters.selectedOption.value;
-        switch (name) {
-        case WALKING.name:
-            setActivityType(WALKING);
-            break;
-        case BIKE_RIDE.name:
-            setActivityType(BIKE_RIDE);
-            break;
-        case BUS_RIDE.name:
-            setActivityType(BUS_RIDE);
-            break;
-        case TRAIN_RIDE.name:
-            setActivityType(TRAIN_RIDE);
-            break;
-        case VEGETARIAN_MEAL.name:
-            setActivityType(VEGETARIAN_MEAL);
-            break;
-        default:
-            console.error("Error setting activityType");
-        }
+        setActivityType(getActivityTypeFromString(name));
     };
 
     return (
@@ -180,8 +163,7 @@ const AddGoalModal = ({ showAddGoalModal, toggleAddGoalModal, addGoal }) => {
                         primaryCalendarType={CalendarType.Gregorian}
                         disabled={false}
                         readonly={false}
-                        onChange={(date) => setSelectedDate(date.parameters.value)
-                        }
+                        onChange={(date) => setSelectedDate(date.parameters.value)}
                         placeholder="Target Date of Completion"
                     />
                 </FlexBox>

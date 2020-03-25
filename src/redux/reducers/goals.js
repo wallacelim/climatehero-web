@@ -22,7 +22,7 @@ const initialState = {
             currentMeasurement: 5,
             targetMeasurement: 10,
             metric: "meals",
-            progress: 50,
+            // progress: 50,
         },
         {
             id: -2,
@@ -33,7 +33,7 @@ const initialState = {
             currentMeasurement: 30,
             targetMeasurement: 100,
             metric: "km",
-            progress: 30,
+            // progress: 30,
         },
         {
             id: -3,
@@ -44,7 +44,7 @@ const initialState = {
             currentMeasurement: 90,
             targetMeasurement: 100,
             metric: "km",
-            progress: 90,
+            // progress: 90,
         },
     ],
 };
@@ -52,28 +52,31 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
     case ADD_GOAL:
-        return [...state, action.payload];
+        return {
+            ...state,
+            data: [...state.data, action.payload],
+        };
     case DELETE_GOAL:
-        return [
-            ...state.slice(0, action.payload.id),
-            ...state.slice(action.payload.id + 1),
-        ];
+        return {
+            ...state,
+            data: [
+                ...state.data.slice(0, action.payload.id),
+                ...state.slice(action.payload.id + 1),
+            ],
+        };
     case UPDATE_GOALS:
         return {
             ...state,
             data: state.data.map((goal) => {
-                const updatedCurrentMeasurement = goal.currentMeasurement
-                        + action.payload.measurement;
-                return {
-                    ...goal,
-                    currentMeasurement: updatedCurrentMeasurement,
-                    progress: Math.min(
-                        100,
-                        Math.round(
-                            (updatedCurrentMeasurement / goal.targetMeasurement) * 100,
-                        ),
-                    ),
-                };
+                if (goal.type === action.payload.type) {
+                    const updatedCurrentMeasurement = goal.currentMeasurement
+                    + action.payload.measurement;
+                    return {
+                        ...goal,
+                        currentMeasurement: updatedCurrentMeasurement,
+                    };
+                }
+                return goal;
             }),
         };
     default:

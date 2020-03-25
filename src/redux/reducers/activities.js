@@ -20,7 +20,9 @@ const initialState = {
         //     type: VEGETARIAN_MEAL,
         //     measurement: 5,
         //     metric: "meals",
-        //     recurrence: "N/A",
+        //     isRecurring: true,
+        //     recurrenceValue: 2,
+        //     recurrenceType: "DAY"
         //     reduction: (Math.random() * 10).toFixed(2)
         // },
         // {

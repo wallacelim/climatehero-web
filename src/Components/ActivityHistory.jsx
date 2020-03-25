@@ -1,21 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { AnalyticalTable } from "@ui5/webcomponents-react";
 import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
 
 const ActivityHistory = ({ activities }) => {
-    async function fetchActivityData() {
-        const result = await fetch("http://localhost:8080/reductions");
-        result.json()
-            .then((res) => console.log(res[0].type))
-            .catch((err) => console.log(err));
-    }
-
-    useEffect(() => {
-        fetchActivityData();
-    });
-
     const activityColumns = [
         {
             Header: "Date",
