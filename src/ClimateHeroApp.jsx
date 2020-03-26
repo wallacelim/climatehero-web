@@ -8,6 +8,7 @@ import DetailPage from "./Pages/DetailPage";
 import HomePage from "./Pages/HomePage";
 import AddActivityModal from "./Components/AddActivityModal";
 import AddGoalModal from "./Components/AddGoalModal";
+import WelcomeModal from "./Components/WelcomeModal";
 
 export default function ClimateHeroApp() {
     const history = createBrowserHistory();
@@ -21,6 +22,7 @@ export default function ClimateHeroApp() {
             </Switch>
             <AddActivityModal />
             <AddGoalModal />
+            <WelcomeModal />
         </Router>
     );
 }

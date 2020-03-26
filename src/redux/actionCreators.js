@@ -9,6 +9,7 @@ import {
     REQUEST_ACTIVITIES,
     TOGGLE_ADD_ACTIVITY_MODAL,
     TOGGLE_ADD_GOAL_MODAL,
+    TOGGLE_WELCOME_MODAL,
 } from "../constants/actionTypes";
 
 const nextGoalId = 0;
@@ -64,6 +65,10 @@ export const UI = {
     toggleAddActivityModal: () => ({
         type: TOGGLE_ADD_ACTIVITY_MODAL,
     }),
+    
+    toggleWelcomeModal: () => ({
+        type: TOGGLE_WELCOME_MODAL,
+    })
 };
 
 export const Activity = {
