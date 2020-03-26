@@ -15,7 +15,7 @@ function HomePage({ toggleAddActivityModal }) {
             title="Home Page"
             subTitle="Welcome, Test User"
             headerActions={
-                <Button onClick={toggleAddActivityModal}>Track</Button>
+                <Button onClick={toggleAddActivityModal}>Add</Button>
             }
             mode={ObjectPageMode.Default}
             style={{

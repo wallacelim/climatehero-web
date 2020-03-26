@@ -14,7 +14,7 @@ const DetailPage = ({ toggleAddActivityModal }) => (
     <ObjectPage
         title="Climate Hero"
         headerActions={[
-            <Button onClick={toggleAddActivityModal}>Track</Button>,
+            <Button onClick={toggleAddActivityModal}>Add</Button>,
         ]}
         style={{ height: "100vh", ...spacing.sapUiContentPadding }}
     >
