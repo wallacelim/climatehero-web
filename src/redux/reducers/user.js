@@ -14,6 +14,7 @@ export default (state = initialState, action) => {
             ? state
             : {
                 ...state,
+                isLoggedIn: !state.isLoggedIn,
                 data: action.payload,
             };
 

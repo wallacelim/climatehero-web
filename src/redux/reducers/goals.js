@@ -1,6 +1,7 @@
 import {
     ADD_GOAL,
     DELETE_GOAL,
+    EDIT_GOAL,
     UPDATE_GOALS,
 } from "../../constants/actionTypes";
 import {
@@ -60,6 +61,21 @@ export default function (state = initialState, action) {
                 ...state.data.slice(0, action.payload.id),
                 ...state.slice(action.payload.id + 1),
             ],
+        };
+    case EDIT_GOAL:
+        return {
+            ...state,
+            data: state.data.map((goal) => {
+                if (goal.id === action.payload.id) {
+                    console.log(goal);
+                    console.log(action);
+                    return {
+                        ...goal,
+                        ...action.payload.updates,
+                    };
+                }
+                return goal;
+            }),
         };
     case UPDATE_GOALS:
         return {

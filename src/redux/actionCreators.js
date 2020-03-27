@@ -1,14 +1,17 @@
 import fetch from "cross-fetch";
 import {
-    ADD_GOAL,
-    DELETE_GOAL,
-    UPDATE_GOALS,
     ADD_ACTIVITY,
     DELETE_ACTIVITY,
     RECEIVE_ACTIVITIES,
     REQUEST_ACTIVITIES,
+    ADD_GOAL,
+    DELETE_GOAL,
+    EDIT_GOAL,
+    UPDATE_GOALS,
     TOGGLE_ADD_ACTIVITY_MODAL,
+    TOGGLE_EDIT_ACTIVITY_MODAL,
     TOGGLE_ADD_GOAL_MODAL,
+    TOGGLE_EDIT_GOAL_MODAL,
     USER_LOGIN,
 } from "../constants/actionTypes";
 
@@ -39,16 +42,23 @@ export const Goal = {
             progress,
         },
     }),
+
     delete: (id) => ({
         type: DELETE_GOAL,
         payload: {
             id,
         },
     }),
-};
 
-export const Goals = {
-    update: ({ type, measurement }) => ({
+    edit: (id, updates) => ({
+        type: EDIT_GOAL,
+        payload: {
+            id,
+            updates,
+        },
+    }),
+
+    updateAll: ({ type, measurement }) => ({
         type: UPDATE_GOALS,
         payload: {
             type,
@@ -57,13 +67,29 @@ export const Goals = {
     }),
 };
 
+
 export const UI = {
     toggleAddGoalModal: () => ({
         type: TOGGLE_ADD_GOAL_MODAL,
+
     }),
 
     toggleAddActivityModal: () => ({
         type: TOGGLE_ADD_ACTIVITY_MODAL,
+    }),
+
+    toggleEditActivityModal: (id) => ({
+        type: TOGGLE_EDIT_ACTIVITY_MODAL,
+        payload: {
+            id,
+        },
+    }),
+
+    toggleEditGoalModal: (id) => ({
+        type: TOGGLE_EDIT_GOAL_MODAL,
+        payload: {
+            id,
+        },
     }),
 };
 

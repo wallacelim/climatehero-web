@@ -17,7 +17,7 @@ import "@ui5/webcomponents-icons/dist/icons/activities";
 
 import "@ui5/webcomponents-icons/dist/icons/add-activity";
 
-function GoalsCard({ goals, toggleAddGoalModal }) {
+function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
     // const handleItemClick = (item) => {
     // TODO: enable editing of goals
     // };
@@ -60,7 +60,8 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
                 }}
                 avatar={<Icon name="activities" />}
             >
-                <List mode={ListMode.None} /* onItemClick={handleItemClick} */>
+                <List mode={ListMode.None} /* onItemClick={handleItemClick} */
+                    onItemClick={(e) => toggleEditGoalModal(parseInt(e.parameters.item.id, 10))}>
                     {goals.data.map((goal) => {
                         const metadata = getMetaData(goal);
                         return (
@@ -94,6 +95,7 @@ const mapStateToProps = ({ goals }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
+    toggleEditGoalModal: (id) => dispatch(UI.toggleEditGoalModal(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalsCard);

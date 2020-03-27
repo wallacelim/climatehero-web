@@ -9,12 +9,12 @@ import {
     FlexBox,
     ButtonDesign,
     InputType,
-    Label,
     FlexBoxDirection,
     FlexBoxJustifyContent,
     FlexBoxAlignItems,
     ValueState,
     CalendarType,
+    Label,
 } from "@ui5/webcomponents-react";
 import { DatePicker } from "@ui5/webcomponents-react/lib/DatePicker";
 import {
@@ -39,13 +39,24 @@ import { getCurrentDateString } from "../util/dateTime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 
-const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
-    const [name, setName] = useState("");
-    const [target, setTarget] = useState(0);
-    const [activityType, setActivityType] = useState(WALKING);
-    const [selectedDate, setSelectedDate] = useState(null);
+const EditGoalModal = ({
+    goal, editGoalModal, toggleEditGoalModal, editGoal,
+}) => {
+    const initialState = {
+        name: null,
+        targetMeasurement: null,
+        type: null,
+        targetDate: null,
+        ...goal,
+    };
+    console.log(initialState);
+    const [name, setName] = useState(initialState.name);
+    const [target, setTarget] = useState(initialState.target);
+    const [activityType, setActivityType] = useState(initialState.type);
+    const [selectedDate, setSelectedDate] = useState(initialState.targetDate);
+    console.log(`name is ${name}`);
 
-    const handleAdd = () => {
+    const handleEdit = () => {
         if (!name) {
             alert("Please enter a goal name");
             return;
@@ -58,19 +69,18 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
             alert("Please select a valid date");
             return;
         }
-        toggleAddGoalModal();
+        toggleEditGoalModal(goal.id);
 
-        const goal = {
+        const updates = {
             name,
             startDate: getCurrentDateString(),
             targetDate: selectedDate,
             type: activityType,
-            currentMeasurement: 0,
+            currentMeasurement: goal.currentMeasurement,
             targetMeasurement: parseInt(target, 10),
             metric: activityType.metric,
-            progress: 0,
         };
-        addGoal(goal);
+        editGoal(goal.id, updates);
     };
 
     const handleSelectType = (e) => {
@@ -88,10 +98,10 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                     alignItems={FlexBoxAlignItems.Center}
                     style={sapUiContentPadding}
                 >
-                    <h5>Add a Goal</h5>
+                    <h5>Edit Goal</h5>
                     <Button
                         design={ButtonDesign.Reject}
-                        onClick={toggleAddGoalModal}
+                        onClick={() => toggleEditGoalModal(goal.id)}
                         style={sapUiTinyMargin}
                     >
                         Close
@@ -99,7 +109,7 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                 </FlexBox>,
             ]}
             stretch={false}
-            open={addGoalModal.isOpen}
+            open={editGoalModal.isOpen}
             footer={
                 <div>
                     <FlexBox
@@ -108,10 +118,10 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                     >
                         <Button
                             design={ButtonDesign.Emphasized}
-                            onClick={handleAdd}
+                            onClick={handleEdit}
                             style={sapUiTinyMargin}
                         >
-                            Add
+                            Save
                         </Button>
                     </FlexBox>
                 </div>
@@ -128,39 +138,40 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                         type={InputType.Text}
                         onChange={(e) => setName(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
-                        placeholder="e.g. Travel by bus"
+                        placeholder={`${name}`}
                     />
                     <Label>Type</Label>
                     <Select
                         style={sapUiSmallMarginBottom}
                         onChange={handleSelectType}
                     >
-                        <Option icon="physical-activity" value={WALKING.name}>
+                        <Option selected={`${activityType}` === WALKING} icon="physical-activity" value={WALKING.name}>
                             {WALKING.displayName} ({WALKING.metric})
                         </Option>
-                        <Option icon="supplier" value={BIKE_RIDE.name}>
+                        <Option selected={activityType === BIKE_RIDE} icon="supplier" value={BIKE_RIDE.name}>
                             {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
                         </Option>
                         <Option
+                            selected={activityType === BUS_RIDE}
                             icon="bus-public-transport"
                             value={BUS_RIDE.name}
                         >
                             {BUS_RIDE.displayName} ({BUS_RIDE.metric})
                         </Option>
-                        <Option icon="passenger-train" value={TRAIN_RIDE.name}>
+                        <Option selected={activityType === TRAIN_RIDE} icon="passenger-train" value={TRAIN_RIDE.name}>
                             {TRAIN_RIDE.displayName} ({TRAIN_RIDE.metric})
                         </Option>
-                        <Option icon="meal" value={VEGETARIAN_MEAL.name}>
+                        <Option selected={activityType === VEGETARIAN_MEAL} icon="meal" value={VEGETARIAN_MEAL.name}>
                             {VEGETARIAN_MEAL.displayName} (
                             {VEGETARIAN_MEAL.metric})
                         </Option>
                     </Select>
-                    <Label>Target ({activityType.metric})</Label>
+                    <Label>Target</Label>
                     <Input
                         type={InputType.Number}
+                        placeholder={`${target} (${initialState.metric})`}
                         onChange={(e) => setTarget(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
-                        placeholder="e.g. 100"
                     />
                     <Label>Target Date of Completion</Label>
                     <DatePicker
@@ -178,11 +189,21 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
     );
 };
 
-const mapStateToProps = ({ addGoalModal }) => ({ addGoalModal });
-
-const mapDispatchToProps = (dispatch) => ({
-    toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
-    addGoal: (goal) => dispatch(Goal.add(goal)),
+const mapStateToProps = ({ goals, editGoalModal }) => ({
+    goal: goals.data.find((goal) => {
+        if (goal.id === editGoalModal.id) {
+            console.log(goal);
+            console.log(editGoalModal);
+            return true;
+        }
+        return false;
+    }),
+    editGoalModal,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddGoalModal);
+const mapDispatchToProps = (dispatch) => ({
+    toggleEditGoalModal: (id) => dispatch(UI.toggleEditGoalModal(id)),
+    editGoal: (id, updates) => dispatch(Goal.edit(id, updates)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditGoalModal);

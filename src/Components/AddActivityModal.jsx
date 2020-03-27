@@ -32,12 +32,12 @@ import {
     VEGETARIAN_MEAL,
     WALKING,
 } from "../constants/activityTypes";
-import { Activity, Goals, UI } from "../redux/actionCreators";
+import { Activity, Goal, UI } from "../redux/actionCreators";
 import { getCurrentDateTimeString } from "../util/dateTime";
 import { getActivityTypeFromString } from "../util/activities";
 
 const AddActivityModal = ({
-    showAddActivityModal,
+    addActivityModal,
     toggleAddActivityModal,
     addActivity,
     updateGoals,
@@ -90,7 +90,7 @@ const AddActivityModal = ({
                 </FlexBox>,
             ]}
             stretch={false}
-            open={showAddActivityModal}
+            open={addActivityModal.isOpen}
             footer={
                 <div>
                     <FlexBox
@@ -148,14 +148,14 @@ const AddActivityModal = ({
         </Dialog>
     );
 };
-const mapStateToProps = ({ showAddActivityModal }) => ({
-    showAddActivityModal,
+const mapStateToProps = ({ addActivityModal }) => ({
+    addActivityModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
     addActivity: (activity) => dispatch(Activity.add(activity)),
-    updateGoals: (activity) => dispatch(Goals.update(activity)),
+    updateGoals: (activity) => dispatch(Goal.updateAll(activity)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddActivityModal);

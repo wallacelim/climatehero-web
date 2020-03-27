@@ -1,8 +1,7 @@
 import moment from "moment";
 
-const DATE_STRING_FORMAT = "DD/MM/YYYY";
-const DATE_TIME_STRING_FORMAT = "DD/MM/YYYY HH:mm:ss";
-
+const DATE_FORMAT = "DD/MM/YYYY";
+const DATE_TIME_FORMAT = "DD/MM/YYYY HH:mm:ss";
 
 export const getAbbreviatedMonthStringFromNumber = (monthNumber) => {
     switch (monthNumber) {
@@ -35,17 +34,21 @@ export const getAbbreviatedMonthStringFromNumber = (monthNumber) => {
     }
 };
 
-export const getCurrentDateTimeString = () => moment().format(DATE_TIME_STRING_FORMAT);
+export const getCurrentDateTimeString = () => moment().format(DATE_TIME_FORMAT);
 
-export const getCurrentDateString = () => moment().format(DATE_STRING_FORMAT);
+export const getCurrentDateString = () => {
+    const date = moment().format(DATE_FORMAT);
+    console.log(date);
+    return date;
+};
 
-export const getDateAsString = (date) => moment(date).format(DATE_STRING_FORMAT);
+export const getDateAsString = (date) => moment(date).format(DATE_FORMAT);
 
-export const getDateTimeAsString = (dateTime) => moment(dateTime).format(DATE_TIME_STRING_FORMAT);
+export const getDateTimeAsString = (dateTime) => moment(dateTime).format(DATE_TIME_FORMAT);
 
-export const getDateFromString = (dateString) => moment(dateString, DATE_STRING_FORMAT);
+export const getDateFromString = (dateString) => moment(dateString, DATE_FORMAT);
 
 export const getDateTimeFromString = (dateTimeString) => moment(
     dateTimeString,
-    DATE_TIME_STRING_FORMAT,
+    DATE_TIME_FORMAT,
 );
