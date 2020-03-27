@@ -7,7 +7,13 @@ import {
     Card,
     Icon,
     StandardListItem,
-    ValueState
+    ValueState,
+    FlexBox,
+    FlexBoxDirection,
+    Text,
+    FlexBoxJustifyContent,
+    FlexBoxWrap,
+    FlexBoxAlignItems
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
@@ -21,7 +27,6 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
     // const handleItemClick = (item) => {
     // TODO: enable editing of goals
     // };
-
     const getMetaData = ({ currentMeasurement, targetMeasurement }) => {
         const progress = Math.min(
             Math.round((currentMeasurement / targetMeasurement) * 100),
@@ -66,7 +71,8 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
                 <List
                     mode={ListMode.None} /* onItemClick={handleItemClick} */
                     onItemClick={e =>
-                        toggleEditGoalModal(parseInt(e.parameters.item.id, 10))}
+                        toggleEditGoalModal(parseInt(e.parameters.item.id, 10))
+                    }
                 >
                     {goals.data.map(goal => {
                         const metadata = getMetaData(goal);
@@ -91,6 +97,50 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
                     })}
                 </List>
             </Card>
+            <FlexBox
+                direction={FlexBoxDirection.Column}
+                wrap={FlexBoxWrap.Wrap}
+                alignItems={FlexBoxAlignItems.Start}
+                justifyContent={FlexBoxJustifyContent.SpaceAround}
+                style={{ marginLeft: "80vw" }}
+            >
+                <div style={{ display: "inline-flex" }}>
+                    <div
+                        style={{
+                            background: "#b00",
+                            height: "20px",
+                            width: "20px",
+                            marginRight: "5px",
+                            marginBottom: "2px"
+                        }}
+                    />
+                    <Text>&lt; 30% Complete</Text>
+                </div>
+                <div style={{ display: "inline-flex" }}>
+                    <div
+                        style={{
+                            background: "#e9730c",
+                            height: "20px",
+                            width: "20px",
+                            marginRight: "5px",
+                            marginBottom: "2px"
+                        }}
+                    />
+                    <Text>&gt; 30% Complete</Text>
+                </div>
+                <div style={{ display: "inline-flex" }}>
+                    <div
+                        style={{
+                            background: "#107e3e",
+                            height: "20px",
+                            width: "20px",
+                            marginRight: "5px",
+                            marginBottom: "2px"
+                        }}
+                    />
+                    <Text>&lt; 100% Complete</Text>
+                </div>
+            </FlexBox>
         </>
     );
 }

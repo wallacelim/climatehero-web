@@ -16,8 +16,10 @@ export default function Goal({
     targetDate,
     target,
     progress,
-    infoState
+    infoState,
+    ref
 }) {
+    console.log(ref);
     return (
         <FlexBox
             direction={FlexBoxDirection.Row}
@@ -58,6 +60,8 @@ export default function Goal({
                 width="20%"
                 style={{ margin: "0px" }}
                 state={infoState}
+                tooltip="Test"
+                zIndex="3"
             />
         </FlexBox>
     );
