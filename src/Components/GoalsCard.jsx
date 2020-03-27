@@ -8,6 +8,12 @@ import {
     Icon,
     StandardListItem,
     ValueState,
+    FlexBox,
+    FlexBoxDirection,
+    Text,
+    FlexBoxJustifyContent,
+    FlexBoxWrap,
+    FlexBoxAlignItems
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
@@ -17,26 +23,26 @@ import "@ui5/webcomponents-icons/dist/icons/activities";
 
 import "@ui5/webcomponents-icons/dist/icons/add-activity";
 
-function GoalsCard({ goals, toggleAddGoalModal }) {
+function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
     // const handleItemClick = (item) => {
     // TODO: enable editing of goals
     // };
-
     const getMetaData = ({ currentMeasurement, targetMeasurement }) => {
-        const progress = Math.min(Math.round((currentMeasurement / targetMeasurement) * 100), 100);
+        const progress = Math.min(
+            Math.round((currentMeasurement / targetMeasurement) * 100),
+            100
+        );
         let infoState;
-        if (progress <= 0) {
-            infoState = ValueState.Error;
-        } else if (progress >= 100) {
+        if (progress >= 100) {
             infoState = ValueState.Success;
         } else if (progress <= 30) {
-            infoState = ValueState.Warning;
+            infoState = ValueState.Error;
         } else {
-            infoState = ValueState.Information;
+            infoState = ValueState.Warning;
         }
         return {
             progress,
-            infoState,
+            infoState
         };
     };
 
@@ -48,22 +54,27 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
                 style={{
                     float: "right",
                     padding: "5px 10px",
-                    marginRight: "15px",
+                    marginRight: "15px"
                 }}
             >
                 Add a goal
             </Button>
             <Card
-                heading="Your Carbon Footprint Reduction Goals"
-                subtitle="Click to add a goal"
+                heading="Your Reduction Goals"
+                subtitle="Click any goal to edit or delete"
                 style={{
                     ...spacing.sapUiContentPadding,
-                    height: "100%",
+                    height: "100%"
                 }}
                 avatar={<Icon name="activities" />}
             >
-                <List mode={ListMode.None} /* onItemClick={handleItemClick} */>
-                    {goals.data.map((goal) => {
+                <List
+                    mode={ListMode.None} /* onItemClick={handleItemClick} */
+                    onItemClick={e =>
+                        toggleEditGoalModal(parseInt(e.parameters.item.id, 10))
+                    }
+                >
+                    {goals.data.map(goal => {
                         const metadata = getMetaData(goal);
                         return (
                             <StandardListItem
@@ -86,16 +97,61 @@ function GoalsCard({ goals, toggleAddGoalModal }) {
                     })}
                 </List>
             </Card>
+            <FlexBox
+                direction={FlexBoxDirection.Column}
+                wrap={FlexBoxWrap.Wrap}
+                alignItems={FlexBoxAlignItems.Start}
+                justifyContent={FlexBoxJustifyContent.SpaceAround}
+                style={{ marginLeft: "80vw" }}
+            >
+                <div style={{ display: "inline-flex" }}>
+                    <div
+                        style={{
+                            background: "#b00",
+                            height: "20px",
+                            width: "20px",
+                            marginRight: "5px",
+                            marginBottom: "2px"
+                        }}
+                    />
+                    <Text>&lt; 30% Complete</Text>
+                </div>
+                <div style={{ display: "inline-flex" }}>
+                    <div
+                        style={{
+                            background: "#e9730c",
+                            height: "20px",
+                            width: "20px",
+                            marginRight: "5px",
+                            marginBottom: "2px"
+                        }}
+                    />
+                    <Text>&gt; 30% Complete</Text>
+                </div>
+                <div style={{ display: "inline-flex" }}>
+                    <div
+                        style={{
+                            background: "#107e3e",
+                            height: "20px",
+                            width: "20px",
+                            marginRight: "5px",
+                            marginBottom: "2px"
+                        }}
+                    />
+                    <Text>&lt; 100% Complete</Text>
+                </div>
+            </FlexBox>
         </>
     );
 }
 
 const mapStateToProps = ({ goals }) => ({
-    goals,
+    goals
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
+    toggleEditGoalModal: id => dispatch(UI.toggleEditGoalModal(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalsCard);

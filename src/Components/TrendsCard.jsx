@@ -9,13 +9,14 @@ import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
 // import { getDateTimeFromString, getAbbreviatedMonthStringFromNumber } from "../util/dateTime";
 
-
 const TrendsCard = (/* { activities } */) => {
     const [toggleCharts, setToggleCharts] = useState("lineChart");
     const [loading, setLoading] = useState(false);
 
-    const contentTitle = toggleCharts === "lineChart" ? "Line Chart" : "Bar Chart";
-    const switchToChart = toggleCharts === "lineChart" ? "Bar Chart" : "Line Chart";
+    const contentTitle =
+        toggleCharts === "lineChart" ? "Line Chart" : "Bar Chart";
+    const switchToChart =
+        toggleCharts === "lineChart" ? "Bar Chart" : "Line Chart";
 
     const handleHeaderClick = () => {
         if (toggleCharts === "lineChart") {
@@ -55,14 +56,14 @@ const TrendsCard = (/* { activities } */) => {
         "April",
         "May",
         "June",
-        "July",
+        "July"
     ];
 
     const stubReductionData = [
         {
             label: "Carbon Footprint Reductions",
-            data: [65, 59, 80, 81, 56, 55, 40],
-        },
+            data: [65, 59, 80, 81, 56, 55, 40]
+        }
     ];
 
     return (
@@ -70,7 +71,7 @@ const TrendsCard = (/* { activities } */) => {
             style={spacing.sapUiContentPadding}
             headerInteractive
             onHeaderClick={handleHeaderClick}
-            avatar={
+            avatar={(
                 <Icon
                     name={
                         toggleCharts === "lineChart"
@@ -78,7 +79,7 @@ const TrendsCard = (/* { activities } */) => {
                             : "horizontal-bar-chart"
                     }
                 />
-            }
+            )}
             heading="Your Reduction Trends"
             subtitle={`Click me to switch to ${switchToChart}`}
         >

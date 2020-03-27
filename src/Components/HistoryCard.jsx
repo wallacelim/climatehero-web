@@ -25,10 +25,10 @@ export default function HistoryCard({ style }) {
     return (
         <Card
             heading="Your Reduction History"
+            subtitle="Use the Calendar widget to edit"
             headerInteractive
             onHeaderClick={handleHeaderClick}
-            subtitle="List"
-            style={ style }
+            style={style}
             avatar={<Icon name="table-view" />}
         >
             <ActivityHistory />

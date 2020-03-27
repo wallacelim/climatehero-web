@@ -7,6 +7,6 @@ applications:
   router.disable_http: true
   services:
     - climatehero-uaa
-    - climatehero-destination
+    - climatehero-destination 
   buildpacks: 
     - https://github.com/cloudfoundry/staticfile-buildpack.git

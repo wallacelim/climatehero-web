@@ -2,7 +2,7 @@ import {
     ADD_ACTIVITY,
     DELETE_ACTIVITY,
     REQUEST_ACTIVITIES,
-    RECEIVE_ACTIVITIES,
+    RECEIVE_ACTIVITIES
 } from "../../constants/actionTypes";
 // import {
 //     VEGETARIAN_MEAL,
@@ -43,30 +43,35 @@ const initialState = {
         //     recurrence: "N/A",
         //     reduction: (Math.random() * 10).toFixed(2)
         // }
-    ],
+    ]
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-    case ADD_ACTIVITY:
-        return { ...state, ...action.payload };
+        case ADD_ACTIVITY:
+            return {
+                ...state,
+                data: [...state.data, action.payload]
+            };
 
-    case DELETE_ACTIVITY:
-        return [
-            ...state,
-            ...state.data.slice(0, action.payload.id),
-            ...state.data.slice(action.payload.id + 1),
-        ];
-    case REQUEST_ACTIVITIES:
-        return { ...state, isFetching: true };
-    case RECEIVE_ACTIVITIES:
-        return {
-            ...state,
-            isFetching: false,
-            fetched: true,
-            data: action.data,
-        };
-    default:
-        return state;
+        case DELETE_ACTIVITY:
+            return {
+                ...state,
+                data: [
+                    ...state.data.slice(0, action.payload.id),
+                    ...state.data.slice(action.payload.id + 1)
+                ]
+            };
+        case REQUEST_ACTIVITIES:
+            return { ...state, isFetching: true };
+        case RECEIVE_ACTIVITIES:
+            return {
+                ...state,
+                isFetching: false,
+                fetched: true,
+                data: action.data
+            };
+        default:
+            return state;
     }
 };

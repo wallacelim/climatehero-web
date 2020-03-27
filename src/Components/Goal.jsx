@@ -6,13 +6,20 @@ import {
     TitleLevel,
     FlexBoxDirection,
     FlexBoxAlignItems,
-    FlexBoxJustifyContent,
+    FlexBoxJustifyContent
 } from "@ui5/webcomponents-react";
 import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 
 export default function Goal({
-    name, startDate, targetDate, target, progress, infoState,
+    name,
+    startDate,
+    targetDate,
+    target,
+    progress,
+    infoState,
+    ref
 }) {
+    console.log(ref);
     return (
         <FlexBox
             direction={FlexBoxDirection.Row}
@@ -24,7 +31,7 @@ export default function Goal({
                 level={TitleLevel.H3}
                 style={{ width: "30%", margin: "0px" }}
             >
-                { name }
+                {name}
             </Title>
             <Title
                 level={TitleLevel.H5}
@@ -53,6 +60,8 @@ export default function Goal({
                 width="20%"
                 style={{ margin: "0px" }}
                 state={infoState}
+                tooltip="Test"
+                zIndex="3"
             />
         </FlexBox>
     );

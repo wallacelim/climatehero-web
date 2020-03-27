@@ -8,43 +8,45 @@ const ActivityHistory = ({ activities }) => {
     const activityColumns = [
         {
             Header: "Date",
-            accessor: "date",
+            accessor: "date"
         },
         {
             Header: "Activity Type",
-            accessor: "activityType",
+            accessor: "activityType"
         },
         {
             Header: "Measurement",
-            accessor: "measurement",
+            accessor: "measurement"
         },
         {
             Header: "CO2 Reduction",
-            accessor: "reduction",
+            accessor: "reduction"
         },
         {
             Header: "Recurrence",
-            accessor: "recurrence",
-        },
+            accessor: "recurrence"
+        }
     ];
 
     return (
         <AnalyticalTable
             columns={activityColumns}
-            data={activities.data.map((activity) => ({
+            data={activities.data.map(activity => ({
                 date: activity.date,
                 activityType: activity.type.displayName,
                 measurement: `${activity.measurement} ${activity.metric}`,
                 reduction: activity.reduction,
-                recurrence: activity.recurrence,
+                recurrence: activity.recurrence
             }))}
             style={{ width: "100%", ...spacing.sapUiContentPadding }}
+            visibleRows={10}
+            minRows={10}
         />
     );
 };
 
 const mapStateToProps = ({ activities }) => ({
-    activities,
+    activities
 });
 
 export default connect(mapStateToProps, null)(ActivityHistory);
