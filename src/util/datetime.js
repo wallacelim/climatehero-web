@@ -38,7 +38,6 @@ export const getCurrentDateTimeString = () => moment().format(DATE_TIME_FORMAT);
 
 export const getCurrentDateString = () => {
     const date = moment().format(DATE_FORMAT);
-    console.log(date);
     return date;
 };
 

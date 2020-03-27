@@ -67,8 +67,6 @@ export default function(state = initialState, action) {
                 ...state,
                 data: state.data.map(goal => {
                     if (goal.id === action.payload.id) {
-                        console.log(goal);
-                        console.log(action);
                         return {
                             ...goal,
                             ...action.payload.updates

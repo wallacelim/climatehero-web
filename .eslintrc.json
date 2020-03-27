@@ -3,7 +3,7 @@
         "browser": true,
         "es6": true
     },
-    "extends": ["plugin:react/recommended", "airbnb", "eslint-config-prettier"],
+    "extends": ["airbnb", "eslint-config-prettier"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -15,14 +15,17 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": ["react", "eslint-plugin-react", "eslint-plugin-prettier"],
+    "plugins": ["react", "eslint-plugin-prettier"],
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1, "MemberExpression": 1 }],
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
+        "react/prop-types": 0,
+        "react/jsx-wrap-multilines": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "react/jsx-curly-newline": 0,
         "quotes": ["error", "double"],
         "no-console": ["error", { "allow": ["warn", "error", "log"] }],
-        "react/prop-types": [0],
         "no-alert": [0],
         "no-shadow": [
             "error",

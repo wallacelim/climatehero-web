@@ -50,7 +50,6 @@ export function editActivityModal(state = initialState, action) {
 }
 
 export function editGoalModal(state = initialState, action) {
-    console.log(action);
     switch (action.type) {
         case TOGGLE_EDIT_GOAL_MODAL:
             return {

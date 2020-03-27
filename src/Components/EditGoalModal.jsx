@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
     Dialog,
@@ -45,19 +45,18 @@ const EditGoalModal = ({
     toggleEditGoalModal,
     editGoal
 }) => {
-    const initialState = {
-        name: null,
-        targetMeasurement: null,
-        type: null,
-        targetDate: null,
-        ...goal
-    };
-    console.log(initialState);
-    const [name, setName] = useState(initialState.name);
-    const [target, setTarget] = useState(initialState.target);
-    const [activityType, setActivityType] = useState(initialState.type);
-    const [selectedDate, setSelectedDate] = useState(initialState.targetDate);
-    console.log(`name is ${name}`);
+    const [name, setName] = useState();
+    const [target, setTarget] = useState();
+    const [activityType, setActivityType] = useState();
+    const [selectedDate, setSelectedDate] = useState();
+    useEffect(() => {
+        if (goal) {
+            setName(goal.name);
+            setTarget(goal.targetMeasurement);
+            setActivityType(goal.type);
+            setSelectedDate(goal.targetDate);
+        }
+    }, goal);
 
     const handleEdit = () => {
         if (!name) {
@@ -72,8 +71,6 @@ const EditGoalModal = ({
             alert("Please select a valid date");
             return;
         }
-        toggleEditGoalModal(goal.id);
-
         const updates = {
             name,
             startDate: getCurrentDateString(),
@@ -83,6 +80,7 @@ const EditGoalModal = ({
             targetMeasurement: parseInt(target, 10),
             metric: activityType.metric
         };
+        toggleEditGoalModal(goal.id);
         editGoal(goal.id, updates);
     };
 
@@ -113,7 +111,7 @@ const EditGoalModal = ({
             ]}
             stretch={false}
             open={editGoalModal.isOpen}
-            footer={(
+            footer={
                 <div>
                     <FlexBox
                         justifyContent={FlexBoxJustifyContent.Center}
@@ -128,7 +126,7 @@ const EditGoalModal = ({
                         </Button>
                     </FlexBox>
                 </div>
-            )}
+            }
         >
             <section>
                 <FlexBox
@@ -153,62 +151,47 @@ const EditGoalModal = ({
                             icon="physical-activity"
                             value={WALKING.name}
                         >
-                            {WALKING.displayName}
-                            {" "}
-                            (
-                            {WALKING.metric}
-                            )
+                            {WALKING.displayName} ({WALKING.metric})
                         </Option>
                         <Option
                             selected={activityType === BIKE_RIDE}
                             icon="supplier"
                             value={BIKE_RIDE.name}
                         >
-                            {BIKE_RIDE.displayName}
-                            {" "}
-                            (
-                            {BIKE_RIDE.metric}
-                            )
+                            {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
                         </Option>
                         <Option
                             selected={activityType === BUS_RIDE}
                             icon="bus-public-transport"
                             value={BUS_RIDE.name}
                         >
-                            {BUS_RIDE.displayName}
-                            {" "}
-                            (
-                            {BUS_RIDE.metric}
-                            )
+                            {BUS_RIDE.displayName} ({BUS_RIDE.metric})
                         </Option>
                         <Option
                             selected={activityType === TRAIN_RIDE}
                             icon="passenger-train"
                             value={TRAIN_RIDE.name}
                         >
-                            {TRAIN_RIDE.displayName}
-                            {" "}
-                            (
-                            {TRAIN_RIDE.metric}
-                            )
+                            {TRAIN_RIDE.displayName} ({TRAIN_RIDE.metric})
                         </Option>
                         <Option
                             selected={activityType === VEGETARIAN_MEAL}
                             icon="meal"
                             value={VEGETARIAN_MEAL.name}
                         >
-                            {VEGETARIAN_MEAL.displayName}
-                            {" "}
-                            (
-                            {VEGETARIAN_MEAL.metric}
-                            )
+                            {VEGETARIAN_MEAL.displayName} (
+                            {VEGETARIAN_MEAL.metric})
                         </Option>
                     </Select>
                     <Label>Target</Label>
                     <Input
                         type={InputType.Number}
-                        placeholder={`${target} (${initialState.metric})`}
-                        onChange={e => setTarget(e.parameters.value)}
+                        placeholder={`${target} (${
+                            activityType ? activityType.metric : ""
+                        })`}
+                        onChange={e => {
+                            setTarget(e.parameters.value);
+                        }}
                         style={sapUiSmallMarginBottom}
                     />
                     <Label>Target Date of Completion</Label>
@@ -219,7 +202,8 @@ const EditGoalModal = ({
                         disabled={false}
                         readonly={false}
                         onChange={date =>
-                            setSelectedDate(date.parameters.value)}
+                            setSelectedDate(date.parameters.value)
+                        }
                         placeholder={selectedDate}
                     />
                 </FlexBox>
@@ -231,8 +215,6 @@ const EditGoalModal = ({
 const mapStateToProps = ({ goals, editGoalModal }) => ({
     goal: goals.data.find(goal => {
         if (goal.id === editGoalModal.id) {
-            console.log(goal);
-            console.log(editGoalModal);
             return true;
         }
         return false;
