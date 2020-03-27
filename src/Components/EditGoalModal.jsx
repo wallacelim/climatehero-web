@@ -56,7 +56,7 @@ const EditGoalModal = ({
             setActivityType(goal.type);
             setSelectedDate(goal.targetDate);
         }
-    }, goal);
+    }, [goal, editGoalModal]);
 
     const handleEdit = () => {
         if (!name) {
@@ -71,6 +71,7 @@ const EditGoalModal = ({
             alert("Please select a valid date");
             return;
         }
+        toggleEditGoalModal(goal.id);
         const updates = {
             name,
             startDate: getCurrentDateString(),
@@ -80,7 +81,6 @@ const EditGoalModal = ({
             targetMeasurement: parseInt(target, 10),
             metric: activityType.metric
         };
-        toggleEditGoalModal(goal.id);
         editGoal(goal.id, updates);
     };
 
@@ -139,7 +139,7 @@ const EditGoalModal = ({
                         type={InputType.Text}
                         onChange={e => setName(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
-                        placeholder={`${name}`}
+                        value={`${name}`}
                     />
                     <Label>Type</Label>
                     <Select
@@ -183,12 +183,15 @@ const EditGoalModal = ({
                             {VEGETARIAN_MEAL.metric})
                         </Option>
                     </Select>
-                    <Label>Target</Label>
+                    <Label>
+                        Target ({activityType ? activityType.metric : ""})
+                    </Label>
                     <Input
                         type={InputType.Number}
                         placeholder={`${target} (${
                             activityType ? activityType.metric : ""
                         })`}
+                        value={target}
                         onChange={e => {
                             setTarget(e.parameters.value);
                         }}
