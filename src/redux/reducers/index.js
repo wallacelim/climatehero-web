@@ -3,7 +3,10 @@ import goals from "./goals";
 import activities from "./activities";
 import user from "./user";
 import {
-    addActivityModal, addGoalModal, editActivityModal, editGoalModal,
+    addActivityModal,
+    addGoalModal,
+    editActivityModal,
+    editGoalModal
 } from "./modals";
 
 export default combineReducers({
@@ -13,5 +16,5 @@ export default combineReducers({
     addGoalModal,
     editGoalModal,
     editActivityModal,
-    user,
+    user
 });

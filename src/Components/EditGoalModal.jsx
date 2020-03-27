@@ -14,20 +14,20 @@ import {
     FlexBoxAlignItems,
     ValueState,
     CalendarType,
-    Label,
+    Label
 } from "@ui5/webcomponents-react";
 import { DatePicker } from "@ui5/webcomponents-react/lib/DatePicker";
 import {
     sapUiContentPadding,
     sapUiTinyMargin,
-    sapUiSmallMarginBottom,
+    sapUiSmallMarginBottom
 } from "@ui5/webcomponents-react-base/lib/spacing";
 import {
     WALKING,
     BUS_RIDE,
     TRAIN_RIDE,
     BIKE_RIDE,
-    VEGETARIAN_MEAL,
+    VEGETARIAN_MEAL
 } from "../constants/activityTypes";
 import { Goal, UI } from "../redux/actionCreators";
 import "@ui5/webcomponents-icons/dist/icons/meal";
@@ -40,14 +40,17 @@ import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 
 const EditGoalModal = ({
-    goal, editGoalModal, toggleEditGoalModal, editGoal,
+    goal,
+    editGoalModal,
+    toggleEditGoalModal,
+    editGoal
 }) => {
     const initialState = {
         name: null,
         targetMeasurement: null,
         type: null,
         targetDate: null,
-        ...goal,
+        ...goal
     };
     console.log(initialState);
     const [name, setName] = useState(initialState.name);
@@ -78,12 +81,12 @@ const EditGoalModal = ({
             type: activityType,
             currentMeasurement: goal.currentMeasurement,
             targetMeasurement: parseInt(target, 10),
-            metric: activityType.metric,
+            metric: activityType.metric
         };
         editGoal(goal.id, updates);
     };
 
-    const handleSelectType = (e) => {
+    const handleSelectType = e => {
         const name = e.parameters.selectedOption.value;
         setActivityType(getActivityTypeFromString(name));
     };
@@ -106,11 +109,11 @@ const EditGoalModal = ({
                     >
                         Close
                     </Button>
-                </FlexBox>,
+                </FlexBox>
             ]}
             stretch={false}
             open={editGoalModal.isOpen}
-            footer={
+            footer={(
                 <div>
                     <FlexBox
                         justifyContent={FlexBoxJustifyContent.Center}
@@ -125,7 +128,7 @@ const EditGoalModal = ({
                         </Button>
                     </FlexBox>
                 </div>
-            }
+            )}
         >
             <section>
                 <FlexBox
@@ -136,7 +139,7 @@ const EditGoalModal = ({
                     <Label>Name</Label>
                     <Input
                         type={InputType.Text}
-                        onChange={(e) => setName(e.parameters.value)}
+                        onChange={e => setName(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
                         placeholder={`${name}`}
                     />
@@ -145,32 +148,67 @@ const EditGoalModal = ({
                         style={sapUiSmallMarginBottom}
                         onChange={handleSelectType}
                     >
-                        <Option selected={`${activityType}` === WALKING} icon="physical-activity" value={WALKING.name}>
-                            {WALKING.displayName} ({WALKING.metric})
+                        <Option
+                            selected={`${activityType}` === WALKING}
+                            icon="physical-activity"
+                            value={WALKING.name}
+                        >
+                            {WALKING.displayName}
+                            {" "}
+                            (
+                            {WALKING.metric}
+                            )
                         </Option>
-                        <Option selected={activityType === BIKE_RIDE} icon="supplier" value={BIKE_RIDE.name}>
-                            {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
+                        <Option
+                            selected={activityType === BIKE_RIDE}
+                            icon="supplier"
+                            value={BIKE_RIDE.name}
+                        >
+                            {BIKE_RIDE.displayName}
+                            {" "}
+                            (
+                            {BIKE_RIDE.metric}
+                            )
                         </Option>
                         <Option
                             selected={activityType === BUS_RIDE}
                             icon="bus-public-transport"
                             value={BUS_RIDE.name}
                         >
-                            {BUS_RIDE.displayName} ({BUS_RIDE.metric})
+                            {BUS_RIDE.displayName}
+                            {" "}
+                            (
+                            {BUS_RIDE.metric}
+                            )
                         </Option>
-                        <Option selected={activityType === TRAIN_RIDE} icon="passenger-train" value={TRAIN_RIDE.name}>
-                            {TRAIN_RIDE.displayName} ({TRAIN_RIDE.metric})
+                        <Option
+                            selected={activityType === TRAIN_RIDE}
+                            icon="passenger-train"
+                            value={TRAIN_RIDE.name}
+                        >
+                            {TRAIN_RIDE.displayName}
+                            {" "}
+                            (
+                            {TRAIN_RIDE.metric}
+                            )
                         </Option>
-                        <Option selected={activityType === VEGETARIAN_MEAL} icon="meal" value={VEGETARIAN_MEAL.name}>
-                            {VEGETARIAN_MEAL.displayName} (
-                            {VEGETARIAN_MEAL.metric})
+                        <Option
+                            selected={activityType === VEGETARIAN_MEAL}
+                            icon="meal"
+                            value={VEGETARIAN_MEAL.name}
+                        >
+                            {VEGETARIAN_MEAL.displayName}
+                            {" "}
+                            (
+                            {VEGETARIAN_MEAL.metric}
+                            )
                         </Option>
                     </Select>
                     <Label>Target</Label>
                     <Input
                         type={InputType.Number}
                         placeholder={`${target} (${initialState.metric})`}
-                        onChange={(e) => setTarget(e.parameters.value)}
+                        onChange={e => setTarget(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
                     />
                     <Label>Target Date of Completion</Label>
@@ -180,7 +218,8 @@ const EditGoalModal = ({
                         primaryCalendarType={CalendarType.Gregorian}
                         disabled={false}
                         readonly={false}
-                        onChange={(date) => setSelectedDate(date.parameters.value)}
+                        onChange={date =>
+                            setSelectedDate(date.parameters.value)}
                         placeholder={selectedDate}
                     />
                 </FlexBox>
@@ -190,7 +229,7 @@ const EditGoalModal = ({
 };
 
 const mapStateToProps = ({ goals, editGoalModal }) => ({
-    goal: goals.data.find((goal) => {
+    goal: goals.data.find(goal => {
         if (goal.id === editGoalModal.id) {
             console.log(goal);
             console.log(editGoalModal);
@@ -198,12 +237,12 @@ const mapStateToProps = ({ goals, editGoalModal }) => ({
         }
         return false;
     }),
-    editGoalModal,
+    editGoalModal
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    toggleEditGoalModal: (id) => dispatch(UI.toggleEditGoalModal(id)),
-    editGoal: (id, updates) => dispatch(Goal.edit(id, updates)),
+const mapDispatchToProps = dispatch => ({
+    toggleEditGoalModal: id => dispatch(UI.toggleEditGoalModal(id)),
+    editGoal: (id, updates) => dispatch(Goal.edit(id, updates))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditGoalModal);

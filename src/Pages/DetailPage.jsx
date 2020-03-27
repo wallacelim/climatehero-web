@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
     Button,
     ObjectPage,
-    ObjectPageSection,
+    ObjectPageSection
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import CalendarCard from "../Components/CalendarCard";
@@ -14,7 +14,7 @@ const DetailPage = ({ toggleAddActivityModal }) => (
     <ObjectPage
         title="Climate Hero"
         headerActions={[
-            <Button onClick={toggleAddActivityModal}>Track</Button>,
+            <Button onClick={toggleAddActivityModal}>Track</Button>
         ]}
         style={{ height: "100vh", ...spacing.sapUiContentPadding }}
     >
@@ -27,8 +27,8 @@ const DetailPage = ({ toggleAddActivityModal }) => (
     </ObjectPage>
 );
 
-const mapDispatchToProps = (dispatch) => ({
-    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
+const mapDispatchToProps = dispatch => ({
+    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal())
 });
 
 export default connect(null, mapDispatchToProps)(DetailPage);

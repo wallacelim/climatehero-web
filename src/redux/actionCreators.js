@@ -12,7 +12,7 @@ import {
     TOGGLE_EDIT_ACTIVITY_MODAL,
     TOGGLE_ADD_GOAL_MODAL,
     TOGGLE_EDIT_GOAL_MODAL,
-    USER_LOGIN,
+    USER_LOGIN
 } from "../constants/actionTypes";
 
 const nextGoalId = 0;
@@ -27,7 +27,7 @@ export const Goal = {
         currentMeasurement,
         targetMeasurement,
         metric,
-        progress,
+        progress
     }) => ({
         type: ADD_GOAL,
         payload: {
@@ -39,64 +39,60 @@ export const Goal = {
             currentMeasurement,
             targetMeasurement,
             metric,
-            progress,
-        },
+            progress
+        }
     }),
 
-    delete: (id) => ({
+    delete: id => ({
         type: DELETE_GOAL,
         payload: {
-            id,
-        },
+            id
+        }
     }),
 
     edit: (id, updates) => ({
         type: EDIT_GOAL,
         payload: {
             id,
-            updates,
-        },
+            updates
+        }
     }),
 
     updateAll: ({ type, measurement }) => ({
         type: UPDATE_GOALS,
         payload: {
             type,
-            measurement,
-        },
-    }),
+            measurement
+        }
+    })
 };
-
 
 export const UI = {
     toggleAddGoalModal: () => ({
-        type: TOGGLE_ADD_GOAL_MODAL,
-
+        type: TOGGLE_ADD_GOAL_MODAL
     }),
 
     toggleAddActivityModal: () => ({
-        type: TOGGLE_ADD_ACTIVITY_MODAL,
+        type: TOGGLE_ADD_ACTIVITY_MODAL
     }),
 
-    toggleEditActivityModal: (id) => ({
+    toggleEditActivityModal: id => ({
         type: TOGGLE_EDIT_ACTIVITY_MODAL,
         payload: {
-            id,
-        },
+            id
+        }
     }),
 
-    toggleEditGoalModal: (id) => ({
+    toggleEditGoalModal: id => ({
         type: TOGGLE_EDIT_GOAL_MODAL,
         payload: {
-            id,
-        },
-    }),
+            id
+        }
+    })
 };
 
 export const Activity = {
-    add: ({
-        date, type, measurement, metric, recurrence, reduction,
-    }) => ({
+    add: ({ date, type, measurement, metric, recurrence, reduction }) => ({
         type: ADD_ACTIVITY,
         payload: {
             id: nextActivityId + 1,
@@ -105,32 +101,32 @@ export const Activity = {
             measurement,
             metric,
             recurrence,
-            reduction,
-        },
+            reduction
+        }
     }),
-    delete: (id) => ({
+    delete: id => ({
         type: DELETE_ACTIVITY,
         payload: {
-            id,
-        },
+            id
+        }
     }),
 
-    request: (userId) => ({
+    request: userId => ({
         type: REQUEST_ACTIVITIES,
-        userId,
+        userId
     }),
-    receive: (json) => ({
+    receive: json => ({
         type: RECEIVE_ACTIVITIES,
         data: json,
-        receivedAt: Date.now(),
+        receivedAt: Date.now()
     }),
 
-    fetchAll: () => (dispatch) => {
+    fetchAll: () => dispatch => {
         dispatch(Activity.request());
         return fetch("http://localhost:8080/reductions")
-            .then((response) => response.json())
-            .then((json) => dispatch(Activity.receive(json)));
-    },
+            .then(response => response.json())
+            .then(json => dispatch(Activity.receive(json)));
+    }
 };
 
 export const User = {
@@ -138,7 +134,7 @@ export const User = {
         type: USER_LOGIN,
         payload: {
             firstName: "Firstname",
-            lastName: "Lastname",
-        },
-    }),
+            lastName: "Lastname"
+        }
+    })
 };

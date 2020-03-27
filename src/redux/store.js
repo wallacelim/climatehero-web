@@ -7,7 +7,7 @@ import { Activity, User } from "./actionCreators";
 const loggerMiddleware = createLogger();
 const store = createStore(
     rootReducer,
-    applyMiddleware(thunkMiddleware, loggerMiddleware),
+    applyMiddleware(thunkMiddleware, loggerMiddleware)
 );
 
 store.dispatch(Activity.fetchAll());

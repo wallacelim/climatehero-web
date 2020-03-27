@@ -2,12 +2,12 @@ import {
     ADD_GOAL,
     DELETE_GOAL,
     EDIT_GOAL,
-    UPDATE_GOALS,
+    UPDATE_GOALS
 } from "../../constants/actionTypes";
 import {
     VEGETARIAN_MEAL,
     BIKE_RIDE,
-    BUS_RIDE,
+    BUS_RIDE
 } from "../../constants/activityTypes";
 
 const initialState = {
@@ -22,7 +22,7 @@ const initialState = {
             type: VEGETARIAN_MEAL,
             currentMeasurement: 5,
             targetMeasurement: 10,
-            metric: "meals",
+            metric: "meals"
         },
         {
             id: -2,
@@ -32,7 +32,7 @@ const initialState = {
             type: BIKE_RIDE,
             currentMeasurement: 30,
             targetMeasurement: 100,
-            metric: "km",
+            metric: "km"
         },
         {
             id: -3,
@@ -42,57 +42,58 @@ const initialState = {
             type: BUS_RIDE,
             currentMeasurement: 90,
             targetMeasurement: 100,
-            metric: "km",
-        },
-    ],
+            metric: "km"
+        }
+    ]
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     switch (action.type) {
-    case ADD_GOAL:
-        return {
-            ...state,
-            data: [...state.data, action.payload],
-        };
-    case DELETE_GOAL:
-        return {
-            ...state,
-            data: [
-                ...state.data.slice(0, action.payload.id),
-                ...state.slice(action.payload.id + 1),
-            ],
-        };
-    case EDIT_GOAL:
-        return {
-            ...state,
-            data: state.data.map((goal) => {
-                if (goal.id === action.payload.id) {
-                    console.log(goal);
-                    console.log(action);
-                    return {
-                        ...goal,
-                        ...action.payload.updates,
-                    };
-                }
-                return goal;
-            }),
-        };
-    case UPDATE_GOALS:
-        return {
-            ...state,
-            data: state.data.map((goal) => {
-                if (goal.type === action.payload.type) {
-                    const updatedCurrentMeasurement = goal.currentMeasurement
-                    + action.payload.measurement;
-                    return {
-                        ...goal,
-                        currentMeasurement: updatedCurrentMeasurement,
-                    };
-                }
-                return goal;
-            }),
-        };
-    default:
-        return state;
+        case ADD_GOAL:
+            return {
+                ...state,
+                data: [...state.data, action.payload]
+            };
+        case DELETE_GOAL:
+            return {
+                ...state,
+                data: [
+                    ...state.data.slice(0, action.payload.id),
+                    ...state.slice(action.payload.id + 1)
+                ]
+            };
+        case EDIT_GOAL:
+            return {
+                ...state,
+                data: state.data.map(goal => {
+                    if (goal.id === action.payload.id) {
+                        console.log(goal);
+                        console.log(action);
+                        return {
+                            ...goal,
+                            ...action.payload.updates
+                        };
+                    }
+                    return goal;
+                })
+            };
+        case UPDATE_GOALS:
+            return {
+                ...state,
+                data: state.data.map(goal => {
+                    if (goal.type === action.payload.type) {
+                        const updatedCurrentMeasurement =
+                            goal.currentMeasurement +
+                            action.payload.measurement;
+                        return {
+                            ...goal,
+                            currentMeasurement: updatedCurrentMeasurement
+                        };
+                    }
+                    return goal;
+                })
+            };
+        default:
+            return state;
     }
 }

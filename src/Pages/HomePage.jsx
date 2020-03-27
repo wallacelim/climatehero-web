@@ -18,7 +18,10 @@ function HomePage({ user, toggleAddActivityModal }) {
             }
             mode={ObjectPageMode.Default}
             style={{
-                ...spacing.sapUiContentPadding, height: "100vh", position: "absolute", top: "0",
+                ...spacing.sapUiContentPadding,
+                height: "100vh",
+                position: "absolute",
+                top: "0"
             }}
         >
             <ObjectPageSection title="Calendar" id="HomePageCalendarSection">
@@ -51,8 +54,8 @@ function HomePage({ user, toggleAddActivityModal }) {
 
 const mapStateToProps = ({ user }) => ({ user });
 
-const mapDispatchToProps = (dispatch) => ({
-    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
+const mapDispatchToProps = dispatch => ({
+    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

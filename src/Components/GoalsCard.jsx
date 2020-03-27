@@ -7,7 +7,7 @@ import {
     Card,
     Icon,
     StandardListItem,
-    ValueState,
+    ValueState
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
@@ -23,7 +23,10 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
     // };
 
     const getMetaData = ({ currentMeasurement, targetMeasurement }) => {
-        const progress = Math.min(Math.round((currentMeasurement / targetMeasurement) * 100), 100);
+        const progress = Math.min(
+            Math.round((currentMeasurement / targetMeasurement) * 100),
+            100
+        );
         let infoState;
         if (progress >= 100) {
             infoState = ValueState.Success;
@@ -34,7 +37,7 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
         }
         return {
             progress,
-            infoState,
+            infoState
         };
     };
 
@@ -46,7 +49,7 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
                 style={{
                     float: "right",
                     padding: "5px 10px",
-                    marginRight: "15px",
+                    marginRight: "15px"
                 }}
             >
                 Add a goal
@@ -56,13 +59,16 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
                 subtitle="Click any goal to edit or delete"
                 style={{
                     ...spacing.sapUiContentPadding,
-                    height: "100%",
+                    height: "100%"
                 }}
                 avatar={<Icon name="activities" />}
             >
-                <List mode={ListMode.None} /* onItemClick={handleItemClick} */
-                    onItemClick={(e) => toggleEditGoalModal(parseInt(e.parameters.item.id, 10))}>
-                    {goals.data.map((goal) => {
+                <List
+                    mode={ListMode.None} /* onItemClick={handleItemClick} */
+                    onItemClick={e =>
+                        toggleEditGoalModal(parseInt(e.parameters.item.id, 10))}
+                >
+                    {goals.data.map(goal => {
                         const metadata = getMetaData(goal);
                         return (
                             <StandardListItem
@@ -90,12 +96,12 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
 }
 
 const mapStateToProps = ({ goals }) => ({
-    goals,
+    goals
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
-    toggleEditGoalModal: (id) => dispatch(UI.toggleEditGoalModal(id)),
+    toggleEditGoalModal: id => dispatch(UI.toggleEditGoalModal(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalsCard);

@@ -6,7 +6,7 @@ import {
     Card,
     FlexBox,
     FlexBoxJustifyContent,
-    FlexBoxAlignItems,
+    FlexBoxAlignItems
 } from "@ui5/webcomponents-react";
 import { Icon } from "@ui5/webcomponents-react/lib/Icon";
 import "@ui5/webcomponents-icons/dist/icons/appointment-2";
@@ -21,7 +21,7 @@ const CalendarCard = ({ style }) => {
             heading="Your Calendar"
             subtitle="Select a date to edit activities"
             style={{
-                ...style,
+                ...style
             }}
             avatar={<Icon name="appointment-2" />}
         >
@@ -32,8 +32,7 @@ const CalendarCard = ({ style }) => {
             >
                 <Calendar
                     calendarType="ISO 8601"
-                    onChange={(date) => setSelectedDate(getDateAsString(date))
-                    }
+                    onChange={date => setSelectedDate(getDateAsString(date))}
                     width="1000px"
                 />
                 <FlexBox
@@ -42,11 +41,15 @@ const CalendarCard = ({ style }) => {
                     style={{
                         ...style,
                         width: "100%",
-                        height: "100%",
+                        height: "100%"
                     }}
                 >
                     {selectedDate ? (
-                        <h5>Some information for the date: {selectedDate}</h5>
+                        <h5>
+                            Some information for the date:
+                            {" "}
+                            {selectedDate}
+                        </h5>
                     ) : (
                         <p>Select a date to edit</p>
                     )}

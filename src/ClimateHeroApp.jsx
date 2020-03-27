@@ -1,7 +1,5 @@
 import React from "react";
-import {
-    Switch, Route, Redirect, Router,
-} from "react-router-dom";
+import { Switch, Route, Redirect, Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import "@ui5/webcomponents-icons/dist/icons/add";
 import DetailPage from "./Pages/DetailPage";
@@ -22,7 +20,7 @@ export default function ClimateHeroApp() {
             </Switch>
             <AddActivityModal />
             <AddGoalModal />
-            <EditGoalModal/>
+            <EditGoalModal />
         </Router>
     );
 }
