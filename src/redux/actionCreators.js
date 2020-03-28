@@ -17,7 +17,58 @@ import {
 } from "../constants/actionTypes";
 
 const nextGoalId = 0;
-const nextActivityId = 0;
+
+export const Activity = {
+    add: ({
+        id,
+        userId,
+        type,
+        metric,
+        measurement,
+        reductionValue,
+        dateTimeOfActivity
+        // UNUSED: dateTimeCreated
+        // UNUSED: comment
+    }) => ({
+        type: ADD_ACTIVITY,
+        payload: {
+            id,
+            userId,
+            type,
+            metric,
+            measurement,
+            reductionValue,
+            dateTimeOfActivity,
+            recurrence: false // TODO: standardize with backend
+        }
+    }),
+    delete: id => ({
+        type: DELETE_ACTIVITY,
+        payload: {
+            id
+        }
+    }),
+
+    request: userId => ({
+        type: REQUEST_ACTIVITIES,
+        userId
+    }),
+
+    receive: json => ({
+        type: RECEIVE_ACTIVITIES,
+        data: json,
+        receivedAt: Date.now()
+    }),
+
+    fetchAll: () => dispatch => {
+        dispatch(Activity.request());
+        return fetch(
+            "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities"
+        )
+            .then(response => response.json())
+            .then(json => dispatch(Activity.receive(json)));
+    }
+};
 
 export const Goal = {
     add: ({
@@ -94,44 +145,6 @@ export const UI = {
             id
         }
     })
-};
-
-export const Activity = {
-    add: ({ date, type, measurement, metric, recurrence, reduction }) => ({
-        type: ADD_ACTIVITY,
-        payload: {
-            id: nextActivityId + 1,
-            date,
-            type,
-            measurement,
-            metric,
-            recurrence,
-            reduction
-        }
-    }),
-    delete: id => ({
-        type: DELETE_ACTIVITY,
-        payload: {
-            id
-        }
-    }),
-
-    request: userId => ({
-        type: REQUEST_ACTIVITIES,
-        userId
-    }),
-    receive: json => ({
-        type: RECEIVE_ACTIVITIES,
-        data: json,
-        receivedAt: Date.now()
-    }),
-
-    fetchAll: () => dispatch => {
-        dispatch(Activity.request());
-        return fetch("http://localhost:8080/reductions")
-            .then(response => response.json())
-            .then(json => dispatch(Activity.receive(json)));
-    }
 };
 
 export const User = {

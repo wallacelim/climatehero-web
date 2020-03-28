@@ -4,24 +4,24 @@ export const WALKING = {
     metric: "steps"
 };
 
-export const BIKE_RIDE = {
-    name: "BIKE_RIDE",
-    displayName: "Bike Ride",
+export const COMMUTE_BIKE = {
+    name: "COMMUTE_BIKE",
+    displayName: "Commute by Bike",
     metric: "km"
 };
 
-export const BUS_RIDE = {
-    name: "BUS_RIDE",
-    displayName: "Bus Ride",
+export const COMMUTE_BUS = {
+    name: "COMMUTE_BUS",
+    displayName: "Commute by Bus",
     metric: "km"
 };
-export const TRAIN_RIDE = {
-    name: "TRAIN_RIDE",
-    displayName: "Train Ride",
+export const COMMUTE_TRAIN = {
+    name: "COMMUTE_TRAIN",
+    displayName: "Commute by Train",
     metric: "km"
 };
-export const VEGETARIAN_MEAL = {
-    name: "VEGETARIAN_MEAL",
+export const MEAL_VEGETARIAN = {
+    name: "MEAL_VEGETARIAN",
     displayName: "Vegetarian Meal",
     metric: "meals"
 };

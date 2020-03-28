@@ -4,10 +4,11 @@ import {
     EDIT_GOAL,
     UPDATE_GOALS
 } from "../../constants/actionTypes";
+
 import {
-    VEGETARIAN_MEAL,
-    BIKE_RIDE,
-    BUS_RIDE
+    MEAL_VEGETARIAN,
+    COMMUTE_BIKE,
+    COMMUTE_BUS
 } from "../../constants/activityTypes";
 
 const initialState = {
@@ -18,8 +19,9 @@ const initialState = {
             id: -1,
             name: "Eat veggie meals",
             startDate: new Date().toLocaleDateString(),
+
             targetDate: new Date().toLocaleDateString(),
-            type: VEGETARIAN_MEAL,
+            type: MEAL_VEGETARIAN,
             currentMeasurement: 5,
             targetMeasurement: 10,
             metric: "meals"
@@ -29,7 +31,7 @@ const initialState = {
             name: "Bike to work",
             startDate: new Date().toLocaleDateString(),
             targetDate: new Date().toLocaleDateString(),
-            type: BIKE_RIDE,
+            type: COMMUTE_BIKE,
             currentMeasurement: 30,
             targetMeasurement: 100,
             metric: "km"
@@ -39,7 +41,7 @@ const initialState = {
             name: "Take the bus",
             startDate: new Date().toLocaleDateString(),
             targetDate: new Date().toLocaleDateString(),
-            type: BUS_RIDE,
+            type: COMMUTE_BUS,
             currentMeasurement: 90,
             targetMeasurement: 100,
             metric: "km"
