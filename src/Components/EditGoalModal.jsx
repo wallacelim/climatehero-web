@@ -13,10 +13,10 @@ import {
     FlexBoxJustifyContent,
     FlexBoxAlignItems,
     ValueState,
+    DatePicker,
     CalendarType,
     Label
 } from "@ui5/webcomponents-react";
-import { DatePicker } from "@ui5/webcomponents-react/lib/DatePicker";
 import {
     sapUiContentPadding,
     sapUiTinyMargin,

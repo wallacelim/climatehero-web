@@ -23,4 +23,4 @@ export const getActivityTypeFromString = activityString => {
     }
 };
 
-export const stub = "STUB";
+export const stub = "STUB"; // TODO: remove

@@ -1,17 +1,26 @@
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { spacing } from "@ui5/webcomponents-react-base";
+import { BarChart, LineChart } from "@ui5/webcomponents-react-charts";
+import { Card, Icon, Text } from "@ui5/webcomponents-react";
+import moment from "moment";
+import RetroactivePeriodSelector from "./RetroactivePeriodSelector";
+import {
+    getDateTimeFromString,
+    getAbbreviatedMonthStringFromNumber
+} from "../util/dateTime";
+
 import "@ui5/webcomponents-icons/dist/icons/horizontal-bar-chart";
 import "@ui5/webcomponents-icons/dist/icons/line-chart";
 
-import { BarChart, LineChart } from "@ui5/webcomponents-react-charts";
-import { Card, Icon, Text } from "@ui5/webcomponents-react";
-import React, { useState } from "react";
-
-import { connect } from "react-redux";
-import { spacing } from "@ui5/webcomponents-react-base";
-// import { getDateTimeFromString, getAbbreviatedMonthStringFromNumber } from "../util/dateTime";
-
-const TrendsCard = (/* { activities } */) => {
+const TrendsCard = ({ activities }) => {
     const [toggleCharts, setToggleCharts] = useState("lineChart");
     const [loading, setLoading] = useState(false);
+    const [filteredActivities, setFilteredActivities] = useState(
+        activities.data
+    );
+    const [labels, setLabels] = useState([]);
+    const [data, setData] = useState({});
 
     const contentTitle =
         toggleCharts === "lineChart" ? "Line Chart" : "Bar Chart";
@@ -34,37 +43,61 @@ const TrendsCard = (/* { activities } */) => {
         }
     };
 
-    // const monthLabels = activities.data.map((activity) => {
-    //     const date = getDateTimeFromString(activity.date);
-    //     const month = getAbbreviatedMonthStringFromNumber(date.month());
-    //     const year = date.year().toString();
-    //     return `${month} ${year.slice(2)}`;
-    // });
+    const handleFilter = (timeValue, timeUnit) => {
+        console.log(
+            `handlefilter called with ${timeValue} ${timeUnit.unitString}`
+        );
+        setFilteredActivities(
+            activities.data.filter(activity => {
+                console.log(`infilter: ${timeValue} ${timeUnit.unitString}`);
+                return getDateTimeFromString(
+                    activity.dateTimeOfActivity
+                ).isBetween(
+                    moment().subtract(timeValue, timeUnit.unitString),
+                    moment(),
+                    null,
+                    "[]"
+                );
+            })
+        );
+    };
 
-    // const reductionData = {
-    //     label: "Carbon Footprint Reductions",
-    //     data: monthLabels.map((month) => activities.data.filter(
-    //         (activity) => getDateTimeFromString(activity.date).month()
-    //                 === month,
-    //     )),
-    // };
+    useEffect(() => {
+        console.log(filteredActivities);
+        setLabels(
+            filteredActivities
+                .map(activity => activity.dateTimeOfActivity)
+                .reduce((months, dateTime) => {
+                    const month = getDateTimeFromString(dateTime).get("month");
+                    if (!months.includes(month)) {
+                        months.push(month);
+                    }
+                    return months;
+                }, [])
+        );
+    }, [filteredActivities]);
 
-    const stubMonthLabels = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July"
-    ];
+    useEffect(() => {
+        setData([
+            {
+                label: "Carbon Footprint Reductions",
+                data: filteredActivities.reduce((reductions, activity) => {
+                    const month = getDateTimeFromString(
+                        activity.dateTimeOfActivity
+                    ).get("month");
+                    console.log(`month: ${month}`);
+                    // eslint-disable-next-line no-param-reassign
+                    reductions[labels.indexOf(month)] = activity.reductionValue;
+                    return reductions;
+                }, new Array(labels.length))
+            }
+        ]);
+    }, [labels, filteredActivities]);
 
-    const stubReductionData = [
-        {
-            label: "Carbon Footprint Reductions",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        }
-    ];
+    // useEffect(() => {
+    //     console.log(labels);
+    //     console.log(data);
+    // }, [data]);
 
     return (
         <Card
@@ -83,12 +116,17 @@ const TrendsCard = (/* { activities } */) => {
             heading="Your Reduction Trends"
             subtitle={`Click me to switch to ${switchToChart}`}
         >
-            <Text style={spacing.sapUiContentPadding}>{contentTitle}</Text>
+            <RetroactivePeriodSelector handleFilter={handleFilter} />
+            <Text style={{ ...spacing.sapUiContentPadding, color: "grey" }}>
+                {contentTitle}
+            </Text>
             {toggleCharts === "lineChart" ? (
                 <LineChart
                     width="100%"
-                    datasets={stubReductionData}
-                    labels={stubMonthLabels}
+                    datasets={data}
+                    labels={labels.map(x =>
+                        getAbbreviatedMonthStringFromNumber(x)
+                    )}
                     loading={loading}
                     style={spacing.sapUiContentPadding}
                 />
@@ -96,8 +134,10 @@ const TrendsCard = (/* { activities } */) => {
                 <BarChart
                     width="100%"
                     style={spacing.sapUiContentPadding}
-                    datasets={stubReductionData}
-                    labels={stubMonthLabels}
+                    datasets={data}
+                    labels={labels.map(x =>
+                        getAbbreviatedMonthStringFromNumber(x)
+                    )}
                     loading={loading}
                 />
             )}

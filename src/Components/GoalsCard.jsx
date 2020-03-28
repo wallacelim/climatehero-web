@@ -42,9 +42,6 @@ const legendStyles = {
 };
 
 function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
-    // const handleItemClick = (item) => {
-    // TODO: enable editing of goals
-    // };
     const getMetaData = ({ fulfillment, measurement }) => {
         const progress = Math.min(
             Math.round((fulfillment / measurement) * 100),

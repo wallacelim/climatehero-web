@@ -30,7 +30,7 @@ export const getAbbreviatedMonthStringFromNumber = monthNumber => {
         case 12:
             return "Dec";
         default:
-            return "Stub"; // TODO: throw new error once API fully connected
+            throw new Error("Invalid month number");
     }
 };
 
