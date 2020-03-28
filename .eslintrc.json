@@ -23,7 +23,8 @@
             {
                 "SwitchCase": 1,
                 "MemberExpression": 1,
-                "flatTernaryExpressions": false
+                "flatTernaryExpressions": true,
+                "ignoredNodes": ["ConditionalExpression"]
             }
         ],
         "react/jsx-indent": ["error", 4],

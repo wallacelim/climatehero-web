@@ -20,8 +20,6 @@ export default ({ handleFilter }) => {
     const [timeUnit, setTimeUnit] = useState(MONTH);
 
     useEffect(() => {
-        console.log(timeUnit);
-        console.log(timeValue);
         handleFilter(timeValue, timeUnit);
         // eslint-disable-next-line
     }, [timeValue, timeUnit]); // TODO: add dependency, fix infinite loop that ensues

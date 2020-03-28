@@ -44,12 +44,8 @@ const TrendsCard = ({ activities }) => {
     };
 
     const handleFilter = (timeValue, timeUnit) => {
-        console.log(
-            `handlefilter called with ${timeValue} ${timeUnit.unitString}`
-        );
         setFilteredActivities(
             activities.data.filter(activity => {
-                console.log(`infilter: ${timeValue} ${timeUnit.unitString}`);
                 return getDateTimeFromString(
                     activity.dateTimeOfActivity
                 ).isBetween(
@@ -63,7 +59,6 @@ const TrendsCard = ({ activities }) => {
     };
 
     useEffect(() => {
-        console.log(filteredActivities);
         setLabels(
             filteredActivities
                 .map(activity => activity.dateTimeOfActivity)
@@ -85,7 +80,6 @@ const TrendsCard = ({ activities }) => {
                     const month = getDateTimeFromString(
                         activity.dateTimeOfActivity
                     ).get("month");
-                    console.log(`month: ${month}`);
                     // eslint-disable-next-line no-param-reassign
                     reductions[labels.indexOf(month)] = activity.reductionValue;
                     return reductions;

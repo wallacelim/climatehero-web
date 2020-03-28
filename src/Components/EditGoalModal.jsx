@@ -84,7 +84,6 @@ const EditGoalModal = ({
         };
         editGoal(goal.id, updates);
     };
-    console.log(goal);
     const handleSelectType = e => {
         setActivityType(
             getActivityTypeFromString(e.parameters.selectedOption.value)
