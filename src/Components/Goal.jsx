@@ -16,10 +16,8 @@ export default function Goal({
     targetDate,
     target,
     progress,
-    infoState,
-    ref
+    infoState
 }) {
-    console.log(ref);
     return (
         <FlexBox
             direction={FlexBoxDirection.Row}

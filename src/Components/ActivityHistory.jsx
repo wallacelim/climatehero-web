@@ -1,10 +1,11 @@
 import React from "react";
-
+import moment from "moment";
 import { AnalyticalTable } from "@ui5/webcomponents-react";
 import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
+import { getDateTimeFromString, getDateFromString } from "../util/dateTime";
 
-const ActivityHistory = ({ activities }) => {
+const ActivityHistory = ({ activities, dateRangeStart, dateRangeEnd }) => {
     const activityColumns = [
         {
             Header: "Date / Time",
@@ -31,13 +32,29 @@ const ActivityHistory = ({ activities }) => {
     return (
         <AnalyticalTable
             columns={activityColumns}
-            data={activities.data.map(activity => ({
-                dateTime: activity.dateTimeOfActivity,
-                type: activity.type.displayName,
-                measurement: `${activity.measurement} ${activity.metric}`,
-                reduction: activity.reductionValue,
-                recurrence: activity.recurrence ? activity.recurrence : "N/A"
-            }))}
+            data={activities.data
+                .filter(activity => {
+                    if (Boolean(dateRangeEnd) && Boolean(dateRangeStart)) {
+                        getDateTimeFromString(
+                            activity.dateTimeOfActivity
+                        ).isBetween(
+                            getDateFromString(dateRangeStart),
+                            getDateFromString(dateRangeEnd),
+                            null,
+                            "[]"
+                        );
+                    }
+                    return true;
+                })
+                .map(activity => ({
+                    dateTime: activity.dateTimeOfActivity,
+                    type: activity.type.displayName,
+                    measurement: `${activity.measurement} ${activity.metric}`,
+                    reduction: activity.reductionValue,
+                    recurrence: activity.recurrence
+                        ? activity.recurrence
+                        : "N/A"
+                }))}
             style={{
                 height: "100%",
                 width: "100%",
@@ -49,8 +66,10 @@ const ActivityHistory = ({ activities }) => {
     );
 };
 
-const mapStateToProps = ({ activities }) => ({
-    activities
+const mapStateToProps = ({ activities }, { dateRangeStart, dateRangeEnd }) => ({
+    activities,
+    dateRangeStart,
+    dateRangeEnd
 });
 
 export default connect(mapStateToProps, null)(ActivityHistory);

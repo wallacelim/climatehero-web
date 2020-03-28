@@ -11,15 +11,16 @@ import {
 import { Icon } from "@ui5/webcomponents-react/lib/Icon";
 import "@ui5/webcomponents-icons/dist/icons/appointment-2";
 
+import ActivityHistory from "./ActivityHistory";
 import { getDateAsString } from "../util/dateTime";
 
 const CalendarCard = ({ style }) => {
-    const [selectedDate, setSelectedDate] = useState(null);
-
+    const [selectedStartDate, setSelectedStartDate] = useState(null);
+    const [selectedEndDate, setSelectedEndDate] = useState(null);
     return (
         <Card
             heading="Your Calendar"
-            subtitle="Select a date to edit activities"
+            subtitle="Select a date range to view activities"
             style={{
                 ...style
             }}
@@ -32,9 +33,14 @@ const CalendarCard = ({ style }) => {
             >
                 <Calendar
                     calendarType="ISO 8601"
-                    onChange={date => setSelectedDate(getDateAsString(date))}
+                    onChange={([startDate, endDate]) => {
+                        setSelectedStartDate(getDateAsString(startDate));
+                        setSelectedEndDate(getDateAsString(endDate));
+                    }}
                     width="1000px"
+                    selectRange
                 />
+
                 <FlexBox
                     justifyContent={FlexBoxJustifyContent.Center}
                     alignItems={FlexBoxAlignItems.Center}
@@ -44,11 +50,10 @@ const CalendarCard = ({ style }) => {
                         height: "100%"
                     }}
                 >
-                    {selectedDate ? (
-                        <h5>Some information for the date: {selectedDate}</h5>
-                    ) : (
-                        <p>Select a date to edit</p>
-                    )}
+                    <ActivityHistory
+                        dateRangeStart={selectedStartDate}
+                        dateRangeEnd={selectedEndDate}
+                    />
                 </FlexBox>
             </FlexBox>
         </Card>

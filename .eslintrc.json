@@ -17,7 +17,15 @@
     },
     "plugins": ["react", "eslint-plugin-prettier"],
     "rules": {
-        "indent": ["error", 4, { "SwitchCase": 1, "MemberExpression": 1 }],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1,
+                "MemberExpression": 1,
+                "flatTernaryExpressions": false
+            }
+        ],
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
         "react/prop-types": 0,
