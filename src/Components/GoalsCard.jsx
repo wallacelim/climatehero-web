@@ -23,6 +23,24 @@ import "@ui5/webcomponents-icons/dist/icons/activities";
 
 import "@ui5/webcomponents-icons/dist/icons/add-activity";
 
+const legendStyles = {
+    container: {
+        position: "relative",
+        top: "-333px",
+        right: "20px"
+    },
+    label: {
+        display: "inline-flex",
+        width: "150px"
+    },
+    icon: {
+        height: "20px",
+        width: "20px",
+        marginRight: "5px",
+        marginBottom: "2px"
+    }
+};
+
 function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
     // const handleItemClick = (item) => {
     // TODO: enable editing of goals
@@ -100,42 +118,33 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
             <FlexBox
                 direction={FlexBoxDirection.Column}
                 wrap={FlexBoxWrap.Wrap}
-                alignItems={FlexBoxAlignItems.Start}
+                alignItems={FlexBoxAlignItems.End}
                 justifyContent={FlexBoxJustifyContent.SpaceAround}
-                style={{ marginLeft: "80vw" }}
+                style={legendStyles.container}
             >
-                <div style={{ display: "inline-flex" }}>
+                <div style={legendStyles.label}>
                     <div
                         style={{
                             background: "#b00",
-                            height: "20px",
-                            width: "20px",
-                            marginRight: "5px",
-                            marginBottom: "2px"
+                            ...legendStyles.icon
                         }}
                     />
                     <Text>&lt; 30% Complete</Text>
                 </div>
-                <div style={{ display: "inline-flex" }}>
+                <div style={legendStyles.label}>
                     <div
                         style={{
                             background: "#e9730c",
-                            height: "20px",
-                            width: "20px",
-                            marginRight: "5px",
-                            marginBottom: "2px"
+                            ...legendStyles.icon
                         }}
                     />
                     <Text>&gt; 30% Complete</Text>
                 </div>
-                <div style={{ display: "inline-flex" }}>
+                <div style={legendStyles.label}>
                     <div
                         style={{
                             background: "#107e3e",
-                            height: "20px",
-                            width: "20px",
-                            marginRight: "5px",
-                            marginBottom: "2px"
+                            ...legendStyles.icon
                         }}
                     />
                     <Text>&lt; 100% Complete</Text>
