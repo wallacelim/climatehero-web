@@ -7,12 +7,12 @@ import { spacing } from "@ui5/webcomponents-react-base";
 const ActivityHistory = ({ activities }) => {
     const activityColumns = [
         {
-            Header: "Date",
-            accessor: "date"
+            Header: "Date / Time",
+            accessor: "dateTime"
         },
         {
             Header: "Activity Type",
-            accessor: "activityType"
+            accessor: "type"
         },
         {
             Header: "Measurement",
@@ -32,15 +32,19 @@ const ActivityHistory = ({ activities }) => {
         <AnalyticalTable
             columns={activityColumns}
             data={activities.data.map(activity => ({
-                date: activity.date,
-                activityType: activity.type.displayName,
+                dateTime: activity.dateTimeOfActivity,
+                type: activity.type.displayName,
                 measurement: `${activity.measurement} ${activity.metric}`,
-                reduction: activity.reduction,
-                recurrence: activity.recurrence
+                reduction: activity.reductionValue,
+                recurrence: activity.recurrence ? activity.recurrence : "N/A"
             }))}
-            style={{ width: "100%", ...spacing.sapUiContentPadding }}
-            visibleRows={10}
-            minRows={10}
+            style={{
+                height: "100%",
+                width: "100%",
+                ...spacing.sapUiContentPadding
+            }}
+            visibleRows={7}
+            minRows={7}
         />
     );
 };

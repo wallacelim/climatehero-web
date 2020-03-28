@@ -24,10 +24,10 @@ import {
 } from "@ui5/webcomponents-react-base/lib/spacing";
 import {
     WALKING,
-    BUS_RIDE,
-    TRAIN_RIDE,
-    BIKE_RIDE,
-    VEGETARIAN_MEAL
+    COMMUTE_BUS,
+    COMMUTE_TRAIN,
+    COMMUTE_BIKE,
+    MEAL_VEGETARIAN
 } from "../constants/activityTypes";
 import { Goal, UI } from "../redux/actionCreators";
 import "@ui5/webcomponents-icons/dist/icons/meal";
@@ -154,33 +154,33 @@ const EditGoalModal = ({
                             {WALKING.displayName} ({WALKING.metric})
                         </Option>
                         <Option
-                            selected={activityType === BIKE_RIDE}
+                            selected={activityType === COMMUTE_BIKE}
                             icon="supplier"
-                            value={BIKE_RIDE.name}
+                            value={COMMUTE_BIKE.name}
                         >
-                            {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
+                            {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                         </Option>
                         <Option
-                            selected={activityType === BUS_RIDE}
+                            selected={activityType === COMMUTE_BUS}
                             icon="bus-public-transport"
-                            value={BUS_RIDE.name}
+                            value={COMMUTE_BUS.name}
                         >
-                            {BUS_RIDE.displayName} ({BUS_RIDE.metric})
+                            {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
                         </Option>
                         <Option
-                            selected={activityType === TRAIN_RIDE}
+                            selected={activityType === COMMUTE_TRAIN}
                             icon="passenger-train"
-                            value={TRAIN_RIDE.name}
+                            value={COMMUTE_TRAIN.name}
                         >
-                            {TRAIN_RIDE.displayName} ({TRAIN_RIDE.metric})
+                            {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
                         </Option>
                         <Option
-                            selected={activityType === VEGETARIAN_MEAL}
+                            selected={activityType === MEAL_VEGETARIAN}
                             icon="meal"
-                            value={VEGETARIAN_MEAL.name}
+                            value={MEAL_VEGETARIAN.name}
                         >
-                            {VEGETARIAN_MEAL.displayName} (
-                            {VEGETARIAN_MEAL.metric})
+                            {MEAL_VEGETARIAN.displayName} (
+                            {MEAL_VEGETARIAN.metric})
                         </Option>
                     </Select>
                     <Label>

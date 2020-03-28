@@ -42,12 +42,6 @@ function HomePage({ user, toggleAddActivityModal }) {
                     cardType="Goals"
                 />
             </ObjectPageSection>
-            <ObjectPageSection title="History" id="HomePageHistorySection">
-                <DraggableCard
-                    style={spacing.sapUiContentPadding}
-                    cardType="History"
-                />
-            </ObjectPageSection>
         </ObjectPage>
     );
 }

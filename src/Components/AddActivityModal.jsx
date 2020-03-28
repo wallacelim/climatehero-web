@@ -26,10 +26,10 @@ import {
 } from "@ui5/webcomponents-react-base/lib/spacing";
 
 import {
-    BIKE_RIDE,
-    BUS_RIDE,
-    TRAIN_RIDE,
-    VEGETARIAN_MEAL,
+    COMMUTE_BIKE,
+    COMMUTE_BUS,
+    COMMUTE_TRAIN,
+    MEAL_VEGETARIAN,
     WALKING
 } from "../constants/activityTypes";
 import { Activity, Goal, UI } from "../redux/actionCreators";
@@ -120,21 +120,24 @@ const AddActivityModal = ({
                         <Option icon="physical-activity" value={WALKING.name}>
                             {WALKING.displayName} ({WALKING.metric})
                         </Option>
-                        <Option icon="supplier" value={BIKE_RIDE.name}>
-                            {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
+                        <Option icon="supplier" value={COMMUTE_BIKE.name}>
+                            {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                         </Option>
                         <Option
                             icon="bus-public-transport"
-                            value={BUS_RIDE.name}
+                            value={COMMUTE_BUS.name}
                         >
-                            {BUS_RIDE.displayName} ({BUS_RIDE.metric})
+                            {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
                         </Option>
-                        <Option icon="passenger-train" value={TRAIN_RIDE.name}>
-                            {TRAIN_RIDE.displayName} ({TRAIN_RIDE.metric})
+                        <Option
+                            icon="passenger-train"
+                            value={COMMUTE_TRAIN.name}
+                        >
+                            {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
                         </Option>
-                        <Option icon="meal" value={VEGETARIAN_MEAL.name}>
-                            {VEGETARIAN_MEAL.displayName} (
-                            {VEGETARIAN_MEAL.metric})
+                        <Option icon="meal" value={MEAL_VEGETARIAN.name}>
+                            {MEAL_VEGETARIAN.displayName} (
+                            {MEAL_VEGETARIAN.metric})
                         </Option>
                     </Select>
                     <Input
