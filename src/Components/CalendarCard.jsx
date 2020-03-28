@@ -65,7 +65,7 @@ const CalendarCard = ({ style }) => {
                                   getDateFromString(selectedStartDate).toDate(),
                                   getDateFromString(selectedEndDate).toDate()
                               ]
-                            : [new Date(), new Date()]
+                            : null
                     }
                 />
 
