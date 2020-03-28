@@ -100,7 +100,7 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
             ]}
             stretch={false}
             open={addGoalModal.isOpen}
-            footer={(
+            footer={
                 <div>
                     <FlexBox
                         justifyContent={FlexBoxJustifyContent.Center}
@@ -115,7 +115,7 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                         </Button>
                     </FlexBox>
                 </div>
-            )}
+            }
         >
             <section>
                 <FlexBox
@@ -136,49 +136,26 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                         onChange={handleSelectType}
                     >
                         <Option icon="physical-activity" value={WALKING.name}>
-                            {WALKING.displayName}
-                            {" "}
-                            (
-                            {WALKING.metric}
-                            )
+                            {WALKING.displayName} ({WALKING.metric})
                         </Option>
                         <Option icon="supplier" value={BIKE_RIDE.name}>
-                            {BIKE_RIDE.displayName}
-                            {" "}
-                            (
-                            {BIKE_RIDE.metric}
-                            )
+                            {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
                         </Option>
                         <Option
                             icon="bus-public-transport"
                             value={BUS_RIDE.name}
                         >
-                            {BUS_RIDE.displayName}
-                            {" "}
-                            (
-                            {BUS_RIDE.metric}
-                            )
+                            {BUS_RIDE.displayName} ({BUS_RIDE.metric})
                         </Option>
                         <Option icon="passenger-train" value={TRAIN_RIDE.name}>
-                            {TRAIN_RIDE.displayName}
-                            {" "}
-                            (
-                            {TRAIN_RIDE.metric}
-                            )
+                            {TRAIN_RIDE.displayName} ({TRAIN_RIDE.metric})
                         </Option>
                         <Option icon="meal" value={VEGETARIAN_MEAL.name}>
-                            {VEGETARIAN_MEAL.displayName}
-                            {" "}
-                            (
-                            {VEGETARIAN_MEAL.metric}
-                            )
+                            {VEGETARIAN_MEAL.displayName} (
+                            {VEGETARIAN_MEAL.metric})
                         </Option>
                     </Select>
-                    <Label>
-                        Target (
-                        {activityType.metric}
-                        )
-                    </Label>
+                    <Label>Target ({activityType.metric})</Label>
                     <Input
                         type={InputType.Number}
                         onChange={e => setTarget(e.parameters.value)}
@@ -193,7 +170,8 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                         disabled={false}
                         readonly={false}
                         onChange={date =>
-                            setSelectedDate(date.parameters.value)}
+                            setSelectedDate(date.parameters.value)
+                        }
                         placeholder={selectedDate}
                     />
                 </FlexBox>

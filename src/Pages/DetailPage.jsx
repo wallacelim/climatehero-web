@@ -13,9 +13,7 @@ import { UI } from "../redux/actionCreators";
 const DetailPage = ({ toggleAddActivityModal }) => (
     <ObjectPage
         title="Climate Hero"
-        headerActions={[
-            <Button onClick={toggleAddActivityModal}>Add</Button>,
-        ]}
+        headerActions={[<Button onClick={toggleAddActivityModal}>Add</Button>]}
         style={{ height: "100vh", ...spacing.sapUiContentPadding }}
     >
         <ObjectPageSection title="Calendar View" id="calenderView">

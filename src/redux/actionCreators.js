@@ -83,9 +83,10 @@ export const UI = {
             id
         }
     }),
-    
+
     toggleWelcomeModal: () => ({
-        type: TOGGLE_WELCOME_MODAL,
+        type: TOGGLE_WELCOME_MODAL
+    }),
 
     toggleEditGoalModal: id => ({
         type: TOGGLE_EDIT_GOAL_MODAL,

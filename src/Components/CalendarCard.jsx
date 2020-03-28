@@ -45,11 +45,7 @@ const CalendarCard = ({ style }) => {
                     }}
                 >
                     {selectedDate ? (
-                        <h5>
-                            Some information for the date:
-                            {" "}
-                            {selectedDate}
-                        </h5>
+                        <h5>Some information for the date: {selectedDate}</h5>
                     ) : (
                         <p>Select a date to edit</p>
                     )}
