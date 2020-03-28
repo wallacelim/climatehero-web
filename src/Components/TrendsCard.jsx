@@ -71,7 +71,7 @@ const TrendsCard = (/* { activities } */) => {
             style={spacing.sapUiContentPadding}
             headerInteractive
             onHeaderClick={handleHeaderClick}
-            avatar={(
+            avatar={
                 <Icon
                     name={
                         toggleCharts === "lineChart"
@@ -79,7 +79,7 @@ const TrendsCard = (/* { activities } */) => {
                             : "horizontal-bar-chart"
                     }
                 />
-            )}
+            }
             heading="Your Reduction Trends"
             subtitle={`Click me to switch to ${switchToChart}`}
         >

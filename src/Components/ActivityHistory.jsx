@@ -4,7 +4,12 @@ import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
 import { getDateTimeFromString, getDateFromString } from "../util/dateTime";
 
-const ActivityHistory = ({ activities, dateRangeStart, dateRangeEnd }) => {
+const ActivityHistory = ({
+    userId,
+    activities,
+    dateRangeStart,
+    dateRangeEnd
+}) => {
     const activityColumns = [
         {
             Header: "Date / Time",
@@ -32,6 +37,7 @@ const ActivityHistory = ({ activities, dateRangeStart, dateRangeEnd }) => {
         <AnalyticalTable
             columns={activityColumns}
             data={activities.data
+                .filter(activity => activity.userId === userId)
                 .filter(activity => {
                     if (Boolean(dateRangeEnd) && Boolean(dateRangeStart)) {
                         return getDateTimeFromString(
@@ -65,7 +71,11 @@ const ActivityHistory = ({ activities, dateRangeStart, dateRangeEnd }) => {
     );
 };
 
-const mapStateToProps = ({ activities }, { dateRangeStart, dateRangeEnd }) => ({
+const mapStateToProps = (
+    { user, activities },
+    { dateRangeStart, dateRangeEnd }
+) => ({
+    userId: user.data.id,
     activities,
     dateRangeStart,
     dateRangeEnd

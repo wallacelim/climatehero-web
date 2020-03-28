@@ -38,6 +38,7 @@ import { getActivityTypeFromString } from "../util/activities";
 
 const AddActivityModal = ({
     addActivityModal,
+    userId,
     toggleAddActivityModal,
     addActivity,
     updateGoals
@@ -46,18 +47,18 @@ const AddActivityModal = ({
     const [input, setInput] = useState(0);
 
     const handleAdd = () => {
-        if (!input) {
-            alert("please enter a non-zero value");
+        if (!input || input <= 0) {
+            alert("please enter a positive value");
             return;
         }
         toggleAddActivityModal();
         const activity = {
-            userId: "userId_stub",
+            userId,
             type: activityType,
             metric: activityType.metric,
             measurement: parseInt(input, 10),
             reductionValue: (Math.random() * 10).toFixed(2),
-            dateTimeOfActivity: getCurrentDateTimeString
+            dateTimeOfActivity: getCurrentDateTimeString()
         };
         addActivity(activity);
         updateGoals(activity);
@@ -150,8 +151,9 @@ const AddActivityModal = ({
         </Dialog>
     );
 };
-const mapStateToProps = ({ addActivityModal }) => ({
-    addActivityModal
+const mapStateToProps = ({ user, addActivityModal }) => ({
+    addActivityModal,
+    userId: user.data.id
 });
 
 const mapDispatchToProps = dispatch => ({

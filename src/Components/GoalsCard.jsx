@@ -41,7 +41,7 @@ const legendStyles = {
     }
 };
 
-function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
+function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
     // const handleItemClick = (item) => {
     // TODO: enable editing of goals
     // };
@@ -125,34 +125,37 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
                     mode={ListMode.None} /* onItemClick={handleItemClick} */
                     onItemClick={e => toggleEditGoalModal(e.parameters.item.id)}
                 >
-                    {goals.data.map(goal => {
-                        const metadata = getMetaData(goal);
-                        return (
-                            <StandardListItem
-                                key={goal.id}
-                                id={goal.id}
-                                style={{ height: "80px" }}
-                                infoState={metadata.infoState}
-                            >
-                                <Goal
+                    {goals.data
+                        .filter(goal => goal.userId === userId)
+                        .map(goal => {
+                            const metadata = getMetaData(goal);
+                            return (
+                                <StandardListItem
+                                    key={goal.id}
+                                    id={goal.id}
                                     style={{ height: "80px" }}
-                                    progress={metadata.progress}
-                                    title={goal.title}
-                                    dateStart={goal.dateStart}
-                                    dateTarget={goal.dateTarget}
-                                    target={`${goal.measurement} ${goal.metric}`}
                                     infoState={metadata.infoState}
-                                />
-                            </StandardListItem>
-                        );
-                    })}
+                                >
+                                    <Goal
+                                        style={{ height: "80px" }}
+                                        progress={metadata.progress}
+                                        title={goal.title}
+                                        dateStart={goal.dateStart}
+                                        dateTarget={goal.dateTarget}
+                                        target={`${goal.measurement} ${goal.metric}`}
+                                        infoState={metadata.infoState}
+                                    />
+                                </StandardListItem>
+                            );
+                        })}
                 </List>
             </Card>
         </>
     );
 }
 
-const mapStateToProps = ({ goals }) => ({
+const mapStateToProps = ({ user, goals }) => ({
+    userId: user.data.id,
     goals
 });
 

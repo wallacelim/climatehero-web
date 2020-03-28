@@ -42,7 +42,12 @@ import {
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 
-const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
+const AddGoalModal = ({
+    userId,
+    addGoalModal,
+    toggleAddGoalModal,
+    addGoal
+}) => {
     const [title, setTitle] = useState("");
     const [target, setTarget] = useState(0);
     const [activityType, setActivityType] = useState(WALKING);
@@ -64,7 +69,7 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
         toggleAddGoalModal();
 
         const goal = {
-            userId: "userId_stub",
+            userId,
             dateCreated: getCurrentDateTimeString(),
             title,
             type: activityType,
@@ -188,7 +193,10 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
     );
 };
 
-const mapStateToProps = ({ addGoalModal }) => ({ addGoalModal });
+const mapStateToProps = ({ user, addGoalModal }) => ({
+    userId: user.data.id,
+    addGoalModal
+});
 
 const mapDispatchToProps = dispatch => ({
     toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),

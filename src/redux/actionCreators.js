@@ -170,6 +170,7 @@ export const User = {
     loginDummyUser: () => ({
         type: USER_LOGIN,
         payload: {
+            id: "test_user_2",
             firstName: "Firstname",
             lastName: "Lastname"
         }
