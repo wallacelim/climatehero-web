@@ -2,51 +2,16 @@ import {
     ADD_GOAL,
     DELETE_GOAL,
     EDIT_GOAL,
-    UPDATE_GOALS
+    UPDATE_GOALS,
+    REQUEST_GOALS,
+    RECEIVE_GOALS
 } from "../../constants/actionTypes";
 
-import {
-    MEAL_VEGETARIAN,
-    COMMUTE_BIKE,
-    COMMUTE_BUS
-} from "../../constants/activityTypes";
+import { getActivityTypeFromString } from "../../util/activities";
 
 const initialState = {
     isFetching: false,
-    fetched: false,
-    data: [
-        {
-            id: -1,
-            name: "Eat veggie meals",
-            startDate: new Date().toLocaleDateString(),
-
-            targetDate: new Date().toLocaleDateString(),
-            type: MEAL_VEGETARIAN,
-            currentMeasurement: 5,
-            targetMeasurement: 10,
-            metric: "meals"
-        },
-        {
-            id: -2,
-            name: "Bike to work",
-            startDate: new Date().toLocaleDateString(),
-            targetDate: new Date().toLocaleDateString(),
-            type: COMMUTE_BIKE,
-            currentMeasurement: 30,
-            targetMeasurement: 100,
-            metric: "km"
-        },
-        {
-            id: -3,
-            name: "Take the bus",
-            startDate: new Date().toLocaleDateString(),
-            targetDate: new Date().toLocaleDateString(),
-            type: COMMUTE_BUS,
-            currentMeasurement: 90,
-            targetMeasurement: 100,
-            metric: "km"
-        }
-    ]
+    data: []
 };
 
 export default function (state = initialState, action) {
@@ -60,8 +25,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 data: [
-                    ...state.data.slice(0, action.payload.id),
-                    ...state.slice(action.payload.id + 1)
+                    ...state.data.filter(goal => goal.id !== action.payload.id)
                 ]
             };
         case EDIT_GOAL:
@@ -77,21 +41,55 @@ export default function (state = initialState, action) {
                     return goal;
                 })
             };
+
         case UPDATE_GOALS:
             return {
                 ...state,
                 data: state.data.map(goal => {
                     if (goal.type === action.payload.type) {
-                        const updatedCurrentMeasurement =
-                            goal.currentMeasurement +
-                            action.payload.measurement;
+                        const updatedCurrentFulfillment =
+                            goal.fulfillment + action.payload.measurement;
                         return {
                             ...goal,
-                            currentMeasurement: updatedCurrentMeasurement
+                            fulfillment: updatedCurrentFulfillment
                         };
                     }
                     return goal;
                 })
+            };
+
+        case REQUEST_GOALS:
+            return { ...state, isFetching: true };
+
+        case RECEIVE_GOALS:
+            return {
+                ...state,
+                isFetching: false,
+                data: action.data.map(
+                    ({
+                        id,
+                        userId,
+                        dateCreated,
+                        title,
+                        type,
+                        metric,
+                        measurement,
+                        fulfillment,
+                        dateStart,
+                        dateTarget
+                    }) => ({
+                        id,
+                        userId,
+                        dateCreated,
+                        title,
+                        type: getActivityTypeFromString(type),
+                        metric,
+                        measurement,
+                        fulfillment,
+                        dateStart,
+                        dateTarget
+                    })
+                )
             };
         default:
             return state;

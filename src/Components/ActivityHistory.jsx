@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 import { AnalyticalTable } from "@ui5/webcomponents-react";
 import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
@@ -35,7 +34,7 @@ const ActivityHistory = ({ activities, dateRangeStart, dateRangeEnd }) => {
             data={activities.data
                 .filter(activity => {
                     if (Boolean(dateRangeEnd) && Boolean(dateRangeStart)) {
-                        getDateTimeFromString(
+                        return getDateTimeFromString(
                             activity.dateTimeOfActivity
                         ).isBetween(
                             getDateFromString(dateRangeStart),

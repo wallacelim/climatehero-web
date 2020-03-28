@@ -11,9 +11,9 @@ import {
 import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 
 export default function Goal({
-    name,
-    startDate,
-    targetDate,
+    title,
+    dateStart,
+    dateTarget,
     target,
     progress,
     infoState
@@ -27,27 +27,27 @@ export default function Goal({
         >
             <Title
                 level={TitleLevel.H3}
-                style={{ width: "30%", margin: "0px" }}
+                style={{ width: "30%", margin: "0px", ...sapUiContentPadding }}
             >
-                {name}
+                {title}
             </Title>
             <Title
                 level={TitleLevel.H5}
                 style={{ width: "15%", margin: "0px" }}
             >
                 <p style={{ color: "grey" }}>Start Date:</p>
-                {startDate}
+                {dateStart}
             </Title>
             <Title
                 level={TitleLevel.H5}
-                style={{ width: "15%", margin: "0px" }}
+                style={{ width: "15%", margin: "0px", ...sapUiContentPadding }}
             >
                 <p style={{ color: "grey" }}>Target Date:</p>
-                {targetDate}
+                {dateTarget}
             </Title>
             <Title
                 level={TitleLevel.H5}
-                style={{ width: "15%", margin: "0px" }}
+                style={{ width: "15%", margin: "0px", ...sapUiContentPadding }}
             >
                 <p style={{ color: "grey" }}>Target:</p>
                 {target}

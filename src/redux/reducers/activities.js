@@ -10,7 +10,6 @@ import { getActivityTypeFromString } from "../../util/activities";
 
 const initialState = {
     isFetching: false,
-    fetched: false,
     data: []
 };
 
@@ -39,7 +38,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                fetched: true,
                 data: action.data.map(
                     ({
                         id,

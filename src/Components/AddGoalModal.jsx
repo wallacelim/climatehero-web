@@ -35,19 +35,22 @@ import "@ui5/webcomponents-icons/dist/icons/passenger-train";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
-import { getCurrentDateString } from "../util/dateTime";
+import {
+    getCurrentDateString,
+    getCurrentDateTimeString
+} from "../util/dateTime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 
 const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
-    const [name, setName] = useState("");
+    const [title, setTitle] = useState("");
     const [target, setTarget] = useState(0);
     const [activityType, setActivityType] = useState(WALKING);
     const [selectedDate, setSelectedDate] = useState(null);
 
     const handleAdd = () => {
-        if (!name) {
-            alert("Please enter a goal name");
+        if (!title) {
+            alert("Please enter a goal title");
             return;
         }
         if (!target) {
@@ -61,21 +64,23 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
         toggleAddGoalModal();
 
         const goal = {
-            name,
-            startDate: getCurrentDateString(),
-            targetDate: selectedDate,
+            userId: "userId_stub",
+            dateCreated: getCurrentDateTimeString(),
+            title,
             type: activityType,
-            currentMeasurement: 0,
-            targetMeasurement: parseInt(target, 10),
             metric: activityType.metric,
-            progress: 0
+            measurement: parseInt(target, 10),
+            fulfillment: 0,
+            dateStart: getCurrentDateString(),
+            dateTarget: selectedDate
         };
         addGoal(goal);
     };
 
     const handleSelectType = e => {
-        const name = e.parameters.selectedOption.value;
-        setActivityType(getActivityTypeFromString(name));
+        setActivityType(
+            getActivityTypeFromString(e.parameters.selectedOption.value)
+        );
     };
 
     return (
@@ -126,7 +131,7 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                     <Label>Name</Label>
                     <Input
                         type={InputType.Text}
-                        onChange={e => setName(e.parameters.value)}
+                        onChange={e => setTitle(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
                         placeholder="e.g. Travel by bus"
                     />
@@ -135,25 +140,25 @@ const AddGoalModal = ({ addGoalModal, toggleAddGoalModal, addGoal }) => {
                         style={sapUiSmallMarginBottom}
                         onChange={handleSelectType}
                     >
-                        <Option icon="physical-activity" value={WALKING.name}>
+                        <Option icon="physical-activity" value={WALKING.title}>
                             {WALKING.displayName} ({WALKING.metric})
                         </Option>
-                        <Option icon="supplier" value={COMMUTE_BIKE.name}>
+                        <Option icon="supplier" value={COMMUTE_BIKE.title}>
                             {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                         </Option>
                         <Option
                             icon="bus-public-transport"
-                            value={COMMUTE_BUS.name}
+                            value={COMMUTE_BUS.title}
                         >
                             {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
                         </Option>
                         <Option
                             icon="passenger-train"
-                            value={COMMUTE_TRAIN.name}
+                            value={COMMUTE_TRAIN.title}
                         >
                             {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
                         </Option>
-                        <Option icon="meal" value={MEAL_VEGETARIAN.name}>
+                        <Option icon="meal" value={MEAL_VEGETARIAN.title}>
                             {MEAL_VEGETARIAN.displayName} (
                             {MEAL_VEGETARIAN.metric})
                         </Option>

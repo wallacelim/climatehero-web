@@ -26,8 +26,8 @@ import "@ui5/webcomponents-icons/dist/icons/add-activity";
 const legendStyles = {
     container: {
         position: "relative",
-        top: "-333px",
-        right: "20px"
+        margin: "-76px 20px 0px",
+        paddingBottom: "10px"
     },
     label: {
         display: "inline-flex",
@@ -45,9 +45,9 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
     // const handleItemClick = (item) => {
     // TODO: enable editing of goals
     // };
-    const getMetaData = ({ currentMeasurement, targetMeasurement }) => {
+    const getMetaData = ({ fulfillment, measurement }) => {
         const progress = Math.min(
-            Math.round((currentMeasurement / targetMeasurement) * 100),
+            Math.round((fulfillment / measurement) * 100),
             100
         );
         let infoState;
@@ -86,11 +86,44 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
                 }}
                 avatar={<Icon name="activities" />}
             >
+                <FlexBox
+                    direction={FlexBoxDirection.Column}
+                    wrap={FlexBoxWrap.Wrap}
+                    alignItems={FlexBoxAlignItems.End}
+                    justifyContent={FlexBoxJustifyContent.SpaceAround}
+                    style={legendStyles.container}
+                >
+                    <div style={legendStyles.label}>
+                        <div
+                            style={{
+                                background: "#b00",
+                                ...legendStyles.icon
+                            }}
+                        />
+                        <Text>&lt; 30% Complete</Text>
+                    </div>
+                    <div style={legendStyles.label}>
+                        <div
+                            style={{
+                                background: "#e9730c",
+                                ...legendStyles.icon
+                            }}
+                        />
+                        <Text>&gt; 30% Complete</Text>
+                    </div>
+                    <div style={legendStyles.label}>
+                        <div
+                            style={{
+                                background: "#107e3e",
+                                ...legendStyles.icon
+                            }}
+                        />
+                        <Text>&lt; 100% Complete</Text>
+                    </div>
+                </FlexBox>
                 <List
                     mode={ListMode.None} /* onItemClick={handleItemClick} */
-                    onItemClick={e =>
-                        toggleEditGoalModal(parseInt(e.parameters.item.id, 10))
-                    }
+                    onItemClick={e => toggleEditGoalModal(e.parameters.item.id)}
                 >
                     {goals.data.map(goal => {
                         const metadata = getMetaData(goal);
@@ -104,10 +137,10 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
                                 <Goal
                                     style={{ height: "80px" }}
                                     progress={metadata.progress}
-                                    name={goal.name}
-                                    startDate={goal.startDate}
-                                    targetDate={goal.targetDate}
-                                    target={`${goal.targetMeasurement} ${goal.metric}`}
+                                    title={goal.title}
+                                    dateStart={goal.dateStart}
+                                    dateTarget={goal.dateTarget}
+                                    target={`${goal.measurement} ${goal.metric}`}
                                     infoState={metadata.infoState}
                                 />
                             </StandardListItem>
@@ -115,41 +148,6 @@ function GoalsCard({ goals, toggleAddGoalModal, toggleEditGoalModal }) {
                     })}
                 </List>
             </Card>
-            <FlexBox
-                direction={FlexBoxDirection.Column}
-                wrap={FlexBoxWrap.Wrap}
-                alignItems={FlexBoxAlignItems.End}
-                justifyContent={FlexBoxJustifyContent.SpaceAround}
-                style={legendStyles.container}
-            >
-                <div style={legendStyles.label}>
-                    <div
-                        style={{
-                            background: "#b00",
-                            ...legendStyles.icon
-                        }}
-                    />
-                    <Text>&lt; 30% Complete</Text>
-                </div>
-                <div style={legendStyles.label}>
-                    <div
-                        style={{
-                            background: "#e9730c",
-                            ...legendStyles.icon
-                        }}
-                    />
-                    <Text>&gt; 30% Complete</Text>
-                </div>
-                <div style={legendStyles.label}>
-                    <div
-                        style={{
-                            background: "#107e3e",
-                            ...legendStyles.icon
-                        }}
-                    />
-                    <Text>&lt; 100% Complete</Text>
-                </div>
-            </FlexBox>
         </>
     );
 }

@@ -52,12 +52,12 @@ const AddActivityModal = ({
         }
         toggleAddActivityModal();
         const activity = {
-            date: getCurrentDateTimeString(),
+            userId: "userId_stub",
             type: activityType,
-            measurement: parseInt(input, 10),
             metric: activityType.metric,
-            reduction: (Math.random() * 10).toFixed(2),
-            recurrence: Math.round(Math.random()) ? "Weekly" : "N/A"
+            measurement: parseInt(input, 10),
+            reductionValue: (Math.random() * 10).toFixed(2),
+            dateTimeOfActivity: getCurrentDateTimeString
         };
         addActivity(activity);
         updateGoals(activity);

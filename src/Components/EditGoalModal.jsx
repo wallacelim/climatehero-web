@@ -45,22 +45,23 @@ const EditGoalModal = ({
     toggleEditGoalModal,
     editGoal
 }) => {
-    const [name, setName] = useState();
+    const [title, setTitle] = useState();
     const [target, setTarget] = useState();
     const [activityType, setActivityType] = useState();
     const [selectedDate, setSelectedDate] = useState();
+
     useEffect(() => {
         if (goal) {
-            setName(goal.name);
-            setTarget(goal.targetMeasurement);
+            setTitle(goal.title);
+            setTarget(goal.measurement);
             setActivityType(goal.type);
-            setSelectedDate(goal.targetDate);
+            setSelectedDate(goal.dateTarget);
         }
     }, [goal, editGoalModal]);
 
     const handleEdit = () => {
-        if (!name) {
-            alert("Please enter a goal name");
+        if (!title) {
+            alert("Please enter a goal title");
             return;
         }
         if (!target) {
@@ -73,9 +74,9 @@ const EditGoalModal = ({
         }
         toggleEditGoalModal(goal.id);
         const updates = {
-            name,
+            title,
             startDate: getCurrentDateString(),
-            targetDate: selectedDate,
+            dateTarget: selectedDate,
             type: activityType,
             currentMeasurement: goal.currentMeasurement,
             targetMeasurement: parseInt(target, 10),
@@ -83,10 +84,11 @@ const EditGoalModal = ({
         };
         editGoal(goal.id, updates);
     };
-
+    console.log(goal);
     const handleSelectType = e => {
-        const name = e.parameters.selectedOption.value;
-        setActivityType(getActivityTypeFromString(name));
+        setActivityType(
+            getActivityTypeFromString(e.parameters.selectedOption.value)
+        );
     };
 
     return (
@@ -137,9 +139,9 @@ const EditGoalModal = ({
                     <Label>Name</Label>
                     <Input
                         type={InputType.Text}
-                        onChange={e => setName(e.parameters.value)}
+                        onChange={e => setTitle(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
-                        value={`${name}`}
+                        value={`${title}`}
                     />
                     <Label>Type</Label>
                     <Select
@@ -149,35 +151,35 @@ const EditGoalModal = ({
                         <Option
                             selected={`${activityType}` === WALKING}
                             icon="physical-activity"
-                            value={WALKING.name}
+                            value={WALKING.title}
                         >
                             {WALKING.displayName} ({WALKING.metric})
                         </Option>
                         <Option
                             selected={activityType === COMMUTE_BIKE}
                             icon="supplier"
-                            value={COMMUTE_BIKE.name}
+                            value={COMMUTE_BIKE.title}
                         >
                             {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                         </Option>
                         <Option
                             selected={activityType === COMMUTE_BUS}
                             icon="bus-public-transport"
-                            value={COMMUTE_BUS.name}
+                            value={COMMUTE_BUS.title}
                         >
                             {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
                         </Option>
                         <Option
                             selected={activityType === COMMUTE_TRAIN}
                             icon="passenger-train"
-                            value={COMMUTE_TRAIN.name}
+                            value={COMMUTE_TRAIN.title}
                         >
                             {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
                         </Option>
                         <Option
                             selected={activityType === MEAL_VEGETARIAN}
                             icon="meal"
-                            value={MEAL_VEGETARIAN.name}
+                            value={MEAL_VEGETARIAN.title}
                         >
                             {MEAL_VEGETARIAN.displayName} (
                             {MEAL_VEGETARIAN.metric})

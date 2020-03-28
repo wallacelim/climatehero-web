@@ -8,6 +8,8 @@ import {
     DELETE_GOAL,
     EDIT_GOAL,
     UPDATE_GOALS,
+    REQUEST_GOALS,
+    RECEIVE_GOALS,
     TOGGLE_ADD_ACTIVITY_MODAL,
     TOGGLE_EDIT_ACTIVITY_MODAL,
     TOGGLE_ADD_GOAL_MODAL,
@@ -16,11 +18,8 @@ import {
     USER_LOGIN
 } from "../constants/actionTypes";
 
-const nextGoalId = 0;
-
 export const Activity = {
     add: ({
-        id,
         userId,
         type,
         metric,
@@ -32,7 +31,6 @@ export const Activity = {
     }) => ({
         type: ADD_ACTIVITY,
         payload: {
-            id,
             userId,
             type,
             metric,
@@ -72,26 +70,27 @@ export const Activity = {
 
 export const Goal = {
     add: ({
-        name,
-        startDate,
-        targetDate,
+        userId,
+        dateCreated,
+        title,
         type,
-        currentMeasurement,
-        targetMeasurement,
         metric,
-        progress
+        measurement,
+        fulfillment,
+        dateStart,
+        dateTarget
     }) => ({
         type: ADD_GOAL,
         payload: {
-            id: nextGoalId + 1,
-            name,
-            startDate,
-            targetDate,
+            userId,
+            dateCreated,
+            title,
             type,
-            currentMeasurement,
-            targetMeasurement,
             metric,
-            progress
+            measurement,
+            fulfillment,
+            dateStart,
+            dateTarget
         }
     }),
 
@@ -116,7 +115,27 @@ export const Goal = {
             type,
             measurement
         }
-    })
+    }),
+
+    request: userId => ({
+        type: REQUEST_GOALS,
+        userId
+    }),
+
+    receive: json => ({
+        type: RECEIVE_GOALS,
+        data: json,
+        receivedAt: Date.now()
+    }),
+
+    fetchAll: () => dispatch => {
+        dispatch(Goal.request());
+        return fetch(
+            "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals"
+        )
+            .then(response => response.json())
+            .then(json => dispatch(Goal.receive(json)));
+    }
 };
 
 export const UI = {
