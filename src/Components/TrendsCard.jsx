@@ -27,22 +27,6 @@ const TrendsCard = ({ activities }) => {
     const switchToChart =
         toggleCharts === "lineChart" ? "Bar Chart" : "Line Chart";
 
-    const handleHeaderClick = () => {
-        if (toggleCharts === "lineChart") {
-            setLoading(true);
-            setTimeout(() => {
-                setLoading(false);
-                setToggleCharts("barChart");
-            }, 800);
-        } else {
-            setLoading(true);
-            setTimeout(() => {
-                setLoading(false);
-                setToggleCharts("lineChart");
-            }, 800);
-        }
-    };
-
     const handleFilter = (timeValue, timeUnit) => {
         setFilteredActivities(
             activities.data.filter(activity => {
@@ -87,6 +71,26 @@ const TrendsCard = ({ activities }) => {
             }
         ]);
     }, [labels, filteredActivities]);
+
+    const handleHeaderClick = () => {
+        if (toggleCharts === "lineChart") {
+            setLoading(true);
+            setTimeout(() => {
+                setLoading(false);
+                setToggleCharts("barChart");
+            }, 800);
+        } else {
+            setLoading(true);
+            setTimeout(() => {
+                setLoading(false);
+                setToggleCharts("lineChart");
+            }, 800);
+        }
+    };
+
+    useEffect(() => {}, [filteredActivities]);
+
+    useEffect(() => {}, [labels, filteredActivities]);
 
     // useEffect(() => {
     //     console.log(labels);
