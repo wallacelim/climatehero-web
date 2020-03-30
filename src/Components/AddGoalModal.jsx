@@ -145,25 +145,22 @@ const AddGoalModal = ({
                         style={sapUiSmallMarginBottom}
                         onChange={handleSelectType}
                     >
-                        <Option icon="physical-activity" value={WALKING.title}>
-                            {WALKING.displayName} ({WALKING.metric})
-                        </Option>
-                        <Option icon="supplier" value={COMMUTE_BIKE.title}>
+                        <Option icon="supplier" value={COMMUTE_BIKE.name}>
                             {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                         </Option>
                         <Option
                             icon="bus-public-transport"
-                            value={COMMUTE_BUS.title}
+                            value={COMMUTE_BUS.name}
                         >
                             {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
                         </Option>
                         <Option
                             icon="passenger-train"
-                            value={COMMUTE_TRAIN.title}
+                            value={COMMUTE_TRAIN.name}
                         >
                             {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
                         </Option>
-                        <Option icon="meal" value={MEAL_VEGETARIAN.title}>
+                        <Option icon="meal" value={MEAL_VEGETARIAN.name}>
                             {MEAL_VEGETARIAN.displayName} (
                             {MEAL_VEGETARIAN.metric})
                         </Option>

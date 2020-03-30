@@ -1,10 +1,15 @@
-import fetch from "cross-fetch";
+import axios from "axios";
+
 import {
-    ADD_ACTIVITY,
+    ADD_ACTIVITY_STARTED,
+    ADD_ACTIVITY_SUCCESS,
+    ADD_ACTIVITY_FAIL,
     DELETE_ACTIVITY,
     RECEIVE_ACTIVITIES,
     REQUEST_ACTIVITIES,
-    ADD_GOAL,
+    ADD_GOAL_STARTED,
+    ADD_GOAL_SUCCESS,
+    ADD_GOAL_FAIL,
     DELETE_GOAL,
     EDIT_GOAL,
     UPDATE_GOALS,
@@ -19,7 +24,9 @@ import {
 } from "../constants/actionTypes";
 
 export const Activity = {
-    add: ({
+    addStart: () => ({ type: ADD_ACTIVITY_STARTED }),
+
+    addSuccess: ({
         userId,
         type,
         metric,
@@ -29,7 +36,7 @@ export const Activity = {
         // UNUSED: dateTimeCreated
         // UNUSED: comment
     }) => ({
-        type: ADD_ACTIVITY,
+        type: ADD_ACTIVITY_SUCCESS,
         payload: {
             userId,
             type,
@@ -40,6 +47,45 @@ export const Activity = {
             recurrence: false // TODO: standardize with backend
         }
     }),
+
+    addFail: error => ({
+        type: ADD_ACTIVITY_FAIL,
+        payload: {
+            error
+        }
+    }),
+
+    add: ({
+        userId,
+        type,
+        metric,
+        measurement,
+        dateTimeOfActivity
+        // UNUSED: dateTimeCreated
+        // UNUSED: comment
+    }) => {
+        return async dispatch => {
+            dispatch(Activity.addStart());
+            try {
+                const res = await axios.post(
+                    "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities",
+                    {
+                        userId,
+                        type: type.name,
+                        metric,
+                        measurement,
+                        dateTimeOfActivity
+                    }
+                );
+                dispatch(Activity.addSuccess(res.data));
+                // eslint-disable-next-line no-use-before-define
+                dispatch(Goal.updateAll(res.data));
+            } catch (err) {
+                dispatch(Activity.addFail(err));
+            }
+        };
+    },
+
     delete: id => ({
         type: DELETE_ACTIVITY,
         payload: {
@@ -52,24 +98,30 @@ export const Activity = {
         userId
     }),
 
-    receive: json => ({
+    receive: data => ({
         type: RECEIVE_ACTIVITIES,
-        data: json,
-        receivedAt: Date.now()
+        payload: {
+            data,
+            receivedAt: Date.now()
+        }
     }),
 
     fetchAll: () => dispatch => {
         dispatch(Activity.request());
-        return fetch(
-            "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities"
-        )
-            .then(response => response.json())
-            .then(json => dispatch(Activity.receive(json)));
+        return axios
+            .get(
+                "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities"
+            )
+            .then(response => dispatch(Activity.receive(response.data)));
+        // TODO: add error handling
     }
 };
 
 export const Goal = {
-    add: ({
+    addStart: () => ({ type: ADD_GOAL_STARTED }),
+
+    addSuccess: ({
+        id,
         userId,
         dateCreated,
         title,
@@ -80,8 +132,9 @@ export const Goal = {
         dateStart,
         dateTarget
     }) => ({
-        type: ADD_GOAL,
+        type: ADD_GOAL_SUCCESS,
         payload: {
+            id,
             userId,
             dateCreated,
             title,
@@ -93,6 +146,52 @@ export const Goal = {
             dateTarget
         }
     }),
+
+    addFail: error => ({
+        type: ADD_GOAL_FAIL,
+        payload: {
+            error
+        }
+    }),
+    add: ({
+        userId,
+        title,
+        type,
+        metric,
+        measurement,
+        dateStart, // TODO: perform check
+        dateTarget
+    }) => {
+        console.log({
+            userId,
+            title,
+            type: type.name,
+            metric,
+            measurement,
+            dateStart,
+            dateTarget
+        });
+        return async dispatch => {
+            dispatch(Goal.addStart());
+            try {
+                const res = await axios.post(
+                    "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals",
+                    {
+                        title,
+                        userId,
+                        type: type.name,
+                        metric,
+                        measurement,
+                        dateStart,
+                        dateTarget
+                    }
+                );
+                dispatch(Goal.addSuccess(res.data));
+            } catch (err) {
+                dispatch(Goal.addFail(err));
+            }
+        };
+    },
 
     delete: id => ({
         type: DELETE_GOAL,
@@ -122,19 +221,21 @@ export const Goal = {
         userId
     }),
 
-    receive: json => ({
+    receive: data => ({
         type: RECEIVE_GOALS,
-        data: json,
-        receivedAt: Date.now()
+        payload: {
+            data,
+            receivedAt: Date.now()
+        }
     }),
 
     fetchAll: () => dispatch => {
         dispatch(Goal.request());
-        return fetch(
-            "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals"
-        )
-            .then(response => response.json())
-            .then(json => dispatch(Goal.receive(json)));
+        return axios
+            .get(
+                "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals"
+            )
+            .then(response => dispatch(Goal.receive(response.data)));
     }
 };
 
