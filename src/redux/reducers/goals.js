@@ -1,5 +1,7 @@
 import {
-    ADD_GOAL,
+    ADD_GOAL_STARTED,
+    ADD_GOAL_SUCCESS,
+    ADD_GOAL_FAIL,
     DELETE_GOAL,
     EDIT_GOAL,
     UPDATE_GOALS,
@@ -11,16 +13,37 @@ import { getActivityTypeFromString } from "../../util/activities";
 
 const initialState = {
     isFetching: false,
-    data: []
+    data: [],
+    lastUpdated: null
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_GOAL:
+        case ADD_GOAL_STARTED:
             return {
                 ...state,
-                data: [...state.data, action.payload]
+                isFetching: true
             };
+
+        case ADD_GOAL_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                data: [
+                    ...state.data,
+                    {
+                        ...action.payload,
+                        type: getActivityTypeFromString(action.payload.type)
+                    }
+                ]
+            };
+
+        case ADD_GOAL_FAIL:
+            return {
+                ...state,
+                error: action.payload.error
+            };
+
         case DELETE_GOAL:
             return {
                 ...state,
@@ -65,7 +88,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
-                data: action.data.map(
+                data: action.payload.data.map(
                     ({
                         id,
                         userId,
@@ -89,7 +112,8 @@ export default function (state = initialState, action) {
                         dateStart,
                         dateTarget
                     })
-                )
+                ),
+                lastUpdated: action.payload.receivedAt
             };
         default:
             return state;

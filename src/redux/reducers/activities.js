@@ -1,6 +1,8 @@
 /* eslint-disable no-plusplus */
 import {
-    ADD_ACTIVITY,
+    ADD_ACTIVITY_STARTED,
+    ADD_ACTIVITY_SUCCESS,
+    ADD_ACTIVITY_FAIL,
     DELETE_ACTIVITY,
     REQUEST_ACTIVITIES,
     RECEIVE_ACTIVITIES
@@ -10,17 +12,35 @@ import { getActivityTypeFromString } from "../../util/activities";
 
 const initialState = {
     isFetching: false,
-    data: []
+    data: [],
+    lastUpdated: null,
+    error: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case ADD_ACTIVITY:
+        case ADD_ACTIVITY_STARTED:
             return {
                 ...state,
-                data: [...state.data, action.payload]
+                isFetching: true
             };
-
+        case ADD_ACTIVITY_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                data: [
+                    ...state.data,
+                    {
+                        ...action.payload,
+                        type: getActivityTypeFromString(action.payload.type)
+                    }
+                ]
+            };
+        case ADD_ACTIVITY_FAIL:
+            return {
+                ...state,
+                error: action.payload.error
+            };
         case DELETE_ACTIVITY:
             return {
                 ...state,
@@ -38,7 +58,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                data: action.data.map(
+                data: action.payload.data.map(
                     ({
                         id,
                         userId,
@@ -58,7 +78,8 @@ export default (state = initialState, action) => {
                         reductionValue,
                         dateTimeOfActivity
                     })
-                )
+                ),
+                lastUpdated: action.payload.receivedAt
             };
         default:
             return state;

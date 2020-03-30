@@ -29,10 +29,9 @@ import {
     COMMUTE_BIKE,
     COMMUTE_BUS,
     COMMUTE_TRAIN,
-    MEAL_VEGETARIAN,
-    WALKING
+    MEAL_VEGETARIAN
 } from "../constants/activityTypes";
-import { Activity, Goal, UI } from "../redux/actionCreators";
+import { Activity, UI } from "../redux/actionCreators";
 import { getCurrentDateTimeString } from "../util/dateTime";
 import { getActivityTypeFromString } from "../util/activities";
 
@@ -40,10 +39,9 @@ const AddActivityModal = ({
     addActivityModal,
     userId,
     toggleAddActivityModal,
-    addActivity,
-    updateGoals
+    addActivity
 }) => {
-    const [activityType, setActivityType] = React.useState(WALKING);
+    const [activityType, setActivityType] = React.useState(COMMUTE_BIKE);
     const [input, setInput] = useState(0);
 
     const handleAdd = () => {
@@ -61,7 +59,6 @@ const AddActivityModal = ({
             dateTimeOfActivity: getCurrentDateTimeString()
         };
         addActivity(activity);
-        updateGoals(activity);
     };
 
     const handleSelectType = e => {
@@ -118,9 +115,9 @@ const AddActivityModal = ({
                         style={sapUiSmallMarginBottom}
                         onChange={handleSelectType}
                     >
-                        <Option icon="physical-activity" value={WALKING.name}>
+                        {/* <Option icon="physical-activity" value={WALKING.name}>
                             {WALKING.displayName} ({WALKING.metric})
-                        </Option>
+                        </Option> */}
                         <Option icon="supplier" value={COMMUTE_BIKE.name}>
                             {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                         </Option>
@@ -158,8 +155,7 @@ const mapStateToProps = ({ user, addActivityModal }) => ({
 
 const mapDispatchToProps = dispatch => ({
     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
-    addActivity: activity => dispatch(Activity.add(activity)),
-    updateGoals: activity => dispatch(Goal.updateAll(activity))
+    addActivity: activity => dispatch(Activity.add(activity))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddActivityModal);
