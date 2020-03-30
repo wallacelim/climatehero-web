@@ -1,12 +1,22 @@
 import { combineReducers } from "redux";
 import goals from "./goals";
 import activities from "./activities";
-import { showAddActivityModal, showAddGoalModal, showWelcomeModal } from "./showModals";
+import user from "./user";
+import {
+    addActivityModal,
+    addGoalModal,
+    editActivityModal,
+    editGoalModal,
+    welcomeModal
+} from "./modals";
 
 export default combineReducers({
     goals,
     activities,
-    showAddActivityModal,
-    showAddGoalModal,
-    showWelcomeModal,
+    welcomeModal,
+    addActivityModal,
+    addGoalModal,
+    editGoalModal,
+    editActivityModal,
+    user
 });

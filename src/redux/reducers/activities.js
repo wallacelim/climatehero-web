@@ -1,72 +1,87 @@
+/* eslint-disable no-plusplus */
 import {
-    ADD_ACTIVITY,
+    ADD_ACTIVITY_STARTED,
+    ADD_ACTIVITY_SUCCESS,
+    ADD_ACTIVITY_FAIL,
     DELETE_ACTIVITY,
     REQUEST_ACTIVITIES,
-    RECEIVE_ACTIVITIES,
+    RECEIVE_ACTIVITIES
 } from "../../constants/actionTypes";
-// import {
-//     VEGETARIAN_MEAL,
-//     BIKE_RIDE,
-//     BUS_RIDE
-// } from "../../constants/activityTypes";
+
+import { getActivityTypeFromString } from "../../util/activities";
 
 const initialState = {
     isFetching: false,
-    fetched: false,
-    data: [
-        // {
-        //     id: -1,
-        //     date: getCurrentDateTimeString(),
-        //     type: VEGETARIAN_MEAL,
-        //     measurement: 5,
-        //     metric: "meals",
-        //     isRecurring: true,
-        //     recurrenceValue: 2,
-        //     recurrenceType: "DAY"
-        //     reduction: (Math.random() * 10).toFixed(2)
-        // },
-        // {
-        //     id: -2,
-        //     date: getCurrentDateTimeString(),
-        //     type: BIKE_RIDE,
-        //     measurement: 30,
-        //     metric: "km",
-        //     recurrence: "N/A",
-        //     reduction: (Math.random() * 10).toFixed(2)
-        // },
-        // {
-        //     id: -3,
-        //     date: getCurrentDateTimeString(),
-        //     type: BUS_RIDE,
-        //     measurement: 90,
-        //     metric: "km",
-        //     recurrence: "N/A",
-        //     reduction: (Math.random() * 10).toFixed(2)
-        // }
-    ],
+    data: [],
+    lastUpdated: null,
+    error: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-    case ADD_ACTIVITY:
-        return { ...state, ...action.payload };
+        case ADD_ACTIVITY_STARTED:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case ADD_ACTIVITY_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                data: [
+                    ...state.data,
+                    {
+                        ...action.payload,
+                        type: getActivityTypeFromString(action.payload.type)
+                    }
+                ]
+            };
+        case ADD_ACTIVITY_FAIL:
+            return {
+                ...state,
+                error: action.payload.error
+            };
+        case DELETE_ACTIVITY:
+            return {
+                ...state,
+                data: [
+                    ...state.data.filter(
+                        activity => activity.id !== action.payload.id
+                    )
+                ]
+            };
 
-    case DELETE_ACTIVITY:
-        return [
-            ...state,
-            ...state.data.slice(0, action.payload.id),
-            ...state.data.slice(action.payload.id + 1),
-        ];
-    case REQUEST_ACTIVITIES:
-        return { ...state, isFetching: true };
-    case RECEIVE_ACTIVITIES:
-        return {
-            ...state,
-            isFetching: false,
-            fetched: true,
-            data: action.data,
-        };
-    default:
-        return state;
+        case REQUEST_ACTIVITIES:
+            return { ...state, isFetching: true };
+
+        case RECEIVE_ACTIVITIES:
+            return {
+                ...state,
+                isFetching: false,
+                data: action.payload.data.map(
+                    ({
+                        id,
+                        userId,
+                        type,
+                        metric,
+                        measurement,
+                        reductionValue,
+                        dateTimeOfActivity
+                        // UNUSED: dateTimeCreated,
+                        // UNUSED: comment
+                    }) => ({
+                        id,
+                        userId,
+                        type: getActivityTypeFromString(type),
+                        metric,
+                        measurement,
+                        reductionValue,
+                        dateTimeOfActivity
+                    })
+                ),
+                lastUpdated: action.payload.receivedAt
+            };
+        default:
+            return state;
     }
 };

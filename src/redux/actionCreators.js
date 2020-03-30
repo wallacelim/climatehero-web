@@ -1,112 +1,279 @@
-import fetch from "cross-fetch";
+import axios from "axios";
+
 import {
-    ADD_GOAL,
-    DELETE_GOAL,
-    UPDATE_GOALS,
-    ADD_ACTIVITY,
+    ADD_ACTIVITY_STARTED,
+    ADD_ACTIVITY_SUCCESS,
+    ADD_ACTIVITY_FAIL,
     DELETE_ACTIVITY,
     RECEIVE_ACTIVITIES,
     REQUEST_ACTIVITIES,
+    ADD_GOAL_STARTED,
+    ADD_GOAL_SUCCESS,
+    ADD_GOAL_FAIL,
+    DELETE_GOAL,
+    EDIT_GOAL,
+    UPDATE_GOALS,
+    REQUEST_GOALS,
+    RECEIVE_GOALS,
     TOGGLE_ADD_ACTIVITY_MODAL,
+    TOGGLE_EDIT_ACTIVITY_MODAL,
     TOGGLE_ADD_GOAL_MODAL,
     TOGGLE_WELCOME_MODAL,
+    TOGGLE_EDIT_GOAL_MODAL,
+    USER_LOGIN
 } from "../constants/actionTypes";
 
-const nextGoalId = 0;
-const nextActivityId = 0;
+export const Activity = {
+    addStart: () => ({ type: ADD_ACTIVITY_STARTED }),
 
-export const Goal = {
-    add: ({
-        name,
-        startDate,
-        targetDate,
+    addSuccess: ({
+        userId,
         type,
-        currentMeasurement,
-        targetMeasurement,
         metric,
-        progress,
+        measurement,
+        reductionValue,
+        dateTimeOfActivity
+        // UNUSED: dateTimeCreated
+        // UNUSED: comment
     }) => ({
-        type: ADD_GOAL,
+        type: ADD_ACTIVITY_SUCCESS,
         payload: {
-            id: nextGoalId + 1,
-            name,
-            startDate,
-            targetDate,
+            userId,
             type,
-            currentMeasurement,
-            targetMeasurement,
             metric,
-            progress,
-        },
+            measurement,
+            reductionValue,
+            dateTimeOfActivity,
+            recurrence: false // TODO: standardize with backend
+        }
     }),
-    delete: (id) => ({
-        type: DELETE_GOAL,
+
+    addFail: error => ({
+        type: ADD_ACTIVITY_FAIL,
         payload: {
-            id,
-        },
+            error
+        }
     }),
+
+    add: ({
+        userId,
+        type,
+        metric,
+        measurement,
+        dateTimeOfActivity
+        // UNUSED: dateTimeCreated
+        // UNUSED: comment
+    }) => {
+        return async dispatch => {
+            dispatch(Activity.addStart());
+            try {
+                const res = await axios.post(
+                    "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities",
+                    {
+                        userId,
+                        type: type.name,
+                        metric,
+                        measurement,
+                        dateTimeOfActivity
+                    }
+                );
+                dispatch(Activity.addSuccess(res.data));
+                // eslint-disable-next-line no-use-before-define
+                dispatch(Goal.updateAll(res.data));
+            } catch (err) {
+                dispatch(Activity.addFail(err));
+            }
+        };
+    },
+
+    delete: id => ({
+        type: DELETE_ACTIVITY,
+        payload: {
+            id
+        }
+    }),
+
+    request: userId => ({
+        type: REQUEST_ACTIVITIES,
+        userId
+    }),
+
+    receive: data => ({
+        type: RECEIVE_ACTIVITIES,
+        payload: {
+            data,
+            receivedAt: Date.now()
+        }
+    }),
+
+    fetchAll: () => dispatch => {
+        dispatch(Activity.request());
+        return axios
+            .get(
+                "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities"
+            )
+            .then(response => dispatch(Activity.receive(response.data)));
+        // TODO: add error handling
+    }
 };
 
-export const Goals = {
-    update: ({ type, measurement }) => ({
+export const Goal = {
+    addStart: () => ({ type: ADD_GOAL_STARTED }),
+
+    addSuccess: ({
+        id,
+        userId,
+        dateCreated,
+        title,
+        type,
+        metric,
+        measurement,
+        fulfillment,
+        dateStart,
+        dateTarget
+    }) => ({
+        type: ADD_GOAL_SUCCESS,
+        payload: {
+            id,
+            userId,
+            dateCreated,
+            title,
+            type,
+            metric,
+            measurement,
+            fulfillment,
+            dateStart,
+            dateTarget
+        }
+    }),
+
+    addFail: error => ({
+        type: ADD_GOAL_FAIL,
+        payload: {
+            error
+        }
+    }),
+    add: ({
+        userId,
+        title,
+        type,
+        metric,
+        measurement,
+        dateStart, // TODO: perform check
+        dateTarget
+    }) => {
+        console.log({
+            userId,
+            title,
+            type: type.name,
+            metric,
+            measurement,
+            dateStart,
+            dateTarget
+        });
+        return async dispatch => {
+            dispatch(Goal.addStart());
+            try {
+                const res = await axios.post(
+                    "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals",
+                    {
+                        title,
+                        userId,
+                        type: type.name,
+                        metric,
+                        measurement,
+                        dateStart,
+                        dateTarget
+                    }
+                );
+                dispatch(Goal.addSuccess(res.data));
+            } catch (err) {
+                dispatch(Goal.addFail(err));
+            }
+        };
+    },
+
+    delete: id => ({
+        type: DELETE_GOAL,
+        payload: {
+            id
+        }
+    }),
+
+    edit: (id, updates) => ({
+        type: EDIT_GOAL,
+        payload: {
+            id,
+            updates
+        }
+    }),
+
+    updateAll: ({ type, measurement }) => ({
         type: UPDATE_GOALS,
         payload: {
             type,
-            measurement,
-        },
+            measurement
+        }
     }),
+
+    request: userId => ({
+        type: REQUEST_GOALS,
+        userId
+    }),
+
+    receive: data => ({
+        type: RECEIVE_GOALS,
+        payload: {
+            data,
+            receivedAt: Date.now()
+        }
+    }),
+
+    fetchAll: () => dispatch => {
+        dispatch(Goal.request());
+        return axios
+            .get(
+                "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals"
+            )
+            .then(response => dispatch(Goal.receive(response.data)));
+    }
 };
 
 export const UI = {
     toggleAddGoalModal: () => ({
-        type: TOGGLE_ADD_GOAL_MODAL,
+        type: TOGGLE_ADD_GOAL_MODAL
     }),
 
     toggleAddActivityModal: () => ({
-        type: TOGGLE_ADD_ACTIVITY_MODAL,
+        type: TOGGLE_ADD_ACTIVITY_MODAL
     }),
-    
+
+    toggleEditActivityModal: id => ({
+        type: TOGGLE_EDIT_ACTIVITY_MODAL,
+        payload: {
+            id
+        }
+    }),
+
     toggleWelcomeModal: () => ({
-        type: TOGGLE_WELCOME_MODAL,
+        type: TOGGLE_WELCOME_MODAL
+    }),
+
+    toggleEditGoalModal: id => ({
+        type: TOGGLE_EDIT_GOAL_MODAL,
+        payload: {
+            id
+        }
     })
 };
 
-export const Activity = {
-    add: ({
-        date, type, measurement, metric, recurrence, reduction,
-    }) => ({
-        type: ADD_ACTIVITY,
+export const User = {
+    loginDummyUser: () => ({
+        type: USER_LOGIN,
         payload: {
-            id: nextActivityId + 1,
-            date,
-            type,
-            measurement,
-            metric,
-            recurrence,
-            reduction,
-        },
-    }),
-    delete: (id) => ({
-        type: DELETE_ACTIVITY,
-        payload: {
-            id,
-        },
-    }),
-
-    request: (userId) => ({
-        type: REQUEST_ACTIVITIES,
-        userId,
-    }),
-    receive: (json) => ({
-        type: RECEIVE_ACTIVITIES,
-        data: json,
-        receivedAt: Date.now(),
-    }),
-
-    fetchAll: () => (dispatch) => {
-        dispatch(Activity.request());
-        return fetch("http://localhost:8080/reductions")
-            .then((response) => response.json())
-            .then((json) => dispatch(Activity.receive(json)));
-    },
+            id: "test_user_2",
+            firstName: "Firstname",
+            lastName: "Lastname"
+        }
+    })
 };

@@ -1,85 +1,121 @@
 import {
-    ADD_GOAL,
+    ADD_GOAL_STARTED,
+    ADD_GOAL_SUCCESS,
+    ADD_GOAL_FAIL,
     DELETE_GOAL,
+    EDIT_GOAL,
     UPDATE_GOALS,
+    REQUEST_GOALS,
+    RECEIVE_GOALS
 } from "../../constants/actionTypes";
-import {
-    VEGETARIAN_MEAL,
-    BIKE_RIDE,
-    BUS_RIDE,
-} from "../../constants/activityTypes";
+
+import { getActivityTypeFromString } from "../../util/activities";
 
 const initialState = {
     isFetching: false,
-    fetched: false,
-    data: [
-        {
-            id: -1,
-            name: "Eat veggie meals",
-            startDate: new Date().toLocaleDateString(),
-            targetDate: new Date().toLocaleDateString(),
-            type: VEGETARIAN_MEAL,
-            currentMeasurement: 5,
-            targetMeasurement: 10,
-            metric: "meals",
-            // progress: 50,
-        },
-        {
-            id: -2,
-            name: "Bike to work",
-            startDate: new Date().toLocaleDateString(),
-            targetDate: new Date().toLocaleDateString(),
-            type: BIKE_RIDE,
-            currentMeasurement: 30,
-            targetMeasurement: 100,
-            metric: "km",
-            // progress: 30,
-        },
-        {
-            id: -3,
-            name: "Take the bus",
-            startDate: new Date().toLocaleDateString(),
-            targetDate: new Date().toLocaleDateString(),
-            type: BUS_RIDE,
-            currentMeasurement: 90,
-            targetMeasurement: 100,
-            metric: "km",
-            // progress: 90,
-        },
-    ],
+    data: [],
+    lastUpdated: null
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-    case ADD_GOAL:
-        return {
-            ...state,
-            data: [...state.data, action.payload],
-        };
-    case DELETE_GOAL:
-        return {
-            ...state,
-            data: [
-                ...state.data.slice(0, action.payload.id),
-                ...state.slice(action.payload.id + 1),
-            ],
-        };
-    case UPDATE_GOALS:
-        return {
-            ...state,
-            data: state.data.map((goal) => {
-                if (goal.type === action.payload.type) {
-                    const updatedCurrentMeasurement = goal.currentMeasurement
-                    + action.payload.measurement;
-                    return {
-                        ...goal,
-                        currentMeasurement: updatedCurrentMeasurement,
-                    };
-                }
-                return goal;
-            }),
-        };
-    default:
-        return state;
+        case ADD_GOAL_STARTED:
+            return {
+                ...state,
+                isFetching: true
+            };
+
+        case ADD_GOAL_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                data: [
+                    ...state.data,
+                    {
+                        ...action.payload,
+                        type: getActivityTypeFromString(action.payload.type)
+                    }
+                ]
+            };
+
+        case ADD_GOAL_FAIL:
+            return {
+                ...state,
+                error: action.payload.error
+            };
+
+        case DELETE_GOAL:
+            return {
+                ...state,
+                data: [
+                    ...state.data.filter(goal => goal.id !== action.payload.id)
+                ]
+            };
+        case EDIT_GOAL:
+            return {
+                ...state,
+                data: state.data.map(goal => {
+                    if (goal.id === action.payload.id) {
+                        return {
+                            ...goal,
+                            ...action.payload.updates
+                        };
+                    }
+                    return goal;
+                })
+            };
+
+        case UPDATE_GOALS:
+            return {
+                ...state,
+                data: state.data.map(goal => {
+                    if (goal.type === action.payload.type) {
+                        const updatedCurrentFulfillment =
+                            goal.fulfillment + action.payload.measurement;
+                        return {
+                            ...goal,
+                            fulfillment: updatedCurrentFulfillment
+                        };
+                    }
+                    return goal;
+                })
+            };
+
+        case REQUEST_GOALS:
+            return { ...state, isFetching: true };
+
+        case RECEIVE_GOALS:
+            return {
+                ...state,
+                isFetching: false,
+                data: action.payload.data.map(
+                    ({
+                        id,
+                        userId,
+                        dateCreated,
+                        title,
+                        type,
+                        metric,
+                        measurement,
+                        fulfillment,
+                        dateStart,
+                        dateTarget
+                    }) => ({
+                        id,
+                        userId,
+                        dateCreated,
+                        title,
+                        type: getActivityTypeFromString(type),
+                        metric,
+                        measurement,
+                        fulfillment,
+                        dateStart,
+                        dateTarget
+                    })
+                ),
+                lastUpdated: action.payload.receivedAt
+            };
+        default:
+            return state;
     }
 }

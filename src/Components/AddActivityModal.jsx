@@ -17,72 +17,53 @@ import {
     Input,
     InputType,
     Option,
-    Select,
+    Select
 } from "@ui5/webcomponents-react";
 import {
     sapUiContentPadding,
     sapUiSmallMarginBottom,
-    sapUiTinyMargin,
+    sapUiTinyMargin
 } from "@ui5/webcomponents-react-base/lib/spacing";
 
 import {
-    BIKE_RIDE,
-    BUS_RIDE,
-    TRAIN_RIDE,
-    VEGETARIAN_MEAL,
-    WALKING,
+    COMMUTE_BIKE,
+    COMMUTE_BUS,
+    COMMUTE_TRAIN,
+    MEAL_VEGETARIAN
 } from "../constants/activityTypes";
-import { Activity, Goals, UI } from "../redux/actionCreators";
+import { Activity, UI } from "../redux/actionCreators";
 import { getCurrentDateTimeString } from "../util/dateTime";
+import { getActivityTypeFromString } from "../util/activities";
 
 const AddActivityModal = ({
-    showAddActivityModal,
+    addActivityModal,
+    userId,
     toggleAddActivityModal,
-    addActivity,
-    updateGoals,
+    addActivity
 }) => {
-    const [activityType, setActivityType] = React.useState(WALKING);
+    const [activityType, setActivityType] = React.useState(COMMUTE_BIKE);
     const [input, setInput] = useState(0);
 
     const handleAdd = () => {
-        if (!input) {
-            alert("please enter a non-zero value");
+        if (!input || input <= 0) {
+            alert("please enter a positive value");
             return;
         }
         toggleAddActivityModal();
         const activity = {
-            date: getCurrentDateTimeString,
+            userId,
             type: activityType,
-            measurement: parseInt(input, 10),
             metric: activityType.metric,
-            reduction: (Math.random() * 10).toFixed(2),
-            recurrence: Math.round(Math.random()) ? "Weekly" : "N/A",
+            measurement: parseInt(input, 10),
+            reductionValue: (Math.random() * 10).toFixed(2),
+            dateTimeOfActivity: getCurrentDateTimeString()
         };
         addActivity(activity);
-        updateGoals(activity);
     };
 
-    const handleSelectType = (e) => {
+    const handleSelectType = e => {
         const name = e.parameters.selectedOption.value;
-        switch (name) {
-        case WALKING.name:
-            setActivityType(WALKING);
-            break;
-        case BIKE_RIDE.name:
-            setActivityType(BIKE_RIDE);
-            break;
-        case BUS_RIDE.name:
-            setActivityType(BUS_RIDE);
-            break;
-        case TRAIN_RIDE.name:
-            setActivityType(TRAIN_RIDE);
-            break;
-        case VEGETARIAN_MEAL.name:
-            setActivityType(VEGETARIAN_MEAL);
-            break;
-        default:
-            console.error("Error setting activityType");
-        }
+        setActivityType(getActivityTypeFromString(name));
     };
 
     return (
@@ -103,10 +84,10 @@ const AddActivityModal = ({
                     >
                         Close
                     </Button>
-                </FlexBox>,
+                </FlexBox>
             ]}
             stretch={false}
-            open={showAddActivityModal}
+            open={addActivityModal.isOpen}
             footer={
                 <div>
                     <FlexBox
@@ -134,44 +115,47 @@ const AddActivityModal = ({
                         style={sapUiSmallMarginBottom}
                         onChange={handleSelectType}
                     >
-                        <Option icon="physical-activity" value={WALKING.name}>
+                        {/* <Option icon="physical-activity" value={WALKING.name}>
                             {WALKING.displayName} ({WALKING.metric})
-                        </Option>
-                        <Option icon="supplier" value={BIKE_RIDE.name}>
-                            {BIKE_RIDE.displayName} ({BIKE_RIDE.metric})
+                        </Option> */}
+                        <Option icon="supplier" value={COMMUTE_BIKE.name}>
+                            {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                         </Option>
                         <Option
                             icon="bus-public-transport"
-                            value={BUS_RIDE.name}
+                            value={COMMUTE_BUS.name}
                         >
-                            {BUS_RIDE.displayName} ({BUS_RIDE.metric})
+                            {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
                         </Option>
-                        <Option icon="passenger-train" value={TRAIN_RIDE.name}>
-                            {TRAIN_RIDE.displayName} ({TRAIN_RIDE.metric})
+                        <Option
+                            icon="passenger-train"
+                            value={COMMUTE_TRAIN.name}
+                        >
+                            {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
                         </Option>
-                        <Option icon="meal" value={VEGETARIAN_MEAL.name}>
-                            {VEGETARIAN_MEAL.displayName} (
-                            {VEGETARIAN_MEAL.metric})
+                        <Option icon="meal" value={MEAL_VEGETARIAN.name}>
+                            {MEAL_VEGETARIAN.displayName} (
+                            {MEAL_VEGETARIAN.metric})
                         </Option>
                     </Select>
                     <Input
                         type={InputType.Number}
                         value={input}
-                        onChange={(e) => setInput(e.parameters.value)}
+                        onChange={e => setInput(e.parameters.value)}
                     />
                 </FlexBox>
             </section>
         </Dialog>
     );
 };
-const mapStateToProps = ({ showAddActivityModal }) => ({
-    showAddActivityModal,
+const mapStateToProps = ({ user, addActivityModal }) => ({
+    addActivityModal,
+    userId: user.data.id
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
-    addActivity: (activity) => dispatch(Activity.add(activity)),
-    updateGoals: (activity) => dispatch(Goals.update(activity)),
+    addActivity: activity => dispatch(Activity.add(activity))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddActivityModal);

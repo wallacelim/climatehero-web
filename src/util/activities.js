@@ -1,26 +1,26 @@
 import {
     WALKING,
-    BIKE_RIDE,
-    BUS_RIDE,
-    TRAIN_RIDE,
-    VEGETARIAN_MEAL,
+    COMMUTE_BIKE,
+    COMMUTE_BUS,
+    COMMUTE_TRAIN,
+    MEAL_VEGETARIAN
 } from "../constants/activityTypes";
 
-export const getActivityTypeFromString = (activityString) => {
+export const getActivityTypeFromString = activityString => {
     switch (activityString) {
-    case WALKING.name:
-        return WALKING;
-    case BIKE_RIDE.name:
-        return BIKE_RIDE;
-    case BUS_RIDE.name:
-        return BUS_RIDE;
-    case TRAIN_RIDE.name:
-        return TRAIN_RIDE;
-    case VEGETARIAN_MEAL.name:
-        return VEGETARIAN_MEAL;
-    default:
-        throw new Error("Error setting activityType");
+        case WALKING.name:
+            return WALKING;
+        case COMMUTE_BIKE.name:
+            return COMMUTE_BIKE;
+        case COMMUTE_BUS.name:
+            return COMMUTE_BUS;
+        case COMMUTE_TRAIN.name:
+            return COMMUTE_TRAIN;
+        case MEAL_VEGETARIAN.name:
+            return MEAL_VEGETARIAN;
+        default:
+            throw new Error("Error setting activityType");
     }
 };
 
-export const stub = "STUB";
+export const stub = "STUB"; // TODO: remove

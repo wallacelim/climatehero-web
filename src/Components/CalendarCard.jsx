@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import Calendar from "react-calendar";
@@ -8,14 +9,22 @@ import {
   FlexBox,
   FlexBoxJustifyContent,
   FlexBoxAlignItems,
+  Button
 } from "@ui5/webcomponents-react";
 import { Icon } from "@ui5/webcomponents-react/lib/Icon";
 import "@ui5/webcomponents-icons/dist/icons/appointment-2";
-import { UI } from "../redux/actionCreators";
-import { getDateAsString } from "../util/dateTime";
+
+import ActivityHistory from "./ActivityHistory";
+import { getDateAsString, getDateFromString } from "../util/dateTime";
 
 const CalendarCard = ({ style, toggleAddActivityModal }) => {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
+
+  const resetCalendar = () => {
+    setSelectedStartDate(null);
+    setSelectedEndDate(null);
+  };
 
   return (
     <>
@@ -32,12 +41,21 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
       </Button>
       <Card
         heading="Your Calendar"
-        // subtitle="Select a date to edit activities"
+        subtitle="Select a date range to view activities"
         style={{
           ...style
         }}
         avatar={<Icon name="appointment-2" />}
       >
+        <FlexBox
+          justifyContent={FlexBoxJustifyContent.End}
+          alignItems={FlexBoxAlignItems.Center}
+          style={{ ...style, position: "relative", marginTop: "-9vh" }}
+        >
+          <Button onClick={resetCalendar} style={{ margin: "10px 20px -20px" }}>
+            Reset Calendar
+          </Button>
+        </FlexBox>
         <FlexBox
           justifyContent={FlexBoxJustifyContent.Start}
           alignItems={FlexBoxAlignItems.Center}
@@ -45,9 +63,22 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
         >
           <Calendar
             calendarType="ISO 8601"
-            onChange={date => setSelectedDate(getDateAsString(date))}
+            selectRange
+            onChange={([startDate, endDate]) => {
+              setSelectedStartDate(getDateAsString(startDate));
+              setSelectedEndDate(getDateAsString(endDate));
+            }}
             width="1000px"
+            value={
+              selectedEndDate && selectedEndDate
+                ? [
+                    getDateFromString(selectedStartDate).toDate(),
+                    getDateFromString(selectedEndDate).toDate()
+                  ]
+                : null
+            }
           />
+
           <FlexBox
             justifyContent={FlexBoxJustifyContent.Center}
             alignItems={FlexBoxAlignItems.Center}
@@ -57,11 +88,10 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
               height: "100%"
             }}
           >
-            {selectedDate ? (
-              <h5>Some information for the date: {selectedDate}</h5>
-            ) : (
-              <p>Select a date to edit</p>
-            )}
+            <ActivityHistory
+              dateRangeStart={selectedStartDate}
+              dateRangeEnd={selectedEndDate}
+            />
           </FlexBox>
         </FlexBox>
       </Card>
