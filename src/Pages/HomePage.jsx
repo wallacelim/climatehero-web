@@ -6,17 +6,17 @@ import { ObjectPageSection } from "@ui5/webcomponents-react/lib/ObjectPageSectio
 import React from "react";
 import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
-import { UI } from "../redux/actionCreators";
+// import { UI } from "../redux/actionCreators";
 import DraggableCard from "../Components/Containers/DraggableCard";
 
-function HomePage({ toggleAddActivityModal }) {
+function HomePage() {
     return (
         <ObjectPage
-            title="Home Page"
+            title="Climate Hero"
             subTitle="Welcome, Test User"
-            headerActions={
-                <Button onClick={toggleAddActivityModal}>Add</Button>
-            }
+            // headerActions={
+            //     <Button onClick={toggleAddActivityModal}>Add</Button>
+            // }
             mode={ObjectPageMode.Default}
             style={{
                 ...spacing.sapUiContentPadding, height: "100vh", position: "absolute", top: "0",
@@ -54,8 +54,8 @@ function HomePage({ toggleAddActivityModal }) {
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
+// });
 
-export default connect(null, mapDispatchToProps)(HomePage);
+export default connect()(HomePage);
