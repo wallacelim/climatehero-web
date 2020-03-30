@@ -54,7 +54,7 @@ const ActivityHistory = ({
                 .map(activity => ({
                     dateTime: activity.dateTimeOfActivity,
                     type: activity.type.displayName,
-                    measurement: `${activity.measurement} ${activity.metric}`,
+                    measurement: `${activity.measurement} ${activity.type.displayMetric}`,
                     reduction: activity.reductionValue,
                     recurrence: activity.recurrence
                         ? activity.recurrence

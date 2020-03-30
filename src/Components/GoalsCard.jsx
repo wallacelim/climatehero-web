@@ -126,7 +126,6 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                         .filter(goal => goal.userId === userId)
                         .map(goal => {
                             const metadata = getMetaData(goal);
-                            console.log(`goal.id: ${goal.id}`);
                             return (
                                 <StandardListItem
                                     key={goal.id}

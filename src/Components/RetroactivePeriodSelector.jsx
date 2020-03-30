@@ -21,19 +21,21 @@ export default ({ handleFilter }) => {
 
     useEffect(() => {
         handleFilter(timeValue, timeUnit);
-        // eslint-disable-next-line
-    }, [timeValue, timeUnit]); // TODO: add dependency, fix infinite loop that ensues
+    }, [handleFilter]);
 
     const handleTimeUnitChange = unit => {
         switch (unit) {
             case DAY.unitString:
                 setTimeUnit(DAY);
+                setTimeValue(DAY.defaultValue);
                 break;
             case MONTH.unitString:
                 setTimeUnit(MONTH);
+                setTimeValue(MONTH.defaultValue);
                 break;
             case YEAR.unitString:
                 setTimeUnit(YEAR);
+                setTimeValue(YEAR.defaultValue);
                 break;
             default:
                 throw new Error(`Invalid time unit: ${unit}`);
@@ -49,12 +51,14 @@ export default ({ handleFilter }) => {
             <Text style={{ width: "10%" }}>Last</Text>
             <Select
                 style={{ width: "30%" }}
-                onChange={e => setTimeValue(e.parameters.selectedOption.value)}
+                onChange={e =>
+                    setTimeValue(Number(e.parameters.selectedOption.value))
+                }
             >
                 {timeUnit.options.map(x => (
                     <Option
                         style={sapUiSmallMarginBottom}
-                        selected={x === timeUnit.defaultValue}
+                        selected={x === timeValue}
                         value={x}
                         key={x}
                     >

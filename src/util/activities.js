@@ -1,3 +1,5 @@
+import { range } from "lodash";
+import moment from "moment";
 import {
     WALKING,
     COMMUTE_BIKE,
@@ -5,6 +7,7 @@ import {
     COMMUTE_TRAIN,
     MEAL_VEGETARIAN
 } from "../constants/activityTypes";
+import { getDateTimeFromString } from "./dateTime";
 
 export const getActivityTypeFromString = activityString => {
     switch (activityString) {
@@ -23,4 +26,38 @@ export const getActivityTypeFromString = activityString => {
     }
 };
 
-export const stub = "STUB"; // TODO: remove
+export const filterAndGroupActivitiesByTime = (
+    activities,
+    timeValue,
+    timeUnit
+) => {
+    const startMoment = moment().subtract(timeValue, timeUnit.unitString);
+    const endMoment = moment();
+    const timeToReductionMapping = {};
+    const currentMoment = moment().subtract(timeValue, timeUnit.unitString);
+    range(timeValue + 1).forEach(() => {
+        const currentTimeValue = currentMoment.get(timeUnit.momentString);
+        // eslint-disable-next-line no-param-reassign
+        timeToReductionMapping[
+            timeUnit.getAbbreviatedStringFromNumber(currentTimeValue)
+        ] = activities.reduce((totalReduction, activity) => {
+            const activityMoment = getDateTimeFromString(
+                activity.dateTimeOfActivity
+            );
+            if (
+                activityMoment.isBetween(
+                    startMoment,
+                    endMoment,
+                    timeUnit.momentString,
+                    []
+                ) &&
+                activityMoment.get(timeUnit.momentString) === currentTimeValue
+            ) {
+                return totalReduction + activity.reductionValue;
+            }
+            return totalReduction;
+        }, 0);
+        currentMoment.add(1, timeUnit.unitString);
+    });
+    return timeToReductionMapping;
+};

@@ -24,6 +24,7 @@ import {
 } from "../constants/actionTypes";
 
 export const Activity = {
+    // TODO: backend rounding error
     addStart: () => ({ type: ADD_ACTIVITY_STARTED }),
 
     addSuccess: ({
