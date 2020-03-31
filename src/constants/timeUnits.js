@@ -8,7 +8,8 @@ export const HOUR = {
     momentString: "hour",
     unitString: "hours",
     options: range(1, 25),
-    defaultValue: 12
+    defaultValue: 12,
+    getAbbreviatedStringFromNumber: value => String(value)
 };
 
 export const DAY = {

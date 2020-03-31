@@ -23,7 +23,7 @@ const TrendsCard = ({ activities }) => {
     const switchToChart =
         toggleCharts === "lineChart" ? "Bar Chart" : "Line Chart";
 
-    const handleFilter = useCallback(
+    const filterByTime = useCallback(
         (timeValue, timeUnit) => {
             setTimeToActivityMapping(
                 filterAndGroupActivitiesByTime(
@@ -41,7 +41,9 @@ const TrendsCard = ({ activities }) => {
         setData([
             {
                 label: "Carbon Footprint Reductions",
-                data: Object.values(timeToActivityMapping)
+                data: Object.values(timeToActivityMapping).map(x =>
+                    x.toFixed(2)
+                )
             }
         ]);
     }, [timeToActivityMapping]);
@@ -87,7 +89,7 @@ const TrendsCard = ({ activities }) => {
             heading="Your Reduction Trends"
             subtitle={`Click me to switch to ${switchToChart}`}
         >
-            <RetroactivePeriodSelector handleFilter={handleFilter} />
+            <RetroactivePeriodSelector filterByTime={filterByTime} />
             <Text style={{ ...spacing.sapUiContentPadding, color: "grey" }}>
                 {contentTitle}
             </Text>

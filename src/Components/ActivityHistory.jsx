@@ -55,7 +55,7 @@ const ActivityHistory = ({
                     dateTime: activity.dateTimeOfActivity,
                     type: activity.type.displayName,
                     measurement: `${activity.measurement} ${activity.type.displayMetric}`,
-                    reduction: activity.reductionValue,
+                    reduction: activity.reductionValue.toFixed(2),
                     recurrence: activity.recurrence
                         ? activity.recurrence
                         : "N/A"
