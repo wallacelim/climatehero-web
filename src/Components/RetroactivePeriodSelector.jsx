@@ -15,13 +15,21 @@ import {
 } from "@ui5/webcomponents-react-base/lib/spacing";
 import { DAY, MONTH, YEAR } from "../constants/timeUnits";
 
-export default ({ handleFilter }) => {
+export default ({ filterByTime }) => {
     const [timeValue, setTimeValue] = useState(MONTH.defaultValue);
     const [timeUnit, setTimeUnit] = useState(MONTH);
+    const [shouldFilter, setShouldFilter] = useState(true);
 
     useEffect(() => {
-        handleFilter(timeValue, timeUnit);
-    }, [handleFilter]);
+        setShouldFilter(true);
+    }, [filterByTime]);
+
+    useEffect(() => {
+        if (shouldFilter) {
+            filterByTime(timeValue, timeUnit);
+            setShouldFilter(false);
+        }
+    }, [filterByTime, shouldFilter, timeValue, timeUnit]);
 
     const handleTimeUnitChange = unit => {
         switch (unit) {
@@ -82,10 +90,7 @@ export default ({ handleFilter }) => {
                     {YEAR.unitString}
                 </Option>
             </Select>
-            <Button
-                width="20%"
-                onClick={() => handleFilter(timeValue, timeUnit)}
-            >
+            <Button width="20%" onClick={() => setShouldFilter(true)}>
                 Filter
             </Button>
         </FlexBox>
