@@ -9,13 +9,13 @@ import {
   FlexBox,
   FlexBoxJustifyContent,
   FlexBoxAlignItems,
-  Button
 } from "@ui5/webcomponents-react";
 import { Icon } from "@ui5/webcomponents-react/lib/Icon";
 import "@ui5/webcomponents-icons/dist/icons/appointment-2";
 
 import ActivityHistory from "./ActivityHistory";
-import { getDateAsString, getDateFromString } from "../util/dateTime";
+import { UI } from "../redux/actionCreators";
+import { getDateAsString, getDateFromString } from "../util/datetime";
 
 const CalendarCard = ({ style, toggleAddActivityModal }) => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);

@@ -38,7 +38,7 @@ import "@ui5/webcomponents-icons/dist/icons/supplier";
 import {
     getCurrentDateString,
     getCurrentDateTimeString
-} from "../util/dateTime";
+} from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 

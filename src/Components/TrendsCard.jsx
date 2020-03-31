@@ -8,7 +8,7 @@ import RetroactivePeriodSelector from "./RetroactivePeriodSelector";
 import {
     getDateTimeFromString,
     getAbbreviatedMonthStringFromNumber
-} from "../util/dateTime";
+} from "../util/datetime";
 
 import "@ui5/webcomponents-icons/dist/icons/horizontal-bar-chart";
 import "@ui5/webcomponents-icons/dist/icons/line-chart";

@@ -2,7 +2,7 @@ import React from "react";
 import { AnalyticalTable } from "@ui5/webcomponents-react";
 import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
-import { getDateTimeFromString, getDateFromString } from "../util/dateTime";
+import { getDateTimeFromString, getDateFromString } from "../util/datetime";
 
 const ActivityHistory = ({
     userId,
