@@ -52,7 +52,7 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
           alignItems={FlexBoxAlignItems.Center}
           style={{ ...style, position: "relative", marginTop: "-9vh" }}
         >
-          <Button onClick={resetCalendar} style={{ margin: "10px 20px -20px" }}>
+          <Button onClick={resetCalendar} style={{ margin: "-30px 20px -20px" }}>
             Reset Calendar
           </Button>
         </FlexBox>
