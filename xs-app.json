@@ -2,10 +2,15 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/api",
-      "target": "/",
+      "source": "/api",
       "csrfProtection": false,
       "destination": "climatehero-server"
+    },
+    {
+      "source": "/(.*)",
+      "localDir": "./build",
+      "target": "$1",
+      "csrfProtection": false
     }
   ]
 }
