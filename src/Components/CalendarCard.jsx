@@ -39,7 +39,11 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
                 <Button design={ButtonDesign.Default} onClick={resetCalendar}>
                     Reset Calendar
                 </Button>
-                <Button icon="add-activity" onClick={toggleAddActivityModal}>
+                <Button
+                    design={ButtonDesign.Emphasized}
+                    icon="add-activity"
+                    onClick={toggleAddActivityModal}
+                >
                     Add an activity
                 </Button>
             </FlexBox>
