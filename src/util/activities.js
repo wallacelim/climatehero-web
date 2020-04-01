@@ -7,7 +7,7 @@ import {
     COMMUTE_TRAIN,
     MEAL_VEGETARIAN
 } from "../constants/activityTypes";
-import { getDateTimeFromString } from "./dateTime";
+import { getDateTimeFromString } from "./datetime";
 
 export const getActivityTypeFromString = activityString => {
     switch (activityString) {

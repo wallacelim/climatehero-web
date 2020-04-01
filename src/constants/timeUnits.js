@@ -2,7 +2,7 @@ import { range } from "lodash";
 import {
     getAbbreviatedMonthStringFromNumber,
     getAbbreviatedDayStringFromNumber
-} from "../util/dateTime";
+} from "../util/datetime";
 
 export const HOUR = {
     momentString: "hour",

@@ -32,7 +32,7 @@ import {
     MEAL_VEGETARIAN
 } from "../constants/activityTypes";
 import { Activity, UI } from "../redux/actionCreators";
-import { getCurrentDateTimeString } from "../util/dateTime";
+import { getCurrentDateTimeString } from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
 
 const AddActivityModal = ({
