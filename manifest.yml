@@ -6,7 +6,6 @@ applications:
   router.route_services_recommended_https: true
   router.disable_http: true
   routes:
-  - route:  http://climatehero-web.cfapps.sap.hana.ondemand.com/home
   - route:  http://climatehero-web.cfapps.sap.hana.ondemand.com
   services:
     - climatehero-uaa
