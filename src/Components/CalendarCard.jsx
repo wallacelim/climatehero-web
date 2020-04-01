@@ -36,7 +36,10 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
                     ...style
                 }}
             >
-                <Button design={ButtonDesign.Default} onClick={resetCalendar}>
+                <Button
+                    onClick={resetCalendar}
+                    disabled={!selectedStartDate || !selectedEndDate}
+                >
                     Reset Calendar
                 </Button>
                 <Button
