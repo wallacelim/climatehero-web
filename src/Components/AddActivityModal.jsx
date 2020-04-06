@@ -18,6 +18,7 @@ import {
     FlexBoxJustifyContent,
     Input,
     InputType,
+    Label,
     Option,
     Select,
     Text,
@@ -130,6 +131,7 @@ const AddActivityModal = ({
                 justifyContent={FlexBoxJustifyContent.Center}
             >
                 <Text style={sapUiContentPadding}>{activityType.infoText}</Text>
+                <Label>Type</Label>
                 <Select
                     style={sapUiSmallMarginBottom}
                     onChange={handleSelectType}
@@ -153,12 +155,14 @@ const AddActivityModal = ({
                         {MEAL_VEGETARIAN.displayName} ({MEAL_VEGETARIAN.metric})
                     </Option>
                 </Select>
+                <Label>{activityType.metric}</Label>
                 <Input
                     type={InputType.Number}
                     value={input}
                     onChange={(e) => setInput(e.parameters.value)}
                     style={sapUiSmallMarginBottom}
                 />
+                <Label>Date</Label>
                 <DatePicker
                     valueState={ValueState.None}
                     formatPattern={DATE_FORMAT}
@@ -169,6 +173,7 @@ const AddActivityModal = ({
                     placeholder={selectedDate}
                     style={sapUiSmallMarginBottom}
                 />
+                <Label>Time</Label>
                 <TimePicker
                     required
                     disableClock
