@@ -38,6 +38,7 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
             >
                 <Button
                     onClick={resetCalendar}
+                    icon="appointment"
                     disabled={!selectedStartDate || !selectedEndDate}
                 >
                     Reset Calendar

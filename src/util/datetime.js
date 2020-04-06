@@ -2,25 +2,30 @@ import moment from "moment";
 
 const DATE_FORMAT = "DD/MM/YYYY";
 const DATE_TIME_FORMAT = "DD/MM/YYYY HH:mm:ss";
+const TIME_FORMAT = "HH:mm:ss";
 
 export const getCurrentDateTimeString = () => moment().format(DATE_TIME_FORMAT);
 
 export const getCurrentDateString = () => {
-    const date = moment().format(DATE_FORMAT);
-    return date;
+    return moment().format(DATE_FORMAT);
 };
 
-export const getDateAsString = date => moment(date).format(DATE_FORMAT);
+export const getCurrentTimeString = () => {
+    return moment().format(TIME_FORMAT);
+};
 
-export const getDateTimeAsString = dateTime =>
+export const getDateAsString = (date) => moment(date).format(DATE_FORMAT);
+
+export const getDateTimeAsString = (dateTime) =>
     moment(dateTime).format(DATE_TIME_FORMAT);
 
-export const getDateFromString = dateString => moment(dateString, DATE_FORMAT);
+export const getDateFromString = (dateString) =>
+    moment(dateString, DATE_FORMAT);
 
-export const getDateTimeFromString = dateTimeString =>
+export const getDateTimeFromString = (dateTimeString) =>
     moment(dateTimeString, DATE_TIME_FORMAT);
 
-export const getAbbreviatedDayStringFromNumber = dayNumber => {
+export const getAbbreviatedDayStringFromNumber = (dayNumber) => {
     switch (true) {
         case dayNumber === 1:
             return "1st";
@@ -35,7 +40,7 @@ export const getAbbreviatedDayStringFromNumber = dayNumber => {
     }
 };
 
-export const getAbbreviatedMonthStringFromNumber = monthNumber => {
+export const getAbbreviatedMonthStringFromNumber = (monthNumber) => {
     switch (monthNumber) {
         case 0:
             return "Jan";

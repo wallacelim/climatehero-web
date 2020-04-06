@@ -9,6 +9,8 @@ import { connect } from "react-redux";
 import {
     Button,
     ButtonDesign,
+    CalendarType,
+    DatePicker,
     Dialog,
     FlexBox,
     FlexBoxAlignItems,
@@ -17,38 +19,55 @@ import {
     Input,
     InputType,
     Option,
-    Select
+    Select,
+    Text,
+    ValueState,
 } from "@ui5/webcomponents-react";
 import {
     sapUiContentPadding,
     sapUiSmallMarginBottom,
-    sapUiTinyMargin
+    sapUiTinyMargin,
 } from "@ui5/webcomponents-react-base/lib/spacing";
 
+import TimePicker from "react-time-picker";
 import {
     COMMUTE_BIKE,
     COMMUTE_BUS,
     COMMUTE_TRAIN,
-    MEAL_VEGETARIAN
+    MEAL_VEGETARIAN,
 } from "../constants/activityTypes";
 import { Activity, UI } from "../redux/actionCreators";
-import { getCurrentDateTimeString } from "../util/datetime";
+import {
+    getCurrentDateTimeString,
+    getCurrentDateString,
+    getCurrentTimeString,
+} from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
+import { DATE_FORMAT } from "../constants/stringFormats";
 
 const AddActivityModal = ({
     addActivityModal,
     userId,
     toggleAddActivityModal,
-    addActivity
+    addActivity,
 }) => {
     const [activityType, setActivityType] = React.useState(COMMUTE_BIKE);
     const [input, setInput] = useState(0);
+    const [selectedDate, setSelectedDate] = useState(getCurrentDateString);
+    const [selectedTime, setSelectedTime] = useState(getCurrentTimeString);
+
+    // TODO: reset fields after every add
 
     const handleAdd = () => {
         if (!input || input <= 0) {
             alert("please enter a positive value");
             return;
         }
+        let dateTimeOfActivity = getCurrentDateTimeString();
+        if (selectedDate && selectedTime) {
+            dateTimeOfActivity = `${selectedDate} ${selectedTime}`;
+        }
+        console.log(dateTimeOfActivity);
         toggleAddActivityModal();
         const activity = {
             userId,
@@ -56,12 +75,12 @@ const AddActivityModal = ({
             metric: activityType.metric,
             measurement: parseInt(input, 10),
             reductionValue: (Math.random() * 10).toFixed(2),
-            dateTimeOfActivity: getCurrentDateTimeString()
+            dateTimeOfActivity,
         };
         addActivity(activity);
     };
 
-    const handleSelectType = e => {
+    const handleSelectType = (e) => {
         const name = e.parameters.selectedOption.value;
         setActivityType(getActivityTypeFromString(name));
     };
@@ -84,20 +103,20 @@ const AddActivityModal = ({
                     >
                         Close
                     </Button>
-                </FlexBox>
+                </FlexBox>,
             ]}
             stretch={false}
             open={addActivityModal.isOpen}
             footer={
-                <div>
+                <div style={{ zIndex: 0 }}>
                     <FlexBox
                         justifyContent={FlexBoxJustifyContent.Center}
-                        style={sapUiTinyMargin}
+                        style={{ ...sapUiTinyMargin, zIndex: "0" }}
                     >
                         <Button
                             design={ButtonDesign.Emphasized}
                             onClick={handleAdd}
-                            style={sapUiTinyMargin}
+                            style={{ ...sapUiTinyMargin, zIndex: "0" }}
                         >
                             Add
                         </Button>
@@ -105,57 +124,78 @@ const AddActivityModal = ({
                 </div>
             }
         >
-            <section>
-                <FlexBox
-                    style={{ ...sapUiContentPadding, width: "400px" }}
-                    direction={FlexBoxDirection.Column}
-                    justifyContent={FlexBoxJustifyContent.Center}
+            <FlexBox
+                style={{ ...sapUiContentPadding, width: "400px" }}
+                direction={FlexBoxDirection.Column}
+                justifyContent={FlexBoxJustifyContent.Center}
+            >
+                <Text style={sapUiContentPadding}>{activityType.infoText}</Text>
+                <Select
+                    style={sapUiSmallMarginBottom}
+                    onChange={handleSelectType}
                 >
-                    <Select
-                        style={sapUiSmallMarginBottom}
-                        onChange={handleSelectType}
-                    >
-                        {/* <Option icon="physical-activity" value={WALKING.name}>
+                    {/* <Option icon="physical-activity" value={WALKING.name}>
                             {WALKING.displayName} ({WALKING.metric})
                         </Option> */}
-                        <Option icon="supplier" value={COMMUTE_BIKE.name}>
-                            {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
-                        </Option>
-                        <Option
-                            icon="bus-public-transport"
-                            value={COMMUTE_BUS.name}
-                        >
-                            {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
-                        </Option>
-                        <Option
-                            icon="passenger-train"
-                            value={COMMUTE_TRAIN.name}
-                        >
-                            {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
-                        </Option>
-                        <Option icon="meal" value={MEAL_VEGETARIAN.name}>
-                            {MEAL_VEGETARIAN.displayName} (
-                            {MEAL_VEGETARIAN.metric})
-                        </Option>
-                    </Select>
-                    <Input
-                        type={InputType.Number}
-                        value={input}
-                        onChange={e => setInput(e.parameters.value)}
-                    />
-                </FlexBox>
-            </section>
+                    <Option icon="supplier" value={COMMUTE_BIKE.name}>
+                        {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
+                    </Option>
+                    <Option
+                        icon="bus-public-transport"
+                        value={COMMUTE_BUS.name}
+                    >
+                        {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
+                    </Option>
+                    <Option icon="passenger-train" value={COMMUTE_TRAIN.name}>
+                        {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
+                    </Option>
+                    <Option icon="meal" value={MEAL_VEGETARIAN.name}>
+                        {MEAL_VEGETARIAN.displayName} ({MEAL_VEGETARIAN.metric})
+                    </Option>
+                </Select>
+                <Input
+                    type={InputType.Number}
+                    value={input}
+                    onChange={(e) => setInput(e.parameters.value)}
+                    style={sapUiSmallMarginBottom}
+                />
+                <DatePicker
+                    valueState={ValueState.None}
+                    formatPattern={DATE_FORMAT}
+                    primaryCalendarType={CalendarType.Gregorian}
+                    disabled={false}
+                    readonly={false}
+                    onChange={(date) => setSelectedDate(date.parameters.value)}
+                    placeholder={selectedDate}
+                    style={sapUiSmallMarginBottom}
+                />
+                <TimePicker
+                    required
+                    disableClock
+                    clearIcon={null}
+                    format="HH:mm"
+                    onChange={(time) => {
+                        if (time) {
+                            console.log(time);
+                            setSelectedTime(`${time}:00`);
+                        }
+                    }}
+                    style={{ sapUiContentPadding }}
+                    hourPlaceholder={selectedTime.substring(0, 2)}
+                    minutePlaceholder={selectedTime.substring(3, 5)}
+                />
+            </FlexBox>
         </Dialog>
     );
 };
 const mapStateToProps = ({ user, addActivityModal }) => ({
     addActivityModal,
-    userId: user.data.id
+    userId: user.data.id,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
-    addActivity: activity => dispatch(Activity.add(activity))
+    addActivity: (activity) => dispatch(Activity.add(activity)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddActivityModal);
