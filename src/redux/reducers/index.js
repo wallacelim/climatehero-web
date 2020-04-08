@@ -7,13 +7,13 @@ import {
     addGoalModal,
     editActivityModal,
     editGoalModal,
-    welcomeModal
+    addWelcomeModal
 } from "./modals";
 
 export default combineReducers({
     goals,
     activities,
-    welcomeModal,
+    addWelcomeModal,
     addActivityModal,
     addGoalModal,
     editGoalModal,

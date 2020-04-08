@@ -13,7 +13,7 @@ import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 
 import { UI } from "../redux/actionCreators";
 
-const WelcomeModal = ({ showWelcomeModal, toggleWelcomeModal }) => {
+const WelcomeModal = ({ addWelcomeModal, toggleWelcomeModal }) => {
     const handleWelcomeModalClose = () => {
         toggleWelcomeModal();
     };
@@ -22,7 +22,7 @@ const WelcomeModal = ({ showWelcomeModal, toggleWelcomeModal }) => {
             type={MessageBoxTypes.INFORMATION}
             style={sapUiContentPadding}
             title="Welcome to Climate Hero"
-            open={showWelcomeModal}
+            open={addWelcomeModal.isOpen}
             onClose={handleWelcomeModalClose}
         >
             <section>
@@ -63,8 +63,8 @@ const WelcomeModal = ({ showWelcomeModal, toggleWelcomeModal }) => {
     );
 };
 
-const mapStateToProps = ({ showWelcomeModal }) => ({
-    showWelcomeModal
+const mapStateToProps = ({ addWelcomeModal }) => ({
+    addWelcomeModal
 });
 
 const mapDispatchToProps = dispatch => ({

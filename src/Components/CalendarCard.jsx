@@ -5,6 +5,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import {
   Button,
+  ButtonDesign,
   Card,
   FlexBox,
   FlexBoxJustifyContent,
@@ -32,6 +33,7 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
       <Button
         icon="add-activity"
         onClick={toggleAddActivityModal}
+        design={ButtonDesign.Emphasized}
         style={{
           float: "right",
           padding: "5px 10px",

@@ -11,7 +11,7 @@ const initialState = {
     id: null
 };
 
-export function welcomeModal(state = !initialState, action) {
+export function addWelcomeModal(state = {isOpen: true, id: null}, action) {
     switch (action.type) {
         case TOGGLE_WELCOME_MODAL:
             return {
