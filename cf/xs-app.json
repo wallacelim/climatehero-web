@@ -1,16 +1,17 @@
 {
+  "welcomeFile": "index.html",
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "/api",
+      "source": "^/api",
+      "target": "/",
       "csrfProtection": false,
       "destination": "climatehero-server"
     },
     {
       "source": "/(.*)",
       "localDir": "./build",
-      "target": "$1",
-      "csrfProtection": false
+      "target": "$1"
     }
   ]
 }

@@ -1,14 +1,10 @@
 ---
 applications:
 - name: climatehero-web
-  path: build/ 
-  memory: 64M
+  path: ./cf
+  memory: 1G
   router.route_services_recommended_https: true
   router.disable_http: true
-  routes:
-  - route:  http://climatehero-web.cfapps.sap.hana.ondemand.com
   services:
+    - climatehero-destination
     - climatehero-uaa
-    - climatehero-destination 
-  buildpacks: 
-    - https://github.com/cloudfoundry/staticfile-buildpack.git
