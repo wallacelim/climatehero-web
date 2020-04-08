@@ -13,7 +13,8 @@ import {
     Text,
     FlexBoxJustifyContent,
     FlexBoxWrap,
-    FlexBoxAlignItems
+    FlexBoxAlignItems,
+    ButtonDesign
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
@@ -66,6 +67,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
             <Button
                 icon="add-activity"
                 onClick={toggleAddGoalModal}
+                design={ButtonDesign.Emphasized}
                 style={{
                     float: "right",
                     padding: "5px 10px",

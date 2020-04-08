@@ -37,3 +37,11 @@
         transform: rotate(360deg);
     }
 }
+
+.react-time-picker {
+    height: 35px;
+}
+
+.react-time-picker__inputGroup {
+    padding: 0.3rem 0.5rem !important;
+}

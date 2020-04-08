@@ -20,7 +20,7 @@ import {
     TOGGLE_ADD_GOAL_MODAL,
     TOGGLE_WELCOME_MODAL,
     TOGGLE_EDIT_GOAL_MODAL,
-    USER_LOGIN
+    USER_LOGIN,
 } from "../constants/actionTypes";
 
 export const Activity = {
@@ -33,7 +33,7 @@ export const Activity = {
         metric,
         measurement,
         reductionValue,
-        dateTimeOfActivity
+        dateTimeOfActivity,
         // UNUSED: dateTimeCreated
         // UNUSED: comment
     }) => ({
@@ -45,15 +45,15 @@ export const Activity = {
             measurement,
             reductionValue,
             dateTimeOfActivity,
-            recurrence: false // TODO: standardize with backend
-        }
+            recurrence: false, // TODO: standardize with backend
+        },
     }),
 
-    addFail: error => ({
+    addFail: (error) => ({
         type: ADD_ACTIVITY_FAIL,
         payload: {
-            error
-        }
+            error,
+        },
     }),
 
     add: ({
@@ -61,12 +61,13 @@ export const Activity = {
         type,
         metric,
         measurement,
-        dateTimeOfActivity
+        dateTimeOfActivity,
         // UNUSED: dateTimeCreated
         // UNUSED: comment
     }) => {
-        return async dispatch => {
+        return async (dispatch) => {
             dispatch(Activity.addStart());
+            console.log(dateTimeOfActivity);
             try {
                 const res = await axios.post(
                     "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities",
@@ -75,7 +76,7 @@ export const Activity = {
                         type: type.name,
                         metric,
                         measurement,
-                        dateTimeOfActivity
+                        dateTimeOfActivity,
                     }
                 );
                 dispatch(Activity.addSuccess(res.data));
@@ -87,35 +88,35 @@ export const Activity = {
         };
     },
 
-    delete: id => ({
+    delete: (id) => ({
         type: DELETE_ACTIVITY,
         payload: {
-            id
-        }
+            id,
+        },
     }),
 
-    request: userId => ({
+    request: (userId) => ({
         type: REQUEST_ACTIVITIES,
-        userId
+        userId,
     }),
 
-    receive: data => ({
+    receive: (data) => ({
         type: RECEIVE_ACTIVITIES,
         payload: {
             data,
-            receivedAt: Date.now()
-        }
+            receivedAt: Date.now(),
+        },
     }),
 
-    fetchAll: () => dispatch => {
+    fetchAll: () => (dispatch) => {
         dispatch(Activity.request());
         return axios
             .get(
                 "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities"
             )
-            .then(response => dispatch(Activity.receive(response.data)));
+            .then((response) => dispatch(Activity.receive(response.data)));
         // TODO: add error handling
-    }
+    },
 };
 
 export const Goal = {
@@ -131,7 +132,7 @@ export const Goal = {
         measurement,
         fulfillment,
         dateStart,
-        dateTarget
+        dateTarget,
     }) => ({
         type: ADD_GOAL_SUCCESS,
         payload: {
@@ -144,15 +145,15 @@ export const Goal = {
             measurement,
             fulfillment,
             dateStart,
-            dateTarget
-        }
+            dateTarget,
+        },
     }),
 
-    addFail: error => ({
+    addFail: (error) => ({
         type: ADD_GOAL_FAIL,
         payload: {
-            error
-        }
+            error,
+        },
     }),
     add: ({
         userId,
@@ -161,18 +162,9 @@ export const Goal = {
         metric,
         measurement,
         dateStart, // TODO: perform check
-        dateTarget
+        dateTarget,
     }) => {
-        console.log({
-            userId,
-            title,
-            type: type.name,
-            metric,
-            measurement,
-            dateStart,
-            dateTarget
-        });
-        return async dispatch => {
+        return async (dispatch) => {
             dispatch(Goal.addStart());
             try {
                 const res = await axios.post(
@@ -184,7 +176,7 @@ export const Goal = {
                         metric,
                         measurement,
                         dateStart,
-                        dateTarget
+                        dateTarget,
                     }
                 );
                 dispatch(Goal.addSuccess(res.data));
@@ -194,78 +186,78 @@ export const Goal = {
         };
     },
 
-    delete: id => ({
+    delete: (id) => ({
         type: DELETE_GOAL,
         payload: {
-            id
-        }
+            id,
+        },
     }),
 
     edit: (id, updates) => ({
         type: EDIT_GOAL,
         payload: {
             id,
-            updates
-        }
+            updates,
+        },
     }),
 
     updateAll: ({ type, measurement }) => ({
         type: UPDATE_GOALS,
         payload: {
             type,
-            measurement
-        }
+            measurement,
+        },
     }),
 
-    request: userId => ({
+    request: (userId) => ({
         type: REQUEST_GOALS,
-        userId
+        userId,
     }),
 
-    receive: data => ({
+    receive: (data) => ({
         type: RECEIVE_GOALS,
         payload: {
             data,
-            receivedAt: Date.now()
-        }
+            receivedAt: Date.now(),
+        },
     }),
 
-    fetchAll: () => dispatch => {
+    fetchAll: () => (dispatch) => {
         dispatch(Goal.request());
         return axios
             .get(
                 "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals"
             )
-            .then(response => dispatch(Goal.receive(response.data)));
-    }
+            .then((response) => dispatch(Goal.receive(response.data)));
+    },
 };
 
 export const UI = {
     toggleAddGoalModal: () => ({
-        type: TOGGLE_ADD_GOAL_MODAL
+        type: TOGGLE_ADD_GOAL_MODAL,
     }),
 
     toggleAddActivityModal: () => ({
-        type: TOGGLE_ADD_ACTIVITY_MODAL
+        type: TOGGLE_ADD_ACTIVITY_MODAL,
     }),
 
-    toggleEditActivityModal: id => ({
+    toggleEditActivityModal: (id) => ({
         type: TOGGLE_EDIT_ACTIVITY_MODAL,
         payload: {
-            id
-        }
+            id,
+        },
     }),
 
     toggleWelcomeModal: () => ({
-        type: TOGGLE_WELCOME_MODAL
+        type: TOGGLE_WELCOME_MODAL,
     }),
 
-    toggleEditGoalModal: id => ({
+    toggleEditGoalModal: (id) => ({
         type: TOGGLE_EDIT_GOAL_MODAL,
         payload: {
-            id
-        }
-    })
+            id,
+        },
+    }),
 };
 
 export const User = {
@@ -274,7 +266,7 @@ export const User = {
         payload: {
             id: "test_user_2",
             firstName: "Firstname",
-            lastName: "Lastname"
-        }
-    })
+            lastName: "Lastname",
+        },
+    }),
 };

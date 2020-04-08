@@ -129,89 +129,84 @@ const EditGoalModal = ({
                 </div>
             }
         >
-            <section>
-                <FlexBox
-                    style={{ ...sapUiContentPadding, width: "400px" }}
-                    direction={FlexBoxDirection.Column}
-                    justfyContent={FlexBoxJustifyContent.Center}
+            <FlexBox
+                style={{ ...sapUiContentPadding, width: "400px" }}
+                direction={FlexBoxDirection.Column}
+                justfyContent={FlexBoxJustifyContent.Center}
+            >
+                <Label>Name</Label>
+                <Input
+                    type={InputType.Text}
+                    onChange={e => setTitle(e.parameters.value)}
+                    style={sapUiSmallMarginBottom}
+                    value={`${title}`}
+                />
+                <Label>Type</Label>
+                <Select
+                    style={sapUiSmallMarginBottom}
+                    onChange={handleSelectType}
                 >
-                    <Label>Name</Label>
-                    <Input
-                        type={InputType.Text}
-                        onChange={e => setTitle(e.parameters.value)}
-                        style={sapUiSmallMarginBottom}
-                        value={`${title}`}
-                    />
-                    <Label>Type</Label>
-                    <Select
-                        style={sapUiSmallMarginBottom}
-                        onChange={handleSelectType}
+                    <Option
+                        selected={`${activityType}` === WALKING}
+                        icon="physical-activity"
+                        value={WALKING.title}
                     >
-                        <Option
-                            selected={`${activityType}` === WALKING}
-                            icon="physical-activity"
-                            value={WALKING.title}
-                        >
-                            {WALKING.displayName} ({WALKING.metric})
-                        </Option>
-                        <Option
-                            selected={activityType === COMMUTE_BIKE}
-                            icon="supplier"
-                            value={COMMUTE_BIKE.title}
-                        >
-                            {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
-                        </Option>
-                        <Option
-                            selected={activityType === COMMUTE_BUS}
-                            icon="bus-public-transport"
-                            value={COMMUTE_BUS.title}
-                        >
-                            {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
-                        </Option>
-                        <Option
-                            selected={activityType === COMMUTE_TRAIN}
-                            icon="passenger-train"
-                            value={COMMUTE_TRAIN.title}
-                        >
-                            {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
-                        </Option>
-                        <Option
-                            selected={activityType === MEAL_VEGETARIAN}
-                            icon="meal"
-                            value={MEAL_VEGETARIAN.title}
-                        >
-                            {MEAL_VEGETARIAN.displayName} (
-                            {MEAL_VEGETARIAN.metric})
-                        </Option>
-                    </Select>
-                    <Label>
-                        Target ({activityType ? activityType.metric : ""})
-                    </Label>
-                    <Input
-                        type={InputType.Number}
-                        placeholder={`${target} (${
-                            activityType ? activityType.metric : ""
-                        })`}
-                        value={target}
-                        onChange={e => {
-                            setTarget(e.parameters.value);
-                        }}
-                        style={sapUiSmallMarginBottom}
-                    />
-                    <Label>Target Date of Completion</Label>
-                    <DatePicker
-                        valueState={ValueState.None}
-                        formatPattern={DATE_FORMAT}
-                        primaryCalendarType={CalendarType.Gregorian}
-                        disabled={false}
-                        readonly={false}
-                        onChange={date =>
-                            setSelectedDate(date.parameters.value)
-                        }
-                        placeholder={selectedDate}
-                    />
-                </FlexBox>
-            </section>
+                        {WALKING.displayName} ({WALKING.metric})
+                    </Option>
+                    <Option
+                        selected={activityType === COMMUTE_BIKE}
+                        icon="supplier"
+                        value={COMMUTE_BIKE.title}
+                    >
+                        {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
+                    </Option>
+                    <Option
+                        selected={activityType === COMMUTE_BUS}
+                        icon="bus-public-transport"
+                        value={COMMUTE_BUS.title}
+                    >
+                        {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
+                    </Option>
+                    <Option
+                        selected={activityType === COMMUTE_TRAIN}
+                        icon="passenger-train"
+                        value={COMMUTE_TRAIN.title}
+                    >
+                        {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
+                    </Option>
+                    <Option
+                        selected={activityType === MEAL_VEGETARIAN}
+                        icon="meal"
+                        value={MEAL_VEGETARIAN.title}
+                    >
+                        {MEAL_VEGETARIAN.displayName} ({MEAL_VEGETARIAN.metric})
+                    </Option>
+                </Select>
+                <Label>
+                    Target ({activityType ? activityType.metric : ""})
+                </Label>
+                <Input
+                    type={InputType.Number}
+                    placeholder={`${target} (${
+                        activityType ? activityType.metric : ""
+                    })`}
+                    value={target}
+                    onChange={e => {
+                        setTarget(e.parameters.value);
+                    }}
+                    style={sapUiSmallMarginBottom}
+                />
+                <Label>Target Date of Completion</Label>
+                <DatePicker
+                    valueState={ValueState.None}
+                    formatPattern={DATE_FORMAT}
+                    primaryCalendarType={CalendarType.Gregorian}
+                    disabled={false}
+                    readonly={false}
+                    onChange={date => setSelectedDate(date.parameters.value)}
+                    placeholder={selectedDate}
+                />
+            </FlexBox>
         </Dialog>
     );
 };

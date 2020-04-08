@@ -64,13 +64,13 @@ const TrendsCard = ({ activities }) => {
         }
     };
 
-    useEffect(() => {
-        console.log(labels);
-    }, [labels]);
+    // useEffect(() => {
+    //     console.log(labels);
+    // }, [labels]);
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
+    // useEffect(() => {
+    //     console.log(data);
+    // }, [data]);
 
     return (
         <Card
