@@ -14,20 +14,19 @@ import {
     FlexBoxJustifyContent,
     FlexBoxAlignItems,
     ValueState,
-    CalendarType
+    CalendarType,
 } from "@ui5/webcomponents-react";
 import { DatePicker } from "@ui5/webcomponents-react/lib/DatePicker";
 import {
     sapUiContentPadding,
     sapUiTinyMargin,
-    sapUiSmallMarginBottom
+    sapUiSmallMarginBottom,
 } from "@ui5/webcomponents-react-base/lib/spacing";
 import {
-    WALKING,
     COMMUTE_BUS,
     COMMUTE_TRAIN,
     COMMUTE_BIKE,
-    MEAL_VEGETARIAN
+    MEAL_VEGETARIAN,
 } from "../constants/activityTypes";
 import { Goal, UI } from "../redux/actionCreators";
 import "@ui5/webcomponents-icons/dist/icons/meal";
@@ -37,7 +36,7 @@ import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
 import {
     getCurrentDateString,
-    getCurrentDateTimeString
+    getCurrentDateTimeString,
 } from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
@@ -46,11 +45,11 @@ const AddGoalModal = ({
     userId,
     addGoalModal,
     toggleAddGoalModal,
-    addGoal
+    addGoal,
 }) => {
     const [title, setTitle] = useState("");
     const [target, setTarget] = useState(0);
-    const [activityType, setActivityType] = useState(WALKING);
+    const [activityType, setActivityType] = useState(COMMUTE_BIKE);
     const [selectedDate, setSelectedDate] = useState(null);
 
     const handleAdd = () => {
@@ -77,12 +76,12 @@ const AddGoalModal = ({
             measurement: parseInt(target, 10),
             fulfillment: 0,
             dateStart: getCurrentDateString(),
-            dateTarget: selectedDate
+            dateTarget: selectedDate,
         };
         addGoal(goal);
     };
 
-    const handleSelectType = e => {
+    const handleSelectType = (e) => {
         setActivityType(
             getActivityTypeFromString(e.parameters.selectedOption.value)
         );
@@ -106,7 +105,7 @@ const AddGoalModal = ({
                     >
                         Close
                     </Button>
-                </FlexBox>
+                </FlexBox>,
             ]}
             stretch={false}
             open={addGoalModal.isOpen}
@@ -136,7 +135,7 @@ const AddGoalModal = ({
                     <Label>Name</Label>
                     <Input
                         type={InputType.Text}
-                        onChange={e => setTitle(e.parameters.value)}
+                        onChange={(e) => setTitle(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
                         placeholder="e.g. Travel by bus"
                     />
@@ -168,7 +167,7 @@ const AddGoalModal = ({
                     <Label>Target ({activityType.metric})</Label>
                     <Input
                         type={InputType.Number}
-                        onChange={e => setTarget(e.parameters.value)}
+                        onChange={(e) => setTarget(e.parameters.value)}
                         style={sapUiSmallMarginBottom}
                         placeholder="e.g. 100"
                     />
@@ -179,7 +178,7 @@ const AddGoalModal = ({
                         primaryCalendarType={CalendarType.Gregorian}
                         disabled={false}
                         readonly={false}
-                        onChange={date =>
+                        onChange={(date) =>
                             setSelectedDate(date.parameters.value)
                         }
                         placeholder={selectedDate}
@@ -192,12 +191,12 @@ const AddGoalModal = ({
 
 const mapStateToProps = ({ user, addGoalModal }) => ({
     userId: user.data.id,
-    addGoalModal
+    addGoalModal,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
-    addGoal: goal => dispatch(Goal.add(goal))
+    addGoal: (goal) => dispatch(Goal.add(goal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddGoalModal);

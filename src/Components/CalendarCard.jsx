@@ -9,12 +9,13 @@ import {
     FlexBox,
     FlexBoxJustifyContent,
     FlexBoxAlignItems,
-    ButtonDesign
+    ButtonDesign,
 } from "@ui5/webcomponents-react";
 import { Icon } from "@ui5/webcomponents-react/lib/Icon";
 import "@ui5/webcomponents-icons/dist/icons/appointment-2";
 import "@ui5/webcomponents-icons/dist/icons/appointment";
 
+import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 import ActivityHistory from "./ActivityHistory";
 import { UI } from "../redux/actionCreators";
 import { getDateAsString, getDateFromString } from "../util/datetime";
@@ -33,7 +34,7 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
             <FlexBox
                 justifyContent={FlexBoxJustifyContent.SpaceBetween}
                 style={{
-                    ...style
+                    ...style,
                 }}
             >
                 <Button
@@ -55,14 +56,14 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
                 heading="Your Calendar"
                 subtitle="Select a date range to view activities"
                 style={{
-                    ...style
+                    ...style,
                 }}
                 avatar={<Icon name="appointment-2" />}
             >
                 <FlexBox
                     justifyContent={FlexBoxJustifyContent.Start}
                     alignItems={FlexBoxAlignItems.Center}
-                    style={{ ...style }}
+                    style={{ ...sapUiContentPadding, ...style }}
                 >
                     <Calendar
                         calendarType="ISO 8601"
@@ -71,7 +72,6 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
                             setSelectedStartDate(getDateAsString(startDate));
                             setSelectedEndDate(getDateAsString(endDate));
                         }}
-                        width="1000px"
                         value={
                             selectedEndDate && selectedEndDate
                                 ? [
@@ -80,34 +80,23 @@ const CalendarCard = ({ style, toggleAddActivityModal }) => {
                                       ).toDate(),
                                       getDateFromString(
                                           selectedEndDate
-                                      ).toDate()
+                                      ).toDate(),
                                   ]
                                 : null
                         }
                     />
-
-                    <FlexBox
-                        justifyContent={FlexBoxJustifyContent.Center}
-                        alignItems={FlexBoxAlignItems.Center}
-                        style={{
-                            ...style,
-                            width: "100%",
-                            height: "100%"
-                        }}
-                    >
-                        <ActivityHistory
-                            dateRangeStart={selectedStartDate}
-                            dateRangeEnd={selectedEndDate}
-                        />
-                    </FlexBox>
+                    <ActivityHistory
+                        dateRangeStart={selectedStartDate}
+                        dateRangeEnd={selectedEndDate}
+                    />
                 </FlexBox>
             </Card>
         </>
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal())
+const mapDispatchToProps = (dispatch) => ({
+    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
 });
 
 export default connect(null, mapDispatchToProps)(CalendarCard);

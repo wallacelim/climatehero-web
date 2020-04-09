@@ -14,7 +14,7 @@ import {
     FlexBoxJustifyContent,
     FlexBoxWrap,
     FlexBoxAlignItems,
-    ButtonDesign
+    ButtonDesign,
 } from "@ui5/webcomponents-react";
 import { spacing } from "@ui5/webcomponents-react-base";
 import Goal from "./Goal";
@@ -28,18 +28,18 @@ const legendStyles = {
     container: {
         position: "relative",
         margin: "-76px 20px 0px",
-        paddingBottom: "10px"
+        paddingBottom: "10px",
     },
     label: {
         display: "inline-flex",
-        width: "150px"
+        width: "150px",
     },
     icon: {
         height: "20px",
         width: "20px",
         marginRight: "5px",
-        marginBottom: "2px"
-    }
+        marginBottom: "2px",
+    },
 };
 
 function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
@@ -58,7 +58,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
         }
         return {
             progress,
-            infoState
+            infoState,
         };
     };
 
@@ -71,7 +71,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                 style={{
                     float: "right",
                     padding: "5px 10px",
-                    marginRight: "15px"
+                    marginRight: "15px",
                 }}
             >
                 Add a goal
@@ -81,7 +81,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                 subtitle="Click any goal to edit or delete"
                 style={{
                     ...spacing.sapUiContentPadding,
-                    height: "100%"
+                    height: "100%",
                 }}
                 avatar={<Icon name="activities" />}
             >
@@ -96,7 +96,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                         <div
                             style={{
                                 background: "#b00",
-                                ...legendStyles.icon
+                                ...legendStyles.icon,
                             }}
                         />
                         <Text>&lt; 30% Complete</Text>
@@ -105,7 +105,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                         <div
                             style={{
                                 background: "#e9730c",
-                                ...legendStyles.icon
+                                ...legendStyles.icon,
                             }}
                         />
                         <Text>&gt; 30% Complete</Text>
@@ -114,7 +114,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                         <div
                             style={{
                                 background: "#107e3e",
-                                ...legendStyles.icon
+                                ...legendStyles.icon,
                             }}
                         />
                         <Text>&lt; 100% Complete</Text>
@@ -122,11 +122,13 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                 </FlexBox>
                 <List
                     mode={ListMode.None} /* onItemClick={handleItemClick} */
-                    onItemClick={e => toggleEditGoalModal(e.parameters.item.id)}
+                    onItemClick={(e) =>
+                        toggleEditGoalModal(e.parameters.item.id)
+                    }
                 >
                     {goals.data
-                        .filter(goal => goal.userId === userId)
-                        .map(goal => {
+                        .filter((goal) => goal.userId === userId)
+                        .map((goal) => {
                             const metadata = getMetaData(goal);
                             return (
                                 <StandardListItem
@@ -141,7 +143,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                                         title={goal.title}
                                         dateStart={goal.dateStart}
                                         dateTarget={goal.dateTarget}
-                                        target={`${goal.measurement} ${goal.metric}`}
+                                        target={`${goal.measurement} ${goal.type.displayMetric}`}
                                         infoState={metadata.infoState}
                                     />
                                 </StandardListItem>
@@ -155,12 +157,12 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
 
 const mapStateToProps = ({ user, goals }) => ({
     userId: user.data.id,
-    goals
+    goals,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
-    toggleEditGoalModal: id => dispatch(UI.toggleEditGoalModal(id))
+    toggleEditGoalModal: (id) => dispatch(UI.toggleEditGoalModal(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalsCard);

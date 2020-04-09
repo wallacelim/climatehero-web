@@ -68,7 +68,6 @@ const AddActivityModal = ({
         if (selectedDate && selectedTime) {
             dateTimeOfActivity = `${selectedDate} ${selectedTime}`;
         }
-        console.log(dateTimeOfActivity);
         toggleAddActivityModal();
         const activity = {
             userId,
@@ -136,9 +135,6 @@ const AddActivityModal = ({
                     style={sapUiSmallMarginBottom}
                     onChange={handleSelectType}
                 >
-                    {/* <Option icon="physical-activity" value={WALKING.name}>
-                            {WALKING.displayName} ({WALKING.metric})
-                        </Option> */}
                     <Option icon="supplier" value={COMMUTE_BIKE.name}>
                         {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                     </Option>
@@ -181,7 +177,6 @@ const AddActivityModal = ({
                     format="HH:mm"
                     onChange={(time) => {
                         if (time) {
-                            console.log(time);
                             setSelectedTime(`${time}:00`);
                         }
                     }}

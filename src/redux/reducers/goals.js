@@ -2,19 +2,24 @@ import {
     ADD_GOAL_STARTED,
     ADD_GOAL_SUCCESS,
     ADD_GOAL_FAIL,
-    DELETE_GOAL,
-    EDIT_GOAL,
-    UPDATE_GOALS,
-    REQUEST_GOALS,
-    RECEIVE_GOALS
+    DELETE_GOAL_STARTED,
+    DELETE_GOAL_SUCCESS,
+    DELETE_GOAL_FAIL,
+    EDIT_GOAL_STARTED,
+    EDIT_GOAL_SUCCESS,
+    EDIT_GOAL_FAIL,
+    FETCH_GOALS_STARTED,
+    FETCH_GOALS_SUCCESS,
+    FETCH_GOALS_FAIL,
 } from "../../constants/actionTypes";
 
 import { getActivityTypeFromString } from "../../util/activities";
 
 const initialState = {
-    isFetching: false,
+    isFetching: false, // TODO: utilize this for user feedback
     data: [],
-    lastUpdated: null
+    lastUpdated: null,
+    error: null,
 };
 
 export default function (state = initialState, action) {
@@ -22,7 +27,7 @@ export default function (state = initialState, action) {
         case ADD_GOAL_STARTED:
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
             };
 
         case ADD_GOAL_SUCCESS:
@@ -33,58 +38,69 @@ export default function (state = initialState, action) {
                     ...state.data,
                     {
                         ...action.payload,
-                        type: getActivityTypeFromString(action.payload.type)
-                    }
-                ]
+                        type: getActivityTypeFromString(action.payload.type),
+                    },
+                ],
             };
 
         case ADD_GOAL_FAIL:
+            console.log(`ADD_GOAL_FAIL: ${action.payload.error}`);
             return {
                 ...state,
-                error: action.payload.error
+                error: action.payload.error,
             };
 
-        case DELETE_GOAL:
+        case DELETE_GOAL_STARTED:
             return {
                 ...state,
-                data: [
-                    ...state.data.filter(goal => goal.id !== action.payload.id)
-                ]
+                isFetching: true,
             };
-        case EDIT_GOAL:
+
+        case DELETE_GOAL_SUCCESS:
             return {
                 ...state,
-                data: state.data.map(goal => {
+                isFetching: false,
+                data: state.data.filter(
+                    (goal) => goal.id !== action.payload.id
+                ),
+            };
+
+        case DELETE_GOAL_FAIL:
+            console.log(`DELETE_GOAL_FAIL: ${action.payload.error}`);
+            return {
+                ...state,
+                error: action.payload.error,
+            };
+
+        case EDIT_GOAL_STARTED:
+            return {
+                ...state,
+                isFetching: true,
+            };
+
+        case EDIT_GOAL_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                data: state.data.map((goal) => {
                     if (goal.id === action.payload.id) {
-                        return {
-                            ...goal,
-                            ...action.payload.updates
-                        };
+                        return action.payload;
                     }
                     return goal;
-                })
+                }),
             };
 
-        case UPDATE_GOALS:
+        case EDIT_GOAL_FAIL:
+            console.log(`EDIT_GOAL_FAIL: ${action.payload.error}`);
             return {
                 ...state,
-                data: state.data.map(goal => {
-                    if (goal.type === action.payload.type) {
-                        const updatedCurrentFulfillment =
-                            goal.fulfillment + action.payload.measurement;
-                        return {
-                            ...goal,
-                            fulfillment: updatedCurrentFulfillment
-                        };
-                    }
-                    return goal;
-                })
+                error: action.payload.error,
             };
 
-        case REQUEST_GOALS:
+        case FETCH_GOALS_STARTED:
             return { ...state, isFetching: true };
 
-        case RECEIVE_GOALS:
+        case FETCH_GOALS_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
@@ -99,7 +115,7 @@ export default function (state = initialState, action) {
                         measurement,
                         fulfillment,
                         dateStart,
-                        dateTarget
+                        dateTarget,
                     }) => ({
                         id,
                         userId,
@@ -110,10 +126,17 @@ export default function (state = initialState, action) {
                         measurement,
                         fulfillment,
                         dateStart,
-                        dateTarget
+                        dateTarget,
                     })
                 ),
-                lastUpdated: action.payload.receivedAt
+                lastUpdated: action.payload.receivedAt,
+            };
+
+        case FETCH_GOALS_FAIL:
+            console.log(`FETCH_GOALS_FAIL: ${action.payload.error}`);
+            return {
+                ...state,
+                error: action.payload.error,
             };
         default:
             return state;

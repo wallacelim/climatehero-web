@@ -8,37 +8,37 @@ const ActivityHistory = ({
     userId,
     activities,
     dateRangeStart,
-    dateRangeEnd
+    dateRangeEnd,
 }) => {
     const activityColumns = [
         {
             Header: "Date / Time",
-            accessor: "dateTime"
+            accessor: "dateTime",
         },
         {
             Header: "Activity Type",
-            accessor: "type"
+            accessor: "type",
         },
         {
             Header: "Measurement",
-            accessor: "measurement"
+            accessor: "measurement",
         },
         {
             Header: "CO2 Reduction",
-            accessor: "reduction"
+            accessor: "reduction",
         },
         {
             Header: "Recurrence",
-            accessor: "recurrence"
-        }
+            accessor: "recurrence",
+        },
     ];
 
     return (
         <AnalyticalTable
             columns={activityColumns}
             data={activities.data
-                .filter(activity => activity.userId === userId)
-                .filter(activity => {
+                .filter((activity) => activity.userId === userId)
+                .filter((activity) => {
                     if (Boolean(dateRangeEnd) && Boolean(dateRangeStart)) {
                         return getDateTimeFromString(
                             activity.dateTimeOfActivity
@@ -51,19 +51,19 @@ const ActivityHistory = ({
                     }
                     return true;
                 })
-                .map(activity => ({
+                .map((activity) => ({
                     dateTime: activity.dateTimeOfActivity,
                     type: activity.type.displayName,
                     measurement: `${activity.measurement} ${activity.type.displayMetric}`,
                     reduction: activity.reductionValue.toFixed(2),
                     recurrence: activity.recurrence
                         ? activity.recurrence
-                        : "N/A"
+                        : "N/A",
                 }))}
             style={{
                 height: "100%",
                 width: "100%",
-                ...spacing.sapUiContentPadding
+                ...spacing.sapUiContentPadding,
             }}
             visibleRows={7}
             minRows={7}
@@ -78,7 +78,7 @@ const mapStateToProps = (
     userId: user.data.id,
     activities,
     dateRangeStart,
-    dateRangeEnd
+    dateRangeEnd,
 });
 
 export default connect(mapStateToProps, null)(ActivityHistory);
