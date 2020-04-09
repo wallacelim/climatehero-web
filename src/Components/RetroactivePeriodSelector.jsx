@@ -7,11 +7,11 @@ import {
     Text,
     FlexBoxJustifyContent,
     Button,
-    FlexBoxAlignItems
+    FlexBoxAlignItems,
 } from "@ui5/webcomponents-react";
 import {
     sapUiSmallMarginBottom,
-    sapUiContentPadding
+    sapUiContentPadding,
 } from "@ui5/webcomponents-react-base/lib/spacing";
 import { DAY, MONTH, YEAR } from "../constants/timeUnits";
 
@@ -31,7 +31,7 @@ export default ({ filterByTime }) => {
         }
     }, [filterByTime, shouldFilter, timeValue, timeUnit]);
 
-    const handleTimeUnitChange = unit => {
+    const handleTimeUnitChange = (unit) => {
         switch (unit) {
             case DAY.unitString:
                 setTimeUnit(DAY);
@@ -59,11 +59,11 @@ export default ({ filterByTime }) => {
             <Text style={{ width: "10%" }}>Last</Text>
             <Select
                 style={{ width: "30%" }}
-                onChange={e =>
+                onChange={(e) =>
                     setTimeValue(Number(e.parameters.selectedOption.value))
                 }
             >
-                {timeUnit.options.map(x => (
+                {timeUnit.options.map((x) => (
                     <Option
                         style={sapUiSmallMarginBottom}
                         selected={x === timeValue}
@@ -76,7 +76,7 @@ export default ({ filterByTime }) => {
             </Select>
             <Select
                 style={{ width: "30%" }}
-                onChange={e =>
+                onChange={(e) =>
                     handleTimeUnitChange(e.parameters.selectedOption.value)
                 }
             >

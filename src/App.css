@@ -45,3 +45,7 @@
 .react-time-picker__inputGroup {
     padding: 0.3rem 0.5rem !important;
 }
+
+.react-datepicker-popper {
+    z-index: 3 !important;
+}
