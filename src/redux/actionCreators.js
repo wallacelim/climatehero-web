@@ -19,12 +19,18 @@ import {
     EDIT_GOAL_STARTED,
     EDIT_GOAL_SUCCESS,
     EDIT_GOAL_FAIL,
-    // UPDATE_GOALS_STARTED,
-    // UPDATE_GOALS_SUCCESS,
-    // UPDATE_GOALS_FAIL,
     FETCH_GOALS_STARTED,
     FETCH_GOALS_SUCCESS,
     FETCH_GOALS_FAIL,
+    ADD_SERIES_STARTED,
+    ADD_SERIES_SUCCESS,
+    ADD_SERIES_FAIL,
+    DELETE_SERIES_STARTED,
+    DELETE_SERIES_SUCCESS,
+    DELETE_SERIES_FAIL,
+    FETCH_SERIES_STARTED,
+    FETCH_SERIES_SUCCESS,
+    FETCH_SERIES_FAIL,
     TOGGLE_ADD_ACTIVITY_MODAL,
     TOGGLE_EDIT_ACTIVITY_MODAL,
     TOGGLE_ADD_GOAL_MODAL,
@@ -393,6 +399,167 @@ export const Goal = {
                 console.log(`error at Goal.fetchAll(): ${error}`);
                 dispatch(Goal._fetch.fail(error));
             });
+    },
+};
+
+export const Series = {
+    _add: {
+        start: () => ({ type: ADD_SERIES_STARTED }),
+
+        success: ({
+            id,
+            userId,
+            dateTimeCreated,
+            activityType,
+            activityMetric,
+            activityMeasurement,
+            seriesFirstDate,
+            seriesLastDate,
+            seriesCycle,
+            comment,
+        }) => ({
+            type: ADD_SERIES_SUCCESS,
+            payload: {
+                id,
+                userId,
+                dateTimeCreated,
+                activityType,
+                activityMetric,
+                activityMeasurement,
+                seriesFirstDate,
+                seriesLastDate,
+                seriesCycle,
+                comment,
+            },
+        }),
+
+        fail: (error) => ({
+            type: ADD_SERIES_FAIL,
+            payload: {
+                error,
+            },
+        }),
+    },
+
+    add: ({
+        userId,
+        activityType,
+        activityMetric,
+        activityMeasurement,
+        seriesFirstDate,
+        seriesLastDate,
+        seriesCycle,
+    }) => {
+        return async (dispatch) => {
+            dispatch(Series._add.start());
+            try {
+                const res = await axios.post(
+                    "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series",
+                    {
+                        userId,
+                        activityType,
+                        activityMetric,
+                        activityMeasurement,
+                        seriesFirstDate,
+                        seriesLastDate,
+                        seriesCycle,
+                    }
+                );
+                dispatch(Series._add.success(res.data));
+                // Handle updating of goals
+            } catch (err) {
+                console.log(`Series.add error: ${err}`);
+                dispatch(Series._add.fail(err));
+            }
+        };
+    },
+
+    _delete: {
+        start: () => ({ type: DELETE_SERIES_STARTED }),
+        success: (id) => ({
+            type: DELETE_SERIES_SUCCESS,
+            payload: {
+                id,
+            },
+        }),
+        fail: (error) => ({
+            type: DELETE_SERIES_FAIL,
+            payload: {
+                error,
+            },
+        }),
+    },
+
+    delete: (id) => {
+        return async (dispatch) => {
+            dispatch(Series._delete.start());
+            try {
+                await axios.post(
+                    `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series/delete/id=${id}`
+                );
+                dispatch(Series._delete.success(id));
+                // TODO: handle updating of goals
+            } catch (err) {
+                console.log(`Series.delete error: ${err}`);
+                dispatch(Series._delete.fail(err));
+            }
+        };
+    },
+
+    _fetch: {
+        start: (userId) => ({
+            type: FETCH_SERIES_STARTED,
+            userId,
+        }),
+        success: (data) => ({
+            type: FETCH_SERIES_SUCCESS,
+            payload: {
+                data,
+                receivedAt: Date.now(),
+            },
+        }),
+        fail: (error) => ({
+            type: FETCH_SERIES_FAIL,
+            payload: {
+                error,
+            },
+        }),
+    },
+
+    fetchById: (id) => async (dispatch) => {
+        dispatch(Series._fetch.start());
+        try {
+            const response = await axios.get(
+                `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series/id=${id}`
+            );
+            return dispatch(Series._fetch.success(response.data));
+        } catch (error) {
+            return dispatch(Series._fetch.fail(error));
+        }
+    },
+
+    fetchByUserId: (userId) => async (dispatch) => {
+        dispatch(Series._fetch.start());
+        try {
+            const response = await axios.get(
+                `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series/user=${userId}`
+            );
+            return dispatch(Series._fetch.success(response.data));
+        } catch (error) {
+            return dispatch(Series._fetch.fail(error));
+        }
+    },
+
+    fetchAll: () => async (dispatch) => {
+        dispatch(Series._fetch.start());
+        try {
+            const response = await axios.get(
+                "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series"
+            );
+            return dispatch(Series._fetch.success(response.data));
+        } catch (error) {
+            return dispatch(Series._fetch.fail(error));
+        }
     },
 };
 

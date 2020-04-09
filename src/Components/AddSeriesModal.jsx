@@ -41,10 +41,10 @@ import {
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 
-const AddActivityModal = ({
-    addActivityModal,
+const AddSeriesModal = ({
+    addSeriesModal,
     userId,
-    toggleAddActivityModal,
+    toggleAddSeriesModal,
     addActivity,
 }) => {
     const [activityType, setActivityType] = React.useState(COMMUTE_BIKE);
@@ -63,7 +63,7 @@ const AddActivityModal = ({
         if (selectedDate && selectedTime) {
             dateTimeOfActivity = `${selectedDate} ${selectedTime}`;
         }
-        toggleAddActivityModal();
+        toggleAddSeriesModal();
         const activity = {
             userId,
             type: activityType,
@@ -93,7 +93,7 @@ const AddActivityModal = ({
                     <h5>Add Your Activity</h5>
                     <Button
                         design={ButtonDesign.Reject}
-                        onClick={toggleAddActivityModal}
+                        onClick={toggleAddSeriesModal}
                         style={sapUiTinyMargin}
                     >
                         Close
@@ -101,7 +101,7 @@ const AddActivityModal = ({
                 </FlexBox>,
             ]}
             stretch={false}
-            open={addActivityModal.isOpen}
+            open={addSeriesModal.isOpen}
             footer={
                 <div style={{ zIndex: 0 }}>
                     <FlexBox
@@ -183,14 +183,14 @@ const AddActivityModal = ({
         </Dialog>
     );
 };
-const mapStateToProps = ({ user, addActivityModal }) => ({
-    addActivityModal,
+const mapStateToProps = ({ user, addSeriesModal }) => ({
+    addSeriesModal,
     userId: user.data.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
+    toggleAddSeriesModal: () => dispatch(UI.toggleAddSeriesModal()),
     addActivity: (activity) => dispatch(Activity.add(activity)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddActivityModal);
+export default connect(mapStateToProps, mapDispatchToProps)(AddSeriesModal);

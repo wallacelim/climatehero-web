@@ -4,19 +4,21 @@ import activities from "./activities";
 import user from "./user";
 import {
     addActivityModal,
+    addSeriesModal,
     addGoalModal,
     editActivityModal,
     editGoalModal,
-    addWelcomeModal
+    welcomeModal,
 } from "./modals";
 
 export default combineReducers({
     goals,
     activities,
-    addWelcomeModal,
+    welcomeModal,
     addActivityModal,
+    addSeriesModal,
     addGoalModal,
     editGoalModal,
     editActivityModal,
-    user
+    user,
 });

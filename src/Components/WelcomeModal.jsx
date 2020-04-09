@@ -7,13 +7,13 @@ import {
     FlexBox,
     FlexBoxAlignItems,
     FlexBoxDirection,
-    FlexBoxJustifyContent
+    FlexBoxJustifyContent,
 } from "@ui5/webcomponents-react";
 import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 
 import { UI } from "../redux/actionCreators";
 
-const WelcomeModal = ({ addWelcomeModal, toggleWelcomeModal }) => {
+const WelcomeModal = ({ welcomeModal, toggleWelcomeModal }) => {
     const handleWelcomeModalClose = () => {
         toggleWelcomeModal();
     };
@@ -22,7 +22,7 @@ const WelcomeModal = ({ addWelcomeModal, toggleWelcomeModal }) => {
             type={MessageBoxTypes.INFORMATION}
             style={sapUiContentPadding}
             title="Welcome to Climate Hero"
-            open={addWelcomeModal.isOpen}
+            open={welcomeModal.isOpen}
             onClose={handleWelcomeModalClose}
         >
             <section>
@@ -63,12 +63,12 @@ const WelcomeModal = ({ addWelcomeModal, toggleWelcomeModal }) => {
     );
 };
 
-const mapStateToProps = ({ addWelcomeModal }) => ({
-    addWelcomeModal
+const mapStateToProps = ({ welcomeModal }) => ({
+    welcomeModal,
 });
 
-const mapDispatchToProps = dispatch => ({
-    toggleWelcomeModal: () => dispatch(UI.toggleWelcomeModal())
+const mapDispatchToProps = (dispatch) => ({
+    toggleWelcomeModal: () => dispatch(UI.toggleWelcomeModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomeModal);

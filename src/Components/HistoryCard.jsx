@@ -41,13 +41,23 @@ const HistoryCard = ({ style, toggleAddActivityModal }) => {
                 >
                     Reset Time Filter
                 </Button>
-                <Button
-                    design={ButtonDesign.Emphasized}
-                    icon="add-activity"
-                    onClick={toggleAddActivityModal}
-                >
-                    Add an activity
-                </Button>
+                <div>
+                    <Button
+                        design={ButtonDesign.Emphasized}
+                        icon="add-activity"
+                        onClick={toggleAddActivityModal}
+                        style={{ marginRight: "10px" }}
+                    >
+                        Add an activity
+                    </Button>
+                    <Button
+                        design={ButtonDesign.Emphasized}
+                        icon="add-activity"
+                        onClick={toggleAddActivityModal}
+                    >
+                        Add a recurring activity
+                    </Button>
+                </div>
             </FlexBox>
             <Card
                 heading="Your Activity History"
