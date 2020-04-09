@@ -294,7 +294,7 @@ export const Goal = {
                 userId,
                 dateTimeCreated,
                 title,
-                type,
+                type: getActivityTypeFromString(type),
                 metric,
                 measurement,
                 fulfillment,

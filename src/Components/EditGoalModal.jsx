@@ -148,28 +148,28 @@ const EditGoalModal = ({
                     <Option
                         selected={activityType === COMMUTE_BIKE}
                         icon="supplier"
-                        value={COMMUTE_BIKE.title}
+                        value={COMMUTE_BIKE.name}
                     >
                         {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                     </Option>
                     <Option
                         selected={activityType === COMMUTE_BUS}
                         icon="bus-public-transport"
-                        value={COMMUTE_BUS.title}
+                        value={COMMUTE_BUS.name}
                     >
                         {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
                     </Option>
                     <Option
                         selected={activityType === COMMUTE_TRAIN}
                         icon="passenger-train"
-                        value={COMMUTE_TRAIN.title}
+                        value={COMMUTE_TRAIN.name}
                     >
                         {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
                     </Option>
                     <Option
                         selected={activityType === MEAL_VEGETARIAN}
                         icon="meal"
-                        value={MEAL_VEGETARIAN.title}
+                        value={MEAL_VEGETARIAN.name}
                     >
                         {MEAL_VEGETARIAN.displayName} ({MEAL_VEGETARIAN.metric})
                     </Option>
