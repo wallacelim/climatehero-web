@@ -90,7 +90,7 @@ const AddActivityModal = ({
                     alignItems={FlexBoxAlignItems.Center}
                     style={sapUiContentPadding}
                 >
-                    <h5>Add Your Activity</h5>
+                    <h5>Add an Activity</h5>
                     <Button
                         design={ButtonDesign.Reject}
                         onClick={toggleAddActivityModal}

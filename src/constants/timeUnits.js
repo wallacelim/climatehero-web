@@ -1,7 +1,7 @@
 import { range } from "lodash";
 import {
     getAbbreviatedMonthStringFromNumber,
-    getAbbreviatedDayStringFromNumber
+    getAbbreviatedDayStringFromNumber,
 } from "../util/datetime";
 
 export const HOUR = {
@@ -9,7 +9,7 @@ export const HOUR = {
     unitString: "hours",
     options: range(1, 25),
     defaultValue: 12,
-    getAbbreviatedStringFromNumber: value => String(value)
+    getAbbreviatedStringFromNumber: (value) => String(value),
 };
 
 export const DAY = {
@@ -17,8 +17,8 @@ export const DAY = {
     unitString: "days",
     options: range(1, 31),
     defaultValue: 15,
-    getAbbreviatedStringFromNumber: value =>
-        getAbbreviatedDayStringFromNumber(value)
+    getAbbreviatedStringFromNumber: (value) =>
+        getAbbreviatedDayStringFromNumber(value),
 };
 
 export const MONTH = {
@@ -28,7 +28,7 @@ export const MONTH = {
     defaultValue: 6,
     getAbbreviatedStringFromNumber(value) {
         return getAbbreviatedMonthStringFromNumber(value);
-    }
+    },
 };
 
 export const YEAR = {
@@ -36,5 +36,5 @@ export const YEAR = {
     unitString: "years",
     options: range(1, 11),
     defaultValue: 2,
-    getAbbreviatedStringFromNumber: value => String(value)
+    getAbbreviatedStringFromNumber: (value) => String(value),
 };

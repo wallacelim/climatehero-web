@@ -17,7 +17,11 @@ import ActivityHistory from "./ActivityHistory";
 import { UI } from "../redux/actionCreators";
 import TimePeriodSelector from "./TimePeriodSelector";
 
-const HistoryCard = ({ style, toggleAddActivityModal }) => {
+const HistoryCard = ({
+    style,
+    toggleAddActivityModal,
+    toggleAddSeriesModal,
+}) => {
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
 
@@ -53,7 +57,7 @@ const HistoryCard = ({ style, toggleAddActivityModal }) => {
                     <Button
                         design={ButtonDesign.Emphasized}
                         icon="add-activity"
-                        onClick={toggleAddActivityModal}
+                        onClick={toggleAddSeriesModal}
                     >
                         Add a recurring activity
                     </Button>
@@ -82,6 +86,7 @@ const HistoryCard = ({ style, toggleAddActivityModal }) => {
 
 const mapDispatchToProps = (dispatch) => ({
     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
+    toggleAddSeriesModal: () => dispatch(UI.toggleAddSeriesModal()),
 });
 
 export default connect(null, mapDispatchToProps)(HistoryCard);

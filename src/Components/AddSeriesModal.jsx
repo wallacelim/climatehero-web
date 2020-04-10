@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import {
@@ -25,57 +25,83 @@ import {
     sapUiTinyMargin,
 } from "@ui5/webcomponents-react-base/lib/spacing";
 
-import TimePicker from "react-time-picker";
 import {
     COMMUTE_BIKE,
     COMMUTE_BUS,
     COMMUTE_TRAIN,
     MEAL_VEGETARIAN,
 } from "../constants/activityTypes";
-import { Activity, UI } from "../redux/actionCreators";
+import { Series, UI } from "../redux/actionCreators";
 import {
-    getCurrentDateTimeString,
     getCurrentDateString,
-    getCurrentTimeString,
+    getDateFromString,
+    getDateAsString,
 } from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
+import "@ui5/webcomponents-icons/dist/icons/calendar";
+import "@ui5/webcomponents-icons/dist/icons/legend";
+
+const EVERY_WEEKDAY = {
+    value: "EVERY_WEEKDAY",
+    displayName: "Every weekday",
+};
+const WEEKLY = {
+    value: "WEEKLY",
+    displayName: "Weekly",
+};
+const MONTHLY = {
+    value: "MONTHLY",
+    displayName: "Monthly",
+};
 
 const AddSeriesModal = ({
     addSeriesModal,
     userId,
     toggleAddSeriesModal,
-    addActivity,
+    addSeries,
 }) => {
     const [activityType, setActivityType] = React.useState(COMMUTE_BIKE);
     const [input, setInput] = useState(0);
-    const [selectedDate, setSelectedDate] = useState(getCurrentDateString);
-    const [selectedTime, setSelectedTime] = useState(getCurrentTimeString);
+    const [selectedStartDate, setSelectedStartDate] = useState(
+        getCurrentDateString
+    );
+    const [selectedEndDate, setSelectedEndDate] = useState(null);
+    const [selectedCycle, setSelectedCycle] = useState(WEEKLY);
 
     // TODO: reset fields after every add
 
+    useEffect(() => {
+        setSelectedEndDate(
+            getDateAsString(
+                getDateFromString(selectedStartDate).add(1, "months")
+            )
+        );
+    }, [selectedStartDate]);
+
     const handleAdd = () => {
         if (!input || input <= 0) {
-            alert("please enter a positive value");
+            alert("Please enter a positive value");
             return;
         }
-        let dateTimeOfActivity = getCurrentDateTimeString();
-        if (selectedDate && selectedTime) {
-            dateTimeOfActivity = `${selectedDate} ${selectedTime}`;
+        if (!selectedEndDate) {
+            alert("Please select an end date.");
+            return;
         }
         toggleAddSeriesModal();
-        const activity = {
+        const series = {
             userId,
-            type: activityType,
-            metric: activityType.metric,
-            measurement: parseInt(input, 10),
-            reductionValue: (Math.random() * 10).toFixed(2),
-            dateTimeOfActivity,
+            activityType,
+            activityMetric: activityType.metric,
+            activityMeasurement: parseInt(input, 10),
+            seriesFirstDate: selectedStartDate,
+            seriesLastDate: selectedEndDate,
+            seriesCycle: selectedCycle,
         };
-        addActivity(activity);
+        addSeries(series);
     };
 
-    const handleSelectType = (e) => {
+    const handleSelectActivityType = (e) => {
         const name = e.parameters.selectedOption.value;
         setActivityType(getActivityTypeFromString(name));
     };
@@ -90,7 +116,7 @@ const AddSeriesModal = ({
                     alignItems={FlexBoxAlignItems.Center}
                     style={sapUiContentPadding}
                 >
-                    <h5>Add Your Activity</h5>
+                    <h5>Add a Recurring Activity</h5>
                     <Button
                         design={ButtonDesign.Reject}
                         onClick={toggleAddSeriesModal}
@@ -128,7 +154,7 @@ const AddSeriesModal = ({
                 <Label>Type</Label>
                 <Select
                     style={sapUiSmallMarginBottom}
-                    onChange={handleSelectType}
+                    onChange={handleSelectActivityType}
                 >
                     <Option icon="supplier" value={COMMUTE_BIKE.name}>
                         {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
@@ -153,32 +179,49 @@ const AddSeriesModal = ({
                     onChange={(e) => setInput(e.parameters.value)}
                     style={sapUiSmallMarginBottom}
                 />
-                <Label>Date</Label>
+                <Label>Start Date</Label>
                 <DatePicker
                     valueState={ValueState.None}
                     formatPattern={DATE_FORMAT}
                     primaryCalendarType={CalendarType.Gregorian}
                     disabled={false}
                     readonly={false}
-                    onChange={(date) => setSelectedDate(date.parameters.value)}
-                    placeholder={selectedDate}
+                    onChange={(date) =>
+                        setSelectedStartDate(date.parameters.value)
+                    }
+                    placeholder={selectedStartDate}
                     style={sapUiSmallMarginBottom}
                 />
-                <Label>Time</Label>
-                <TimePicker
-                    required
-                    disableClock
-                    clearIcon={null}
-                    format="HH:mm"
-                    onChange={(time) => {
-                        if (time) {
-                            setSelectedTime(`${time}:00`);
-                        }
-                    }}
-                    style={{ sapUiContentPadding }}
-                    hourPlaceholder={selectedTime.substring(0, 2)}
-                    minutePlaceholder={selectedTime.substring(3, 5)}
+                <Label>Start Date</Label>
+                <DatePicker
+                    valueState={ValueState.None}
+                    formatPattern={DATE_FORMAT}
+                    primaryCalendarType={CalendarType.Gregorian}
+                    disabled={false}
+                    readonly={false}
+                    onChange={(date) =>
+                        setSelectedEndDate(date.parameters.value)
+                    }
+                    placeholder={selectedEndDate}
+                    style={sapUiSmallMarginBottom}
                 />
+                <Label>Recurrence</Label>
+                <Select
+                    style={sapUiSmallMarginBottom}
+                    onChange={(e) =>
+                        setSelectedCycle(e.parameters.selectedOption.value)
+                    }
+                >
+                    <Option icon="calendar" value={EVERY_WEEKDAY.value}>
+                        {EVERY_WEEKDAY.displayName}
+                    </Option>
+                    <Option icon="legend" value={WEEKLY.value}>
+                        {WEEKLY.displayName}
+                    </Option>
+                    <Option icon="appointment" value={MONTHLY.value}>
+                        {MONTHLY.displayName}
+                    </Option>
+                </Select>
             </FlexBox>
         </Dialog>
     );
@@ -190,7 +233,7 @@ const mapStateToProps = ({ user, addSeriesModal }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     toggleAddSeriesModal: () => dispatch(UI.toggleAddSeriesModal()),
-    addActivity: (activity) => dispatch(Activity.add(activity)),
+    addSeries: (series) => dispatch(Series.add(series)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddSeriesModal);

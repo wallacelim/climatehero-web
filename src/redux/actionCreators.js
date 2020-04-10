@@ -37,6 +37,7 @@ import {
     TOGGLE_WELCOME_MODAL,
     TOGGLE_EDIT_GOAL_MODAL,
     USER_LOGIN,
+    TOGGLE_ADD_SERIES_MODAL,
 } from "../constants/actionTypes";
 import { getActivityTypeFromString } from "../util/activities";
 
@@ -452,17 +453,26 @@ export const Series = {
     }) => {
         return async (dispatch) => {
             dispatch(Series._add.start());
+            console.log({
+                userId,
+                activityType: activityType.name,
+                activityMetric,
+                activityMeasurement,
+                seriesFirstDate,
+                seriesLastDate,
+                seriesCycle: seriesCycle.value,
+            });
             try {
                 const res = await axios.post(
                     "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series",
                     {
                         userId,
-                        activityType,
+                        activityType: activityType.name,
                         activityMetric,
                         activityMeasurement,
                         seriesFirstDate,
                         seriesLastDate,
-                        seriesCycle,
+                        seriesCycle: seriesCycle.value,
                     }
                 );
                 dispatch(Series._add.success(res.data));
@@ -570,6 +580,10 @@ export const UI = {
 
     toggleAddActivityModal: () => ({
         type: TOGGLE_ADD_ACTIVITY_MODAL,
+    }),
+
+    toggleAddSeriesModal: () => ({
+        type: TOGGLE_ADD_SERIES_MODAL,
     }),
 
     toggleEditActivityModal: (id) => ({
