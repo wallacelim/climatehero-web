@@ -214,7 +214,7 @@ const mapStateToProps = ({ goals, editGoalModal }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleEditGoalModal: (id) => dispatch(UI.toggleEditGoalModal(id)),
+    toggleEditGoalModal: (goalId) => dispatch(UI.toggleEditGoalModal(goalId)),
     editGoal: (id, updates) => dispatch(Goal.edit(id, updates)),
 });
 

@@ -9,6 +9,8 @@ import {
     FETCH_ACTIVITIES_STARTED,
     FETCH_ACTIVITIES_SUCCESS,
     FETCH_ACTIVITIES_FAIL,
+    EDIT_ACTIVITY_STARTED,
+    EDIT_ACTIVITY_SUCCESS,
 } from "../../constants/actionTypes";
 
 import { getActivityTypeFromString } from "../../util/activities";
@@ -65,6 +67,30 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 error: action.payload.error,
+            };
+
+        case EDIT_ACTIVITY_STARTED:
+            return {
+                ...state,
+                isFetching: true,
+            };
+
+        case EDIT_ACTIVITY_SUCCESS:
+            console.log(action.payload);
+            return {
+                ...state,
+                isFetching: false,
+                data: state.data.map((activity) => {
+                    if (activity.id === action.payload.id) {
+                        return {
+                            ...action.payload,
+                            type: getActivityTypeFromString(
+                                action.payload.type
+                            ),
+                        };
+                    }
+                    return activity;
+                }),
             };
 
         case FETCH_ACTIVITIES_STARTED:

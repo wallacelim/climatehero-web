@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import {
@@ -33,38 +33,43 @@ import {
     MEAL_VEGETARIAN,
 } from "../constants/activityTypes";
 import { Activity, UI } from "../redux/actionCreators";
-import {
-    getCurrentDateTimeString,
-    getCurrentDateString,
-    getCurrentTimeString,
-} from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 
-const AddActivityModal = ({
-    addActivityModal,
+const EditActivityModal = ({
+    activity,
+    editActivityModal,
     userId,
-    toggleAddActivityModal,
-    addActivity,
+    toggleEditActivityModal,
+    editActivity,
 }) => {
-    const [activityType, setActivityType] = React.useState(COMMUTE_BIKE);
-    const [input, setInput] = useState(0);
-    const [selectedDate, setSelectedDate] = useState(getCurrentDateString);
-    const [selectedTime, setSelectedTime] = useState(getCurrentTimeString);
+    const [activityType, setActivityType] = React.useState();
+    const [input, setInput] = useState();
+    const [selectedDate, setSelectedDate] = useState();
+    const [selectedTime, setSelectedTime] = useState();
+
+    useEffect(() => {
+        if (activity) {
+            setActivityType(activity.type);
+            setInput(activity.measurement);
+            setSelectedDate(activity.dateTimeOfActivity.split(" ")[0]);
+            setSelectedTime(activity.dateTimeOfActivity.split(" ")[1]);
+        }
+    }, [activity, editActivityModal]);
 
     // TODO: reset fields after every add
 
-    const handleAdd = () => {
+    const handleEdit = () => {
         if (!input || input <= 0) {
             alert("please enter a positive value");
             return;
         }
-        let dateTimeOfActivity = getCurrentDateTimeString();
-        if (selectedDate && selectedTime) {
-            dateTimeOfActivity = `${selectedDate} ${selectedTime}`;
+        if (!selectedDate || !selectedTime) {
+            throw new Error("No selected date/time");
         }
-        toggleAddActivityModal();
-        const activity = {
+        const dateTimeOfActivity = `${selectedDate} ${selectedTime}`;
+        toggleEditActivityModal();
+        const updatedActivity = {
             userId,
             type: activityType,
             metric: activityType.metric,
@@ -72,7 +77,7 @@ const AddActivityModal = ({
             reductionValue: (Math.random() * 10).toFixed(2),
             dateTimeOfActivity,
         };
-        addActivity(activity);
+        editActivity(editActivityModal.id, updatedActivity);
     };
 
     const handleSelectType = (e) => {
@@ -90,10 +95,10 @@ const AddActivityModal = ({
                     alignItems={FlexBoxAlignItems.Center}
                     style={sapUiContentPadding}
                 >
-                    <h5>Add an Activity</h5>
+                    <h5>Edit an Activity</h5>
                     <Button
                         design={ButtonDesign.Reject}
-                        onClick={toggleAddActivityModal}
+                        onClick={toggleEditActivityModal}
                         style={sapUiTinyMargin}
                     >
                         Close
@@ -101,7 +106,7 @@ const AddActivityModal = ({
                 </FlexBox>,
             ]}
             stretch={false}
-            open={addActivityModal.isOpen}
+            open={editActivityModal.isOpen}
             footer={
                 <div style={{ zIndex: 0 }}>
                     <FlexBox
@@ -110,10 +115,10 @@ const AddActivityModal = ({
                     >
                         <Button
                             design={ButtonDesign.Emphasized}
-                            onClick={handleAdd}
+                            onClick={handleEdit}
                             style={{ ...sapUiTinyMargin, zIndex: "0" }}
                         >
-                            Add
+                            Edit
                         </Button>
                     </FlexBox>
                 </div>
@@ -124,7 +129,9 @@ const AddActivityModal = ({
                 direction={FlexBoxDirection.Column}
                 justifyContent={FlexBoxJustifyContent.Center}
             >
-                <Text style={sapUiContentPadding}>{activityType.infoText}</Text>
+                <Text style={sapUiContentPadding}>
+                    {activityType ? activityType.infoText : ""}
+                </Text>
                 <Label>Type</Label>
                 <Select
                     style={sapUiSmallMarginBottom}
@@ -146,7 +153,7 @@ const AddActivityModal = ({
                         {MEAL_VEGETARIAN.displayName} ({MEAL_VEGETARIAN.metric})
                     </Option>
                 </Select>
-                <Label>{activityType.metric}</Label>
+                <Label>{activityType ? activityType.metric : ""}</Label>
                 <Input
                     type={InputType.Number}
                     value={input}
@@ -176,21 +183,34 @@ const AddActivityModal = ({
                         }
                     }}
                     style={{ sapUiContentPadding }}
-                    hourPlaceholder={selectedTime.substring(0, 2)}
-                    minutePlaceholder={selectedTime.substring(3, 5)}
+                    hourPlaceholder={
+                        selectedTime ? selectedTime.substring(0, 2) : ""
+                    }
+                    minutePlaceholder={
+                        selectedTime ? selectedTime.substring(3, 5) : ""
+                    }
                 />
             </FlexBox>
         </Dialog>
     );
 };
-const mapStateToProps = ({ user, addActivityModal }) => ({
-    addActivityModal,
+
+const mapStateToProps = ({ activities, user, editActivityModal }) => ({
+    editActivityModal,
     userId: user.data.id,
+    activity: activities.data.find((activity) => {
+        if (activity.id === editActivityModal.id) {
+            return true;
+        }
+        return false;
+    }),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal()),
-    addActivity: (activity) => dispatch(Activity.add(activity)),
+    toggleEditActivityModal: (activityId) =>
+        dispatch(UI.toggleEditActivityModal(activityId)),
+    editActivity: (activityId, updates) =>
+        dispatch(Activity.edit(activityId, updates)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddActivityModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EditActivityModal);

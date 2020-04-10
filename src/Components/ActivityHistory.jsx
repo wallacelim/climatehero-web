@@ -1,14 +1,16 @@
 import React from "react";
-import { AnalyticalTable } from "@ui5/webcomponents-react";
+import { AnalyticalTable, TableSelectionMode } from "@ui5/webcomponents-react";
 import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
 import { getDateTimeFromString, getDateFromString } from "../util/datetime";
+import { UI } from "../redux/actionCreators";
 
 const ActivityHistory = ({
     userId,
     activities,
     dateRangeStart,
     dateRangeEnd,
+    toggleEditActivityModal,
 }) => {
     const activityColumns = [
         {
@@ -36,6 +38,10 @@ const ActivityHistory = ({
     return (
         <AnalyticalTable
             columns={activityColumns}
+            selectionMode={TableSelectionMode.SINGLE_SELECT}
+            onRowSelected={(e) =>
+                toggleEditActivityModal(e.parameters.row.original.id)
+            }
             data={activities.data
                 .filter((activity) => activity.userId === userId)
                 .filter((activity) => {
@@ -52,6 +58,7 @@ const ActivityHistory = ({
                     return true;
                 })
                 .map((activity) => ({
+                    id: activity.id,
                     dateTime: activity.dateTimeOfActivity,
                     type: activity.type.displayName,
                     measurement: `${activity.measurement} ${activity.type.displayMetric}`,
@@ -81,4 +88,9 @@ const mapStateToProps = (
     dateRangeEnd,
 });
 
-export default connect(mapStateToProps, null)(ActivityHistory);
+const mapDispatchToProps = (dispatch) => ({
+    toggleEditActivityModal: (activityId) =>
+        dispatch(UI.toggleEditActivityModal(activityId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityHistory);

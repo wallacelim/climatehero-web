@@ -33,7 +33,7 @@ export default ({
                 }}
                 selected={selectedStartDate}
                 style={{ width: "30%" }}
-                placeholderText="Select Start Date"
+                placeholderText="  Select Start Date"
             />
             <Text style={{ width: "10%", textAlign: "center" }}>To</Text>
             <DatePicker
@@ -44,7 +44,7 @@ export default ({
                 }}
                 selected={selectedEndDate}
                 style={{ width: "30%" }}
-                placeholderText="Select End Date"
+                placeholderText="  Select End Date"
             />
         </FlexBox>
     );

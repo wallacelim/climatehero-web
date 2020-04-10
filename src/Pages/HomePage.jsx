@@ -44,8 +44,4 @@ function HomePage({ user }) {
 
 const mapStateToProps = ({ user }) => ({ user });
 
-// const mapDispatchToProps = dispatch => ({
-//     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal())
-// });
-
 export default connect(mapStateToProps, null)(HomePage);

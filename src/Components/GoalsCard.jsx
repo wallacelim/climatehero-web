@@ -162,7 +162,7 @@ const mapStateToProps = ({ user, goals }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     toggleAddGoalModal: () => dispatch(UI.toggleAddGoalModal()),
-    toggleEditGoalModal: (id) => dispatch(UI.toggleEditGoalModal(id)),
+    toggleEditGoalModal: (goalId) => dispatch(UI.toggleEditGoalModal(goalId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalsCard);

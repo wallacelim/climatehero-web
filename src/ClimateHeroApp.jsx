@@ -7,6 +7,7 @@ import AddActivityModal from "./Components/AddActivityModal";
 import AddSeriesModal from "./Components/AddSeriesModal";
 import AddGoalModal from "./Components/AddGoalModal";
 import WelcomeModal from "./Components/WelcomeModal";
+import EditActivityModal from "./Components/EditActivityModal";
 import EditGoalModal from "./Components/EditGoalModal";
 
 export default function ClimateHeroApp() {
@@ -22,6 +23,7 @@ export default function ClimateHeroApp() {
             <AddSeriesModal />
             <AddGoalModal />
             <WelcomeModal />
+            <EditActivityModal />
             <EditGoalModal />
         </Router>
     );

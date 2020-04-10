@@ -7,6 +7,9 @@ import {
     DELETE_ACTIVITY_STARTED,
     DELETE_ACTIVITY_SUCCESS,
     DELETE_ACTIVITY_FAIL,
+    EDIT_ACTIVITY_STARTED,
+    EDIT_ACTIVITY_SUCCESS,
+    EDIT_ACTIVITY_FAIL,
     FETCH_ACTIVITIES_STARTED,
     FETCH_ACTIVITIES_SUCCESS,
     FETCH_ACTIVITIES_FAIL,
@@ -46,6 +49,7 @@ export const Activity = {
         start: () => ({ type: ADD_ACTIVITY_STARTED }),
 
         success: ({
+            id,
             userId,
             type,
             metric,
@@ -53,10 +57,12 @@ export const Activity = {
             reductionValue,
             dateTimeOfActivity,
             // UNUSED: dateTimeCreated
+            // UNUSED: seriesId
             // UNUSED: comment
         }) => ({
             type: ADD_ACTIVITY_SUCCESS,
             payload: {
+                id,
                 userId,
                 type,
                 metric,
@@ -147,6 +153,61 @@ export const Activity = {
                 dispatch(Activity._delete.fail(err));
             }
         };
+    },
+    _edit: {
+        start: () => ({ type: EDIT_ACTIVITY_STARTED }),
+        success: ({
+            id,
+            userId,
+            type,
+            metric,
+            measurement,
+            reductionValue,
+            dateTimeOfActivity,
+            // UNUSED: dateTimeCreated
+            // UNUSED: seriesId
+            // UNUSED: comment
+        }) => ({
+            type: EDIT_ACTIVITY_SUCCESS,
+            payload: {
+                id,
+                userId,
+                type,
+                metric,
+                measurement,
+                reductionValue,
+                dateTimeOfActivity,
+            },
+        }),
+        fail: (error) => ({
+            type: EDIT_ACTIVITY_FAIL,
+            payload: {
+                error,
+            },
+        }),
+    },
+
+    edit: (
+        id,
+        { userId, type, metric, measurement, dateTimeOfActivity }
+    ) => async (dispatch) => {
+        dispatch(Activity._edit.start());
+        try {
+            const res = await axios.post(
+                `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities/edit/id=${id}`,
+                {
+                    userId,
+                    type: type.name,
+                    metric,
+                    measurement,
+                    dateTimeOfActivity,
+                }
+            );
+            dispatch(Activity._edit.success(res.data));
+        } catch (err) {
+            console.log(`Activity.edit error: ${err}`);
+            dispatch(Activity._edit.fail(err));
+        }
     },
 
     _fetch: {
@@ -301,7 +362,7 @@ export const Goal = {
                 userId,
                 dateTimeCreated,
                 title,
-                type: getActivityTypeFromString(type),
+                type,
                 metric,
                 measurement,
                 fulfillment,

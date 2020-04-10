@@ -84,7 +84,12 @@ export default function (state = initialState, action) {
                 isFetching: false,
                 data: state.data.map((goal) => {
                     if (goal.id === action.payload.id) {
-                        return action.payload;
+                        return {
+                            ...action.payload,
+                            type: getActivityTypeFromString(
+                                action.payload.type
+                            ),
+                        };
                     }
                     return goal;
                 }),
