@@ -101,7 +101,7 @@ const EditGoalModal = ({
                 >
                     <h5>Edit Goal</h5>
                     <Button
-                        design={ButtonDesign.Reject}
+                        design={ButtonDesign.Default}
                         onClick={() => toggleEditGoalModal(goal.id)}
                         style={sapUiTinyMargin}
                     >
@@ -123,6 +123,13 @@ const EditGoalModal = ({
                             style={sapUiTinyMargin}
                         >
                             Save
+                        </Button>
+                        <Button
+                            design={ButtonDesign.Reject}
+                            onClick={null} // TODO: handleDelete
+                            style={sapUiTinyMargin}
+                        >
+                            Delete
                         </Button>
                     </FlexBox>
                 </div>

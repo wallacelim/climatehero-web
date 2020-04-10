@@ -189,6 +189,7 @@ export const Activity = {
 
     edit: (
         id,
+        previous,
         { userId, type, metric, measurement, dateTimeOfActivity }
     ) => async (dispatch) => {
         dispatch(Activity._edit.start());
@@ -204,6 +205,22 @@ export const Activity = {
                 }
             );
             dispatch(Activity._edit.success(res.data));
+            if (previous.type === type) {
+                dispatch(
+                    // eslint-disable-next-line no-use-before-define
+                    Goal._update.byType(
+                        type,
+                        measurement - previous.measurement
+                    )
+                );
+            } else {
+                dispatch(
+                    // eslint-disable-next-line no-use-before-define
+                    Goal._update.byType(previous.type, -previous.measurement)
+                );
+                // eslint-disable-next-line no-use-before-define
+                dispatch(Goal._update.byType(type, measurement));
+            }
         } catch (err) {
             console.log(`Activity.edit error: ${err}`);
             dispatch(Activity._edit.fail(err));
@@ -327,7 +344,7 @@ export const Goal = {
         }),
     },
 
-    delete: ({ id }) => {
+    delete: (id) => {
         return async (dispatch) => {
             dispatch(Goal._delete.start());
             try {

@@ -42,6 +42,7 @@ const EditActivityModal = ({
     userId,
     toggleEditActivityModal,
     editActivity,
+    deleteActivity,
 }) => {
     const [activityType, setActivityType] = React.useState();
     const [input, setInput] = useState();
@@ -77,7 +78,12 @@ const EditActivityModal = ({
             reductionValue: (Math.random() * 10).toFixed(2),
             dateTimeOfActivity,
         };
-        editActivity(editActivityModal.id, updatedActivity);
+        editActivity(editActivityModal.id, activity, updatedActivity);
+    };
+
+    const handleDelete = () => {
+        toggleEditActivityModal();
+        deleteActivity(activity);
     };
 
     const handleSelectType = (e) => {
@@ -97,7 +103,7 @@ const EditActivityModal = ({
                 >
                     <h5>Edit an Activity</h5>
                     <Button
-                        design={ButtonDesign.Reject}
+                        design={ButtonDesign.Default}
                         onClick={toggleEditActivityModal}
                         style={sapUiTinyMargin}
                     >
@@ -118,7 +124,14 @@ const EditActivityModal = ({
                             onClick={handleEdit}
                             style={{ ...sapUiTinyMargin, zIndex: "0" }}
                         >
-                            Edit
+                            Save
+                        </Button>
+                        <Button
+                            design={ButtonDesign.Reject}
+                            onClick={handleDelete}
+                            style={{ ...sapUiTinyMargin, zIndex: "0" }}
+                        >
+                            Delete
                         </Button>
                     </FlexBox>
                 </div>
@@ -209,8 +222,9 @@ const mapStateToProps = ({ activities, user, editActivityModal }) => ({
 const mapDispatchToProps = (dispatch) => ({
     toggleEditActivityModal: (activityId) =>
         dispatch(UI.toggleEditActivityModal(activityId)),
-    editActivity: (activityId, updates) =>
-        dispatch(Activity.edit(activityId, updates)),
+    editActivity: (activityId, prev, next) =>
+        dispatch(Activity.edit(activityId, prev, next)),
+    deleteActivity: (activity) => dispatch(Activity.delete(activity)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditActivityModal);

@@ -65,7 +65,7 @@ const HistoryCard = ({
             </FlexBox>
             <Card
                 heading="Your Activity History"
-                subtitle="Select a date range to view activities"
+                subtitle="Click any activity to edit or delete"
                 style={sapUiContentPadding}
                 avatar={<Icon name="appointment-2" />}
             >
