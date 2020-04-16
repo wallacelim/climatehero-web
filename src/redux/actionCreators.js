@@ -70,7 +70,7 @@ export const Activity = {
             console.log(dateTimeOfActivity);
             try {
                 const res = await axios.post(
-                    "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities",
+                    "/api/activities",
                     {
                         userId,
                         type: type.name,
@@ -112,7 +112,7 @@ export const Activity = {
         dispatch(Activity.request());
         return axios
             .get(
-                "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities"
+                "/api/activities"
             )
             .then((response) => dispatch(Activity.receive(response.data)));
         // TODO: add error handling
@@ -168,7 +168,7 @@ export const Goal = {
             dispatch(Goal.addStart());
             try {
                 const res = await axios.post(
-                    "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals",
+                    "/api/goals",
                     {
                         title,
                         userId,
@@ -226,7 +226,7 @@ export const Goal = {
         dispatch(Goal.request());
         return axios
             .get(
-                "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals"
+                "/api/goals"
             )
             .then((response) => dispatch(Goal.receive(response.data)));
     },

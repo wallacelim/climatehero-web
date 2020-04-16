@@ -1,10 +1,10 @@
 {
   "welcomeFile": "index.html",
-  "authenticationMethod": "route",
+  "authenticationMethod": "none",
   "routes": [
     {
-      "source": "^/api",
-      "target": "/",
+      "source": "^/api/(.*)$",
+      "target": "$1",
       "csrfProtection": false,
       "destination": "climatehero-server"
     },
