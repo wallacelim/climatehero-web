@@ -17,13 +17,13 @@ function HomePage({ user }) {
                 ...spacing.sapUiContentPadding,
                 height: "100vh",
                 position: "absolute",
-                top: "0"
+                top: "0",
             }}
         >
-            <ObjectPageSection title="Calendar" id="HomePageCalendarSection">
+            <ObjectPageSection title="History" id="HomePageHistorySection">
                 <DraggableCard
                     style={spacing.sapUiContentPadding}
-                    cardType="Calendar"
+                    cardType="History"
                 />
             </ObjectPageSection>
             <ObjectPageSection title="Trends" id="HomePageTrendsSection">
@@ -43,9 +43,5 @@ function HomePage({ user }) {
 }
 
 const mapStateToProps = ({ user }) => ({ user });
-
-// const mapDispatchToProps = dispatch => ({
-//     toggleAddActivityModal: () => dispatch(UI.toggleAddActivityModal())
-// });
 
 export default connect(mapStateToProps, null)(HomePage);

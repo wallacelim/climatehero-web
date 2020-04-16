@@ -3,9 +3,14 @@ import {
     ADD_ACTIVITY_STARTED,
     ADD_ACTIVITY_SUCCESS,
     ADD_ACTIVITY_FAIL,
-    DELETE_ACTIVITY,
-    REQUEST_ACTIVITIES,
-    RECEIVE_ACTIVITIES
+    DELETE_ACTIVITY_STARTED,
+    DELETE_ACTIVITY_SUCCESS,
+    DELETE_ACTIVITY_FAIL,
+    FETCH_ACTIVITIES_STARTED,
+    FETCH_ACTIVITIES_SUCCESS,
+    FETCH_ACTIVITIES_FAIL,
+    EDIT_ACTIVITY_STARTED,
+    EDIT_ACTIVITY_SUCCESS,
 } from "../../constants/actionTypes";
 
 import { getActivityTypeFromString } from "../../util/activities";
@@ -14,7 +19,7 @@ const initialState = {
     isFetching: false,
     data: [],
     lastUpdated: null,
-    error: null
+    error: null,
 };
 
 export default (state = initialState, action) => {
@@ -22,7 +27,7 @@ export default (state = initialState, action) => {
         case ADD_ACTIVITY_STARTED:
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
             };
         case ADD_ACTIVITY_SUCCESS:
             return {
@@ -32,29 +37,66 @@ export default (state = initialState, action) => {
                     ...state.data,
                     {
                         ...action.payload,
-                        type: getActivityTypeFromString(action.payload.type)
-                    }
-                ]
+                        type: getActivityTypeFromString(action.payload.type),
+                    },
+                ],
             };
         case ADD_ACTIVITY_FAIL:
+            console.log(`ADD_ACTIVITY_FAIL: ${action.payload.error}`);
             return {
                 ...state,
-                error: action.payload.error
+                error: action.payload.error,
             };
-        case DELETE_ACTIVITY:
+        case DELETE_ACTIVITY_STARTED:
             return {
                 ...state,
-                data: [
-                    ...state.data.filter(
-                        activity => activity.id !== action.payload.id
-                    )
-                ]
+                isFetching: true,
             };
 
-        case REQUEST_ACTIVITIES:
+        case DELETE_ACTIVITY_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                data: state.data.filter(
+                    (activity) => activity.id !== action.payload.id
+                ),
+            };
+
+        case DELETE_ACTIVITY_FAIL:
+            console.log(`DELETE_ACTIVITY_FAIL: ${action.payload.error}`);
+            return {
+                ...state,
+                error: action.payload.error,
+            };
+
+        case EDIT_ACTIVITY_STARTED:
+            return {
+                ...state,
+                isFetching: true,
+            };
+
+        case EDIT_ACTIVITY_SUCCESS:
+            console.log(action.payload);
+            return {
+                ...state,
+                isFetching: false,
+                data: state.data.map((activity) => {
+                    if (activity.id === action.payload.id) {
+                        return {
+                            ...action.payload,
+                            type: getActivityTypeFromString(
+                                action.payload.type
+                            ),
+                        };
+                    }
+                    return activity;
+                }),
+            };
+
+        case FETCH_ACTIVITIES_STARTED:
             return { ...state, isFetching: true };
 
-        case RECEIVE_ACTIVITIES:
+        case FETCH_ACTIVITIES_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
@@ -66,7 +108,7 @@ export default (state = initialState, action) => {
                         metric,
                         measurement,
                         reductionValue,
-                        dateTimeOfActivity
+                        dateTimeOfActivity,
                         // UNUSED: dateTimeCreated,
                         // UNUSED: comment
                     }) => ({
@@ -76,11 +118,19 @@ export default (state = initialState, action) => {
                         metric,
                         measurement,
                         reductionValue, // TODO: handle precision errors
-                        dateTimeOfActivity
+                        dateTimeOfActivity,
                     })
                 ),
-                lastUpdated: action.payload.receivedAt
+                lastUpdated: action.payload.receivedAt,
             };
+
+        case FETCH_ACTIVITIES_FAIL:
+            console.log(`FETCH_ACTIVITY_FAIL: ${action.payload.error}`);
+            return {
+                ...state,
+                error: action.payload.error,
+            };
+
         default:
             return state;
     }

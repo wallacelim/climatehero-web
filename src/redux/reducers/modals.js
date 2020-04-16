@@ -1,23 +1,24 @@
 import {
     TOGGLE_ADD_ACTIVITY_MODAL,
+    TOGGLE_ADD_SERIES_MODAL,
     TOGGLE_ADD_GOAL_MODAL,
     TOGGLE_EDIT_GOAL_MODAL,
     TOGGLE_EDIT_ACTIVITY_MODAL,
-    TOGGLE_WELCOME_MODAL
+    TOGGLE_WELCOME_MODAL,
 } from "../../constants/actionTypes";
 
 const initialState = {
     isOpen: false,
-    id: null
+    id: null,
 };
 
-export function addWelcomeModal(state = {isOpen: true, id: null}, action) {
+export function welcomeModal(state = { isOpen: true, id: null }, action) {
     switch (action.type) {
         case TOGGLE_WELCOME_MODAL:
             return {
                 ...state,
                 isOpen: !state.isOpen,
-                id: null
+                id: null,
             };
         default:
             return state;
@@ -30,7 +31,20 @@ export function addActivityModal(state = initialState, action) {
             return {
                 ...state,
                 isOpen: !state.isOpen,
-                id: null
+                id: null,
+            };
+        default:
+            return state;
+    }
+}
+
+export function addSeriesModal(state = initialState, action) {
+    switch (action.type) {
+        case TOGGLE_ADD_SERIES_MODAL:
+            return {
+                ...state,
+                isOpen: !state.isOpen,
+                id: null,
             };
         default:
             return state;
@@ -43,7 +57,7 @@ export function addGoalModal(state = initialState, action) {
             return {
                 ...state,
                 isOpen: !state.isOpen,
-                id: null
+                id: null,
             };
         default:
             return state;
@@ -56,7 +70,7 @@ export function editActivityModal(state = initialState, action) {
             return {
                 ...state,
                 id: action.payload.id,
-                isOpen: !state.isOpen
+                isOpen: !state.isOpen,
             };
         default:
             return state;
@@ -69,7 +83,7 @@ export function editGoalModal(state = initialState, action) {
             return {
                 ...state,
                 id: action.payload.id,
-                isOpen: !state.isOpen
+                isOpen: !state.isOpen,
             };
         default:
             return state;

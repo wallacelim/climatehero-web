@@ -15,19 +15,18 @@ import {
     ValueState,
     DatePicker,
     CalendarType,
-    Label
+    Label,
 } from "@ui5/webcomponents-react";
 import {
     sapUiContentPadding,
     sapUiTinyMargin,
-    sapUiSmallMarginBottom
+    sapUiSmallMarginBottom,
 } from "@ui5/webcomponents-react-base/lib/spacing";
 import {
-    WALKING,
     COMMUTE_BUS,
     COMMUTE_TRAIN,
     COMMUTE_BIKE,
-    MEAL_VEGETARIAN
+    MEAL_VEGETARIAN,
 } from "../constants/activityTypes";
 import { Goal, UI } from "../redux/actionCreators";
 import "@ui5/webcomponents-icons/dist/icons/meal";
@@ -35,7 +34,6 @@ import "@ui5/webcomponents-icons/dist/icons/passenger-train";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
-import { getCurrentDateString } from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 
@@ -43,7 +41,7 @@ const EditGoalModal = ({
     goal,
     editGoalModal,
     toggleEditGoalModal,
-    editGoal
+    editGoal,
 }) => {
     const [title, setTitle] = useState();
     const [target, setTarget] = useState();
@@ -73,18 +71,19 @@ const EditGoalModal = ({
             return;
         }
         toggleEditGoalModal(goal.id);
-        const updates = {
+        const updatedGoal = {
             title,
-            startDate: getCurrentDateString(),
-            dateTarget: selectedDate,
+            userId: goal.userId,
             type: activityType,
-            currentMeasurement: goal.currentMeasurement,
-            targetMeasurement: parseInt(target, 10),
-            metric: activityType.metric
+            metric: activityType.metric,
+            measurement: parseInt(target, 10),
+            fulfillment: goal.fulfillment,
+            dateStart: goal.dateStart,
+            dateTarget: selectedDate,
         };
-        editGoal(goal.id, updates);
+        editGoal(goal.id, updatedGoal);
     };
-    const handleSelectType = e => {
+    const handleSelectType = (e) => {
         setActivityType(
             getActivityTypeFromString(e.parameters.selectedOption.value)
         );
@@ -102,13 +101,13 @@ const EditGoalModal = ({
                 >
                     <h5>Edit Goal</h5>
                     <Button
-                        design={ButtonDesign.Reject}
+                        design={ButtonDesign.Default}
                         onClick={() => toggleEditGoalModal(goal.id)}
                         style={sapUiTinyMargin}
                     >
                         Close
                     </Button>
-                </FlexBox>
+                </FlexBox>,
             ]}
             stretch={false}
             open={editGoalModal.isOpen}
@@ -125,6 +124,13 @@ const EditGoalModal = ({
                         >
                             Save
                         </Button>
+                        <Button
+                            design={ButtonDesign.Reject}
+                            onClick={null} // TODO: handleDelete
+                            style={sapUiTinyMargin}
+                        >
+                            Delete
+                        </Button>
                     </FlexBox>
                 </div>
             }
@@ -137,7 +143,7 @@ const EditGoalModal = ({
                 <Label>Name</Label>
                 <Input
                     type={InputType.Text}
-                    onChange={e => setTitle(e.parameters.value)}
+                    onChange={(e) => setTitle(e.parameters.value)}
                     style={sapUiSmallMarginBottom}
                     value={`${title}`}
                 />
@@ -147,37 +153,30 @@ const EditGoalModal = ({
                     onChange={handleSelectType}
                 >
                     <Option
-                        selected={`${activityType}` === WALKING}
-                        icon="physical-activity"
-                        value={WALKING.title}
-                    >
-                        {WALKING.displayName} ({WALKING.metric})
-                    </Option>
-                    <Option
                         selected={activityType === COMMUTE_BIKE}
                         icon="supplier"
-                        value={COMMUTE_BIKE.title}
+                        value={COMMUTE_BIKE.name}
                     >
                         {COMMUTE_BIKE.displayName} ({COMMUTE_BIKE.metric})
                     </Option>
                     <Option
                         selected={activityType === COMMUTE_BUS}
                         icon="bus-public-transport"
-                        value={COMMUTE_BUS.title}
+                        value={COMMUTE_BUS.name}
                     >
                         {COMMUTE_BUS.displayName} ({COMMUTE_BUS.metric})
                     </Option>
                     <Option
                         selected={activityType === COMMUTE_TRAIN}
                         icon="passenger-train"
-                        value={COMMUTE_TRAIN.title}
+                        value={COMMUTE_TRAIN.name}
                     >
                         {COMMUTE_TRAIN.displayName} ({COMMUTE_TRAIN.metric})
                     </Option>
                     <Option
                         selected={activityType === MEAL_VEGETARIAN}
                         icon="meal"
-                        value={MEAL_VEGETARIAN.title}
+                        value={MEAL_VEGETARIAN.name}
                     >
                         {MEAL_VEGETARIAN.displayName} ({MEAL_VEGETARIAN.metric})
                     </Option>
@@ -191,7 +190,7 @@ const EditGoalModal = ({
                         activityType ? activityType.metric : ""
                     })`}
                     value={target}
-                    onChange={e => {
+                    onChange={(e) => {
                         setTarget(e.parameters.value);
                     }}
                     style={sapUiSmallMarginBottom}
@@ -203,7 +202,7 @@ const EditGoalModal = ({
                     primaryCalendarType={CalendarType.Gregorian}
                     disabled={false}
                     readonly={false}
-                    onChange={date => setSelectedDate(date.parameters.value)}
+                    onChange={(date) => setSelectedDate(date.parameters.value)}
                     placeholder={selectedDate}
                 />
             </FlexBox>
@@ -212,18 +211,18 @@ const EditGoalModal = ({
 };
 
 const mapStateToProps = ({ goals, editGoalModal }) => ({
-    goal: goals.data.find(goal => {
+    goal: goals.data.find((goal) => {
         if (goal.id === editGoalModal.id) {
             return true;
         }
         return false;
     }),
-    editGoalModal
+    editGoalModal,
 });
 
-const mapDispatchToProps = dispatch => ({
-    toggleEditGoalModal: id => dispatch(UI.toggleEditGoalModal(id)),
-    editGoal: (id, updates) => dispatch(Goal.edit(id, updates))
+const mapDispatchToProps = (dispatch) => ({
+    toggleEditGoalModal: (goalId) => dispatch(UI.toggleEditGoalModal(goalId)),
+    editGoal: (id, updates) => dispatch(Goal.edit(id, updates)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditGoalModal);

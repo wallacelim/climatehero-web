@@ -1,8 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import CalendarCard from "../CalendarCard";
-import GoalsCard from "../GoalsCard";
 import HistoryCard from "../HistoryCard";
+import GoalsCard from "../GoalsCard";
 import TrendsCard from "../TrendsCard";
 
 export default function DraggableCard({ cardType, style }) {
@@ -15,9 +14,6 @@ export default function DraggableCard({ cardType, style }) {
         }
         if (type === "History") {
             return <HistoryCard style={{ ...style, height: "100%" }} />;
-        }
-        if (type === "Calendar") {
-            return <CalendarCard style={{ ...style, height: "100%" }} />;
         }
         throw new Error(`Attempted to render invalid Card: ${type}`);
     };

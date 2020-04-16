@@ -1,12 +1,4 @@
 /* eslint-disable no-multi-str */
-export const WALKING = {
-    name: "WALKING",
-    displayName: "Walking",
-    metric: "KM",
-    displayMetric: "km",
-    infoText: "info text not available",
-};
-
 export const COMMUTE_BIKE = {
     name: "COMMUTE_BIKE",
     displayName: "Commute by Bike",

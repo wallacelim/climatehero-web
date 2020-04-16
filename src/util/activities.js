@@ -1,18 +1,15 @@
 import { range } from "lodash";
 import moment from "moment";
 import {
-    WALKING,
     COMMUTE_BIKE,
     COMMUTE_BUS,
     COMMUTE_TRAIN,
-    MEAL_VEGETARIAN
+    MEAL_VEGETARIAN,
 } from "../constants/activityTypes";
 import { getDateTimeFromString } from "./datetime";
 
-export const getActivityTypeFromString = activityString => {
+export const getActivityTypeFromString = (activityString) => {
     switch (activityString) {
-        case WALKING.name:
-            return WALKING;
         case COMMUTE_BIKE.name:
             return COMMUTE_BIKE;
         case COMMUTE_BUS.name:
