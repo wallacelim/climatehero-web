@@ -390,16 +390,6 @@ export const Goal = {
     ) => async (dispatch) => {
         dispatch(Goal._edit.start());
         try {
-            console.log("updates:");
-            console.log({
-                title,
-                userId,
-                type: type.name,
-                metric,
-                measurement,
-                dateStart,
-                dateTarget,
-            });
             const res = await axios.post(`${API_URL}/goals/edit/id=${id}`, {
                 title,
                 userId,

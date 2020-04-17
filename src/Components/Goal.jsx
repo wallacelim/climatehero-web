@@ -6,7 +6,7 @@ import {
     TitleLevel,
     FlexBoxDirection,
     FlexBoxAlignItems,
-    FlexBoxJustifyContent
+    FlexBoxJustifyContent,
 } from "@ui5/webcomponents-react";
 import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 
@@ -16,7 +16,7 @@ export default function Goal({
     dateTarget,
     target,
     progress,
-    infoState
+    infoState,
 }) {
     return (
         <FlexBox
@@ -27,7 +27,7 @@ export default function Goal({
         >
             <Title
                 level={TitleLevel.H3}
-                style={{ width: "30%", margin: "0px", ...sapUiContentPadding }}
+                style={{ width: "30%", margin: "0px", paddingRight: "1rem" }}
             >
                 {title}
             </Title>

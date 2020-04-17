@@ -42,20 +42,29 @@ const EditGoalModal = ({
     editGoalModal,
     toggleEditGoalModal,
     editGoal,
+    deleteGoal,
 }) => {
     const [title, setTitle] = useState();
     const [target, setTarget] = useState();
     const [activityType, setActivityType] = useState();
-    const [selectedDate, setSelectedDate] = useState();
+    const [selectedStartDate, setSelectedStartDate] = useState();
+    const [selectedTargetDate, setSelectedTargetDate] = useState();
 
     useEffect(() => {
         if (goal) {
             setTitle(goal.title);
             setTarget(goal.measurement);
             setActivityType(goal.type);
-            setSelectedDate(goal.dateTarget);
+            setSelectedStartDate(goal.dateStart);
+            setSelectedTargetDate(goal.dateTarget);
         }
     }, [goal, editGoalModal]);
+
+    const handleSelectType = (e) => {
+        setActivityType(
+            getActivityTypeFromString(e.parameters.selectedOption.value)
+        );
+    };
 
     const handleEdit = () => {
         if (!title) {
@@ -66,7 +75,7 @@ const EditGoalModal = ({
             alert("Please enter a non-zero value");
             return;
         }
-        if (!selectedDate) {
+        if (!selectedTargetDate) {
             alert("Please select a valid date");
             return;
         }
@@ -78,15 +87,15 @@ const EditGoalModal = ({
             metric: activityType.metric,
             measurement: parseInt(target, 10),
             fulfillment: goal.fulfillment,
-            dateStart: goal.dateStart,
-            dateTarget: selectedDate,
+            dateStart: selectedStartDate,
+            dateTarget: selectedTargetDate,
         };
         editGoal(goal.id, updatedGoal);
     };
-    const handleSelectType = (e) => {
-        setActivityType(
-            getActivityTypeFromString(e.parameters.selectedOption.value)
-        );
+
+    const handleDelete = () => {
+        toggleEditGoalModal();
+        deleteGoal(goal.id);
     };
 
     return (
@@ -126,7 +135,7 @@ const EditGoalModal = ({
                         </Button>
                         <Button
                             design={ButtonDesign.Reject}
-                            onClick={null} // TODO: handleDelete
+                            onClick={handleDelete}
                             style={sapUiTinyMargin}
                         >
                             Delete
@@ -195,6 +204,19 @@ const EditGoalModal = ({
                     }}
                     style={sapUiSmallMarginBottom}
                 />
+                <Label>Start Date</Label>
+                <DatePicker
+                    valueState={ValueState.None}
+                    formatPattern={DATE_FORMAT}
+                    primaryCalendarType={CalendarType.Gregorian}
+                    disabled={false}
+                    readonly={false}
+                    onChange={(date) =>
+                        setSelectedStartDate(date.parameters.value)
+                    }
+                    placeholder={selectedStartDate}
+                    style={sapUiSmallMarginBottom}
+                />
                 <Label>Target Date of Completion</Label>
                 <DatePicker
                     valueState={ValueState.None}
@@ -202,8 +224,10 @@ const EditGoalModal = ({
                     primaryCalendarType={CalendarType.Gregorian}
                     disabled={false}
                     readonly={false}
-                    onChange={(date) => setSelectedDate(date.parameters.value)}
-                    placeholder={selectedDate}
+                    onChange={(date) =>
+                        setSelectedTargetDate(date.parameters.value)
+                    }
+                    placeholder={selectedTargetDate}
                 />
             </FlexBox>
         </Dialog>
@@ -223,6 +247,7 @@ const mapStateToProps = ({ goals, editGoalModal }) => ({
 const mapDispatchToProps = (dispatch) => ({
     toggleEditGoalModal: (goalId) => dispatch(UI.toggleEditGoalModal(goalId)),
     editGoal: (id, updates) => dispatch(Goal.edit(id, updates)),
+    deleteGoal: (goalId) => dispatch(Goal.delete(goalId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditGoalModal);

@@ -24,6 +24,7 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+    let updatedGoals;
     switch (action.type) {
         case ADD_GOAL_STARTED:
             return {
@@ -83,17 +84,19 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
-                data: state.data.map((goal) => {
-                    if (goal.id === action.payload.id) {
-                        return {
-                            ...action.payload,
-                            type: getActivityTypeFromString(
-                                action.payload.type
-                            ),
-                        };
-                    }
-                    return goal;
-                }),
+                data: state.data
+                    .map((goal) => {
+                        if (goal.id === action.payload.id) {
+                            return {
+                                ...action.payload,
+                                type: getActivityTypeFromString(
+                                    action.payload.type
+                                ),
+                            };
+                        }
+                        return goal;
+                    })
+                    .sort(goalDateComparator),
             };
 
         case EDIT_GOAL_FAIL:

@@ -50,7 +50,8 @@ const AddGoalModal = ({
     const [title, setTitle] = useState("");
     const [target, setTarget] = useState(0);
     const [activityType, setActivityType] = useState(COMMUTE_BIKE);
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedStartDate, setSelectedStartDate] = useState(null);
+    const [selectedTargetDate, setSelectedTargetDate] = useState(null);
 
     const handleAdd = () => {
         if (!title) {
@@ -61,7 +62,7 @@ const AddGoalModal = ({
             alert("Please enter a non-zero value");
             return;
         }
-        if (!selectedDate) {
+        if (!selectedTargetDate) {
             alert("Please select a valid date");
             return;
         }
@@ -75,8 +76,8 @@ const AddGoalModal = ({
             metric: activityType.metric,
             measurement: parseInt(target, 10),
             fulfillment: 0,
-            dateStart: getCurrentDateString(),
-            dateTarget: selectedDate,
+            dateStart: selectedStartDate,
+            dateTarget: selectedTargetDate,
         };
         addGoal(goal);
     };
@@ -171,6 +172,19 @@ const AddGoalModal = ({
                         style={sapUiSmallMarginBottom}
                         placeholder="e.g. 100"
                     />
+                    <Label>Start Date</Label>
+                    <DatePicker
+                        valueState={ValueState.None}
+                        formatPattern={DATE_FORMAT}
+                        primaryCalendarType={CalendarType.Gregorian}
+                        disabled={false}
+                        readonly={false}
+                        onChange={(date) =>
+                            setSelectedStartDate(date.parameters.value)
+                        }
+                        placeholder={selectedStartDate}
+                        style={sapUiSmallMarginBottom}
+                    />
                     <Label>Target Date of Completion</Label>
                     <DatePicker
                         valueState={ValueState.None}
@@ -179,9 +193,9 @@ const AddGoalModal = ({
                         disabled={false}
                         readonly={false}
                         onChange={(date) =>
-                            setSelectedDate(date.parameters.value)
+                            setSelectedTargetDate(date.parameters.value)
                         }
-                        placeholder={selectedDate}
+                        placeholder={selectedTargetDate}
                     />
                 </FlexBox>
             </section>

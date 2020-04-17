@@ -138,7 +138,6 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                                     infoState={metadata.infoState}
                                 >
                                     <Goal
-                                        style={{ height: "80px" }}
                                         progress={metadata.progress}
                                         title={goal.title}
                                         dateStart={goal.dateStart}
