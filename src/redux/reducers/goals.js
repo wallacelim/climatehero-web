@@ -14,6 +14,7 @@ import {
 } from "../../constants/actionTypes";
 
 import { getActivityTypeFromString } from "../../util/activities";
+import { goalDateComparator } from "../../util/goals";
 
 const initialState = {
     isFetching: false, // TODO: utilize this for user feedback
@@ -40,7 +41,7 @@ export default function (state = initialState, action) {
                         ...action.payload,
                         type: getActivityTypeFromString(action.payload.type),
                     },
-                ],
+                ].sort(goalDateComparator),
             };
 
         case ADD_GOAL_FAIL:

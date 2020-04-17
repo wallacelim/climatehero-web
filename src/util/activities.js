@@ -6,7 +6,7 @@ import {
     COMMUTE_TRAIN,
     MEAL_VEGETARIAN,
 } from "../constants/activityTypes";
-import { getDateTimeFromString } from "./datetime";
+import { getDateTimeFromString, dateTimeComparator } from "./datetime";
 
 export const getActivityTypeFromString = (activityString) => {
     switch (activityString) {
@@ -58,3 +58,9 @@ export const filterAndGroupActivitiesByTime = (
     });
     return timeToReductionMapping;
 };
+
+export const activityDateTimeComparator = (activity1, activity2) =>
+    dateTimeComparator(
+        getDateTimeFromString(activity1.dateTimeOfActivity),
+        getDateTimeFromString(activity2.dateTimeOfActivity)
+    );

@@ -13,7 +13,10 @@ import {
     EDIT_ACTIVITY_SUCCESS,
 } from "../../constants/actionTypes";
 
-import { getActivityTypeFromString } from "../../util/activities";
+import {
+    getActivityTypeFromString,
+    activityDateTimeComparator,
+} from "../../util/activities";
 
 const initialState = {
     isFetching: false,
@@ -39,7 +42,7 @@ export default (state = initialState, action) => {
                         ...action.payload,
                         type: getActivityTypeFromString(action.payload.type),
                     },
-                ],
+                ].sort(activityDateTimeComparator),
             };
         case ADD_ACTIVITY_FAIL:
             console.log(`ADD_ACTIVITY_FAIL: ${action.payload.error}`);

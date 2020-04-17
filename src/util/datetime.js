@@ -70,3 +70,23 @@ export const getAbbreviatedMonthStringFromNumber = (monthNumber) => {
             throw new Error(`Invalid month number: ${monthNumber}`);
     }
 };
+
+export const dateComparator = (date1, date2) => {
+    if (date1 > date2) {
+        return 1;
+    }
+    if (date1 < date2) {
+        return -1;
+    }
+    return 0; // they are the same
+};
+
+export const dateTimeComparator = (dateTime1, dateTime2) => {
+    if (dateTime1 > dateTime2) {
+        return 1;
+    }
+    if (dateTime1 < dateTime2) {
+        return -1;
+    }
+    return 0; // they are the same
+};
