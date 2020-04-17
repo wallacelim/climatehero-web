@@ -141,7 +141,7 @@ export const Activity = {
             dispatch(Activity._delete.start());
             try {
                 await axios.post(
-                    `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities/delete/id=${id}`
+                    `/api/activities/delete/id=${id}`
                 );
                 dispatch(Activity._delete.success(id));
                 dispatch(
@@ -195,7 +195,7 @@ export const Activity = {
         dispatch(Activity._edit.start());
         try {
             const res = await axios.post(
-                `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/activities/edit/id=${id}`,
+                `/api/activities/edit/id=${id}`,
                 {
                     userId,
                     type: type.name,
@@ -247,14 +247,16 @@ export const Activity = {
         }),
     },
 
-    fetchAll: () => (dispatch) => {
-        dispatch(Activity.request());
-        return axios
-            .get(
+    fetchAll: () => async (dispatch) => {
+        dispatch(Activity._fetch.start());
+        try {
+            const response = await axios.get(
                 "/api/activities"
-            )
-            .then((response) => dispatch(Activity.receive(response.data)));
-        // TODO: add error handling
+            );
+            return dispatch(Activity._fetch.success(response.data));
+        } catch (error) {
+            return dispatch(Activity._fetch.fail(error));
+        }
     },
 };
 
@@ -347,7 +349,7 @@ export const Goal = {
             dispatch(Goal._delete.start());
             try {
                 await axios.post(
-                    `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals/delete/id=${id}`
+                    `/api/goals/delete/id=${id}`
                 );
                 dispatch(Goal._delete.success(id));
             } catch (err) {
@@ -410,7 +412,7 @@ export const Goal = {
                 dateTarget,
             });
             const res = await axios.post(
-                `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/goals/edit/id=${id}`,
+                `/api/goals/edit/id=${id}`,
                 {
                     title,
                     userId,
@@ -540,7 +542,7 @@ export const Series = {
             });
             try {
                 const res = await axios.post(
-                    "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series",
+                    "/api/series",
                     {
                         userId,
                         activityType: activityType.name,
@@ -581,7 +583,7 @@ export const Series = {
             dispatch(Series._delete.start());
             try {
                 await axios.post(
-                    `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series/delete/id=${id}`
+                    `/api/series/delete/id=${id}`
                 );
                 dispatch(Series._delete.success(id));
                 // TODO: handle updating of goals
@@ -616,7 +618,7 @@ export const Series = {
         dispatch(Series._fetch.start());
         try {
             const response = await axios.get(
-                `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series/id=${id}`
+                `/api/series/id=${id}`
             );
             return dispatch(Series._fetch.success(response.data));
         } catch (error) {
@@ -628,7 +630,7 @@ export const Series = {
         dispatch(Series._fetch.start());
         try {
             const response = await axios.get(
-                `https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series/user=${userId}`
+                `/api/series/user=${userId}`
             );
             return dispatch(Series._fetch.success(response.data));
         } catch (error) {
@@ -640,7 +642,7 @@ export const Series = {
         dispatch(Series._fetch.start());
         try {
             const response = await axios.get(
-                "https://climatehero-server-happy-civet-jc.cfapps.sap.hana.ondemand.com/series"
+                "/api/series"
             );
             return dispatch(Series._fetch.success(response.data));
         } catch (error) {
