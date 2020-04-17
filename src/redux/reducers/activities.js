@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-plusplus */
 import {
     ADD_ACTIVITY_STARTED,
@@ -26,6 +27,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+    let updatedActivities;
     switch (action.type) {
         case ADD_ACTIVITY_STARTED:
             return {
@@ -79,21 +81,25 @@ export default (state = initialState, action) => {
             };
 
         case EDIT_ACTIVITY_SUCCESS:
-            console.log(action.payload);
+            updatedActivities = state.data.map((activity) => {
+                if (activity.id === action.payload.updated.id) {
+                    return {
+                        ...action.payload.updated,
+                        type: getActivityTypeFromString(
+                            action.payload.updated.type
+                        ),
+                    };
+                }
+                return activity;
+            });
             return {
                 ...state,
                 isFetching: false,
-                data: state.data.map((activity) => {
-                    if (activity.id === action.payload.id) {
-                        return {
-                            ...action.payload,
-                            type: getActivityTypeFromString(
-                                action.payload.type
-                            ),
-                        };
-                    }
-                    return activity;
-                }),
+                data:
+                    action.payload.updated.dateTimeOfActivity ===
+                    action.payload.previous.dateTimeOfActivity
+                        ? updatedActivities
+                        : updatedActivities.sort(activityDateTimeComparator),
             };
 
         case FETCH_ACTIVITIES_STARTED:

@@ -13,5 +13,8 @@ const store = createStore(
 export default store;
 
 store.dispatch(User.loginDummyUser());
-store.dispatch(Activity.fetchAll());
-store.dispatch(Goal.fetchAll());
+const { user } = store.getState();
+if (user.isLoggedIn) {
+    store.dispatch(Activity.fetchByUser(user.data.id));
+    store.dispatch(Goal.fetchByUser(user.data.id));
+}

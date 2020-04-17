@@ -148,20 +148,8 @@ export const Activity = {
     },
     _edit: {
         start: () => ({ type: EDIT_ACTIVITY_STARTED }),
-        success: ({
-            id,
-            userId,
-            type,
-            metric,
-            measurement,
-            reductionValue,
-            dateTimeOfActivity,
-            // UNUSED: dateTimeCreated
-            // UNUSED: seriesId
-            // UNUSED: comment
-        }) => ({
-            type: EDIT_ACTIVITY_SUCCESS,
-            payload: {
+        success: (
+            {
                 id,
                 userId,
                 type,
@@ -169,6 +157,24 @@ export const Activity = {
                 measurement,
                 reductionValue,
                 dateTimeOfActivity,
+                // UNUSED: dateTimeCreated
+                // UNUSED: seriesId
+                // UNUSED: comment
+            },
+            previous
+        ) => ({
+            type: EDIT_ACTIVITY_SUCCESS,
+            payload: {
+                updated: {
+                    id,
+                    userId,
+                    type,
+                    metric,
+                    measurement,
+                    reductionValue,
+                    dateTimeOfActivity,
+                },
+                previous,
             },
         }),
         fail: (error) => ({
@@ -196,7 +202,7 @@ export const Activity = {
                     dateTimeOfActivity,
                 }
             );
-            dispatch(Activity._edit.success(res.data));
+            dispatch(Activity._edit.success(res.data, previous));
             // eslint-disable-next-line no-use-before-define
             dispatch(Goal.fetchByUser(userId));
         } catch (err) {
