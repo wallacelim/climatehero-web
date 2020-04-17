@@ -34,10 +34,7 @@ import "@ui5/webcomponents-icons/dist/icons/passenger-train";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
-import {
-    getCurrentDateString,
-    getCurrentDateTimeString,
-} from "../util/datetime";
+import { getCurrentDateTimeString } from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 

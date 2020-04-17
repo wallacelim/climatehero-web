@@ -24,7 +24,6 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-    let updatedGoals;
     switch (action.type) {
         case ADD_GOAL_STARTED:
             return {

@@ -214,7 +214,7 @@ const EditGoalModal = ({
                     onChange={(date) =>
                         setSelectedStartDate(date.parameters.value)
                     }
-                    placeholder={selectedStartDate}
+                    value={selectedStartDate}
                     style={sapUiSmallMarginBottom}
                 />
                 <Label>Target Date of Completion</Label>
@@ -227,7 +227,7 @@ const EditGoalModal = ({
                     onChange={(date) =>
                         setSelectedTargetDate(date.parameters.value)
                     }
-                    placeholder={selectedTargetDate}
+                    value={selectedTargetDate}
                 />
             </FlexBox>
         </Dialog>

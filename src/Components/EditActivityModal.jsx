@@ -181,7 +181,7 @@ const EditActivityModal = ({
                     disabled={false}
                     readonly={false}
                     onChange={(date) => setSelectedDate(date.parameters.value)}
-                    placeholder={selectedDate}
+                    value={selectedDate}
                     style={sapUiSmallMarginBottom}
                 />
                 <Label>Time</Label>
