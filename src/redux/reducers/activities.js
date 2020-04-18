@@ -126,7 +126,7 @@ export default (state = initialState, action) => {
                         type: getActivityTypeFromString(type),
                         metric,
                         measurement,
-                        reductionValue, // TODO: handle precision errors
+                        reductionValue,
                         dateTimeOfActivity,
                     })
                 ),

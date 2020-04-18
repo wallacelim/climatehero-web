@@ -58,8 +58,6 @@ const EditActivityModal = ({
         }
     }, [activity, editActivityModal]);
 
-    // TODO: reset fields after every add
-
     const handleEdit = () => {
         if (!input || input <= 0) {
             alert("please enter a positive value");

@@ -44,6 +44,7 @@ const legendStyles = {
 
 function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
     const getMetaData = ({ fulfillment, measurement }) => {
+        console.log(`filfullment: ${fulfillment}`);
         const progress = Math.min(
             Math.round((fulfillment / measurement) * 100),
             100

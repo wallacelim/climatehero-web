@@ -519,7 +519,7 @@ export const Series = {
                     seriesCycle: seriesCycle.value,
                 });
                 dispatch(Series._add.success(res.data));
-                // Handle updating of goals
+                Goal.fetchByUser(userId);
             } catch (err) {
                 console.log(`Series.add error: ${err}`);
                 dispatch(Series._add.fail(err));
@@ -543,13 +543,13 @@ export const Series = {
         }),
     },
 
-    delete: (id) => {
+    delete: ({ userId, id }) => {
         return async (dispatch) => {
             dispatch(Series._delete.start());
             try {
                 await axios.post(`${API_URL}/series/delete/id=${id}`);
                 dispatch(Series._delete.success(id));
-                // TODO: handle updating of goals
+                Goal.fetchByUser(userId);
             } catch (err) {
                 console.log(`Series.delete error: ${err}`);
                 dispatch(Series._delete.fail(err));

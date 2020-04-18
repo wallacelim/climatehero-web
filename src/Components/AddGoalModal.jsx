@@ -34,7 +34,7 @@ import "@ui5/webcomponents-icons/dist/icons/passenger-train";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
-import { getCurrentDateTimeString } from "../util/datetime";
+import { getCurrentDateTimeString, getDateFromString } from "../util/datetime";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
 
@@ -50,6 +50,8 @@ const AddGoalModal = ({
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedTargetDate, setSelectedTargetDate] = useState(null);
 
+    // TODO: reset fields after every add
+
     const handleAdd = () => {
         if (!title) {
             alert("Please enter a goal title");
@@ -59,10 +61,27 @@ const AddGoalModal = ({
             alert("Please enter a non-zero value");
             return;
         }
-        if (!selectedTargetDate) {
-            alert("Please select a valid date");
+
+        if (!selectedStartDate) {
+            alert("Please select a valid start date");
             return;
         }
+
+        if (!selectedTargetDate) {
+            alert("Please select a valid target date of completion");
+            return;
+        }
+
+        if (
+            getDateFromString(selectedStartDate) >=
+            getDateFromString(selectedTargetDate)
+        ) {
+            alert(
+                "Please ensure that the target date of completion is set after the start date"
+            );
+            return;
+        }
+
         toggleAddGoalModal();
 
         const goal = {
