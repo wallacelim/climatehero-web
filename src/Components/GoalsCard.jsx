@@ -43,24 +43,17 @@ const legendStyles = {
 };
 
 function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
-    const getMetaData = ({ fulfillment, measurement }) => {
-        console.log(`filfullment: ${fulfillment}`);
-        const progress = Math.min(
-            Math.round((fulfillment / measurement) * 100),
-            100
-        );
+    const getInfoState = ({ fulfillment }) => {
+        console.log(`fulfillment: ${fulfillment}`);
         let infoState;
-        if (progress >= 100) {
+        if (fulfillment >= 100) {
             infoState = ValueState.Success;
-        } else if (progress <= 30) {
+        } else if (fulfillment <= 30) {
             infoState = ValueState.Error;
         } else {
             infoState = ValueState.Warning;
         }
-        return {
-            progress,
-            infoState,
-        };
+        return infoState;
     };
 
     return (
@@ -130,21 +123,21 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                     {goals.data
                         .filter((goal) => goal.userId === userId)
                         .map((goal) => {
-                            const metadata = getMetaData(goal);
+                            const infoState = getInfoState(goal);
                             return (
                                 <StandardListItem
                                     key={goal.id}
                                     id={goal.id}
                                     style={{ height: "80px" }}
-                                    infoState={metadata.infoState}
+                                    infoState={infoState}
                                 >
                                     <Goal
-                                        progress={metadata.progress}
+                                        progress={Math.round(goal.fulfillment)}
                                         title={goal.title}
                                         dateStart={goal.dateStart}
                                         dateTarget={goal.dateTarget}
                                         target={`${goal.measurement} ${goal.type.displayMetric}`}
-                                        infoState={metadata.infoState}
+                                        infoState={infoState}
                                     />
                                 </StandardListItem>
                             );

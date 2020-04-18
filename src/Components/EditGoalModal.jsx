@@ -36,6 +36,7 @@ import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
 import { getActivityTypeFromString } from "../util/activities";
 import { DATE_FORMAT } from "../constants/stringFormats";
+import { getDateFromString } from "../util/datetime";
 
 const EditGoalModal = ({
     goal,
@@ -75,8 +76,23 @@ const EditGoalModal = ({
             alert("Please enter a non-zero value");
             return;
         }
+        if (!selectedStartDate) {
+            alert("Please select a valid start date");
+            return;
+        }
+
         if (!selectedTargetDate) {
-            alert("Please select a valid date");
+            alert("Please select a valid target date of completion");
+            return;
+        }
+
+        if (
+            getDateFromString(selectedStartDate) >=
+            getDateFromString(selectedTargetDate)
+        ) {
+            alert(
+                "Please ensure that the target date of completion is set after the start date"
+            );
             return;
         }
         toggleEditGoalModal(goal.id);
