@@ -93,7 +93,7 @@ const AddSeriesModal = ({
             userId,
             activityType,
             activityMetric: activityType.metric,
-            activityMeasurement: parseInt(input, 10),
+            activityMeasurement: parseFloat(input).toFixed(2),
             seriesFirstDate: selectedStartDate,
             seriesLastDate: selectedEndDate,
             seriesCycle: selectedCycle,
