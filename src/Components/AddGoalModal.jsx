@@ -90,7 +90,7 @@ const AddGoalModal = ({
             title,
             type: activityType,
             metric: activityType.metric,
-            measurement: parseInt(target, 10),
+            measurement: parseFloat(target).toFixed(2),
             fulfillment: 0,
             dateStart: selectedStartDate,
             dateTarget: selectedTargetDate,

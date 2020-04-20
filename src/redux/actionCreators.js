@@ -519,6 +519,7 @@ export const Series = {
                     seriesCycle: seriesCycle.value,
                 });
                 dispatch(Series._add.success(res.data));
+                dispatch(Activity.fetchByUser(userId));
                 Goal.fetchByUser(userId);
             } catch (err) {
                 console.log(`Series.add error: ${err}`);
