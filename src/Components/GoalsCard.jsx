@@ -93,7 +93,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                                 ...legendStyles.icon,
                             }}
                         />
-                        <Text>&lt; 30% Complete</Text>
+                        <Text>&le; 30% Fulfilled</Text>
                     </div>
                     <div style={legendStyles.label}>
                         <div
@@ -102,7 +102,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                                 ...legendStyles.icon,
                             }}
                         />
-                        <Text>&gt; 30% Complete</Text>
+                        <Text>&gt; 30% Fulfilled</Text>
                     </div>
                     <div style={legendStyles.label}>
                         <div
@@ -111,7 +111,7 @@ function GoalsCard({ userId, goals, toggleAddGoalModal, toggleEditGoalModal }) {
                                 ...legendStyles.icon,
                             }}
                         />
-                        <Text>&lt; 100% Complete</Text>
+                        <Text>Completed</Text>
                     </div>
                 </FlexBox>
                 <List
