@@ -68,8 +68,7 @@ const AddActivityModal = ({
             userId,
             type: activityType,
             metric: activityType.metric,
-            measurement: parseInt(input, 10),
-            reductionValue: (Math.random() * 10).toFixed(2),
+            measurement: parseFloat(input).toFixed(2),
             dateTimeOfActivity,
         };
         addActivity(activity);

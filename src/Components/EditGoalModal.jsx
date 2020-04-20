@@ -101,7 +101,7 @@ const EditGoalModal = ({
             userId: goal.userId,
             type: activityType,
             metric: activityType.metric,
-            measurement: parseInt(target, 10),
+            measurement: parseFloat(target).toFixed(2),
             fulfillment: goal.fulfillment,
             dateStart: selectedStartDate,
             dateTarget: selectedTargetDate,
