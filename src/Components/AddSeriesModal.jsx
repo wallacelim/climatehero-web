@@ -192,7 +192,7 @@ const AddSeriesModal = ({
                     placeholder={selectedStartDate}
                     style={sapUiSmallMarginBottom}
                 />
-                <Label>Start Date</Label>
+                <Label>End Date</Label>
                 <DatePicker
                     valueState={ValueState.None}
                     formatPattern={DATE_FORMAT}
