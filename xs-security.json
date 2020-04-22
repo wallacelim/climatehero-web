@@ -1,4 +1,17 @@
 {
-  "xsappname": "climatehero-uaa",
-  "tenant-mode": "dedicated"
+  "xsappname": "climatehero-uaa-new",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": ["uaa.user"]
+    }
+  ]
 }

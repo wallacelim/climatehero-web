@@ -7,4 +7,4 @@ applications:
   router.disable_http: true
   services:
     - climatehero-destination
-    - climatehero-uaa
+    - climatehero-uaa-new
