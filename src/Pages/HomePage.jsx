@@ -6,12 +6,14 @@ import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
 // import { UI } from "../redux/actionCreators";
 import DraggableCard from "../Components/Containers/DraggableCard";
+import Climate from '../Assets/Images/Climate.png';
 
 function HomePage({ user }) {
     return (
         <ObjectPage
             title="Climate Hero"
             subTitle={`Welcome, ${user.data.firstName} ${user.data.lastName}`}
+            image={Climate}
             mode={ObjectPageMode.Default}
             style={{
                 ...spacing.sapUiContentPadding,
