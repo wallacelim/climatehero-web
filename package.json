@@ -1,73 +1,71 @@
 {
-  "name": "climatehero-web",
-  "version": "0.1.0",
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@ui5/webcomponents-icons": "^1.0.0-rc.5",
-    "@ui5/webcomponents-react": "^0.7.3",
-    "@ui5/webcomponents-react-base": "^0.8.4",
-    "@ui5/webcomponents-react-charts": "^0.8.2",
-    "axios": "^0.19.2",
-    "bootstrap": "^4.4.1",
-    "cross-fetch": "^3.0.4",
-    "framer-motion": "^1.8.4",
-    "history": "^4.10.1",
-    "lodash": "^4.17.15",
-    "moment": "^2.24.0",
-    "prettier": "^2.0.2",
-    "react": "^16.12.0",
-    "react-app-polyfill": "^1.0.6",
-    "react-bootstrap": "^1.0.0-beta.16",
-    "react-calendar": "^3.0.0",
-    "react-datepicker": "^2.14.1",
-    "react-dom": "^16.12.0",
-    "react-grid-layout": "^0.17.1",
-    "react-jss": "^10.0.4",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
-    "react-time-picker": "^4.0.0",
-    "redux": "^4.0.5",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf ./cf/build && mv ./build ./cf/build",
-    "buildCF": "react-scripts build && rm -rf ./cf/build && mv ./build ./cf/build",
-    "buildCFWindows": "react-scripts build && DEL /F/Q/S cf\\build > NUL && RMDIR /Q/S cf\\build && move build cf\\",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build-prod": "cross-env GENERATE_SOURCEMAP=false react-scripts build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.2",
-    "dotenv": "^8.2.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.1"
-  }
+    "name": "climatehero-web",
+    "version": "0.1.0",
+    "dependencies": {
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.4.0",
+        "@testing-library/user-event": "^7.2.1",
+        "@ui5/webcomponents-icons": "^1.0.0-rc.5",
+        "@ui5/webcomponents-react": "^0.7.3",
+        "@ui5/webcomponents-react-base": "^0.8.4",
+        "@ui5/webcomponents-react-charts": "^0.8.2",
+        "axios": "^0.19.2",
+        "framer-motion": "^1.8.4",
+        "history": "^4.10.1",
+        "lodash": "^4.17.15",
+        "moment": "^2.24.0",
+        "prettier": "^2.0.2",
+        "react": "^16.12.0",
+        "react-app-polyfill": "^1.0.6",
+        "react-calendar": "^3.0.0",
+        "react-datepicker": "^2.14.1",
+        "react-dom": "^16.12.0",
+        "react-grid-layout": "^0.17.1",
+        "react-jss": "^10.0.4",
+        "react-redux": "^7.2.0",
+        "react-router-dom": "^5.1.2",
+        "react-scripts": "3.4.0",
+        "react-time-picker": "^4.0.0",
+        "redux": "^4.0.5",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.3.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build && rm -rf ./cf/build && mv ./build ./cf/build",
+        "buildCF": "react-scripts build && rm -rf ./cf/build && mv ./build ./cf/build",
+        "buildCFWindows": "react-scripts build && DEL /F/Q/S cf\\build > NUL && RMDIR /Q/S cf\\build && move build cf\\",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "build-prod": "cross-env GENERATE_SOURCEMAP=false react-scripts build"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.2",
+        "docusaurus": "^1.14.4",
+        "dotenv": "^8.2.0",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb": "^18.1.0",
+        "eslint-config-google": "^0.14.0",
+        "eslint-config-prettier": "^6.10.1",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.2",
+        "eslint-plugin-react": "^7.19.0",
+        "eslint-plugin-react-hooks": "^2.5.1"
+    }
 }
