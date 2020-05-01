@@ -3,17 +3,14 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "Be a ClimateHero today!",
+    "tagline": "Project Documentation - Developer Guide",
     "docs": {
       "doc1": {
-        "title": "Latin-ish",
-        "sidebar_label": "Example Page"
+        "title": "Documentation for the Web Application (Front End)",
+        "sidebar_label": "Web Application"
       },
       "doc2": {
-        "title": "document number 2"
-      },
-      "doc3": {
-        "title": "This is document number 3"
+        "title": "API Specification"
       },
       "doc4": {
         "title": "Other Document"
@@ -23,14 +20,13 @@
       }
     },
     "links": {
-      "Docs": "Docs",
+      "Web": "Web",
       "API": "API",
       "Help": "Help"
     },
     "categories": {
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "Frontend": "Frontend",
+      "Backend": "Backend"
     }
   },
   "pages-strings": {

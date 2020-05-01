@@ -22,7 +22,7 @@ const users = [
 
 const siteConfig = {
   title: 'ClimateHero', 
-  tagline: 'Be a ClimateHero today!',
+  tagline: 'Project Documentation - Developer Guide',
   url: 'https://github.wdf.sap.corp', 
   baseUrl: '/climatehero-web/',
 
@@ -32,8 +32,8 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'doc1', label: 'Docs'},
-    {doc: 'doc4', label: 'API'},
+    {doc: 'doc1', label: 'Web'},
+    {doc: 'doc2', label: 'API'},
     {page: 'help', label: 'Help'},
   ],
 
@@ -41,9 +41,9 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/favicon.ico',
-  footerIcon: 'img/favicon.ico',
-  favicon: 'img/favicon.ico',
+  headerIcon: 'img/favicon.png',
+  footerIcon: 'img/favicon.png',
+  favicon: 'img/favicon.png',
 
   /* Colors for website */
   colors: {

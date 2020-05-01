@@ -1,20 +1,45 @@
 ---
 id: doc1
-title: Latin-ish
-sidebar_label: Example Page
+title: Documentation for the Web Application (Front End)
+sidebar_label: Web Application
 ---
 
-Check the [documentation](https://docusaurus.io) for how to use Docusaurus.
+## Prerequisites for contributing
 
-## Lorem
+The frontend is built mainly using React, while in-app states are managed using React-Redux. Thus, a good grasp of the two technologies will go a long way towards contributing to this project. The application is hosted on the SAP Cloud Platform, via the Cloud Foundry CLI.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum massa eget nulla aliquet sagittis. Proin odio tortor, vulputate ut odio in, ultrices ultricies augue. Cras ornare ultrices lorem malesuada iaculis. Etiam sit amet libero tempor, pulvinar mauris sed, sollicitudin sapien.
+#### Some Relevant Resources:
+##### React
+[Tutorial](https://reactjs.org/tutorial/tutorial.html)  
+[Getting Started](https://reactjs.org/docs/getting-started.html)  
+##### (React-)Redux
+[Tutorial](https://redux.js.org/basics/basic-tutorial)  
+[Getting Started](https://react-redux.js.org/introduction/quick-start) 
+##### Cloud Foundry (CLI)
+[Installation Guide](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) 
 
-## Mauris In Code
-
+## An overview of the file structure
+Currently the file/folder structure looks roughly like this:
 ```
-Mauris vestibulum ullamcorper nibh, ut semper purus pulvinar ut. Donec volutpat orci sit amet mauris malesuada, non pulvinar augue aliquam. Vestibulum ultricies at urna ut suscipit. Morbi iaculis, erat at imperdiet semper, ipsum nulla sodales erat, eget tincidunt justo dui quis justo. Pellentesque dictum bibendum diam at aliquet. Sed pulvinar, dolor quis finibus ornare, eros odio facilisis erat, eu rhoncus nunc dui sed ex. Nunc gravida dui massa, sed ornare arcu tincidunt sit amet. Maecenas efficitur sapien neque, a laoreet libero feugiat ut.
+/cf 
+    /build (the build directory which CF will deploy with. More information [below].)
+/docs
+/public
+/src
+    /Assets
+    /Components
+    /constants
+    /Pages
+    /redux
+    /util
+/website
+.eslintrc.json
+.gitignore
+manifest.yml
+package.json
+xs-security.json
 ```
+
 
 ## Nulla
 
@@ -24,6 +49,23 @@ Nulla facilisi. Maecenas sodales nec purus eget posuere. Sed sapien quam, pretiu
 
 Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin venenatis lectus dui, vel ultrices ante bibendum hendrerit. Aenean egestas feugiat dui id hendrerit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur in tellus laoreet, eleifend nunc id, viverra leo. Proin vulputate non dolor vel vulputate. Curabitur pretium lobortis felis, sit amet finibus lorem suscipit ut. Sed non mollis risus. Duis sagittis, mi in euismod tincidunt, nunc mauris vestibulum urna, at euismod est elit quis erat. Phasellus accumsan vitae neque eu placerat. In elementum arcu nec tellus imperdiet, eget maximus nulla sodales. Curabitur eu sapien eget nisl sodales fermentum.
 
-## Phasellus
+## [Deployment][Deployment]
 
-Phasellus pulvinar ex id commodo imperdiet. Praesent odio nibh, sollicitudin sit amet faucibus id, placerat at metus. Donec vitae eros vitae tortor hendrerit finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque vitae purus dolor. Duis suscipit ac nulla et finibus. Phasellus ac sem sed dui dictum gravida. Phasellus eleifend vestibulum facilisis. Integer pharetra nec enim vitae mattis. Duis auctor, lectus quis condimentum bibendum, nunc dolor aliquam massa, id bibendum orci velit quis magna. Ut volutpat nulla nunc, sed interdum magna condimentum non. Sed urna metus, scelerisque vitae consectetur a, feugiat quis magna. Donec dignissim ornare nisl, eget tempor risus malesuada quis.
+As mentioned at the beginning of the page, ClimateHero is hosted on the SAP Cloud Platform, via the Cloud Foundry CLI. To deploy an updated version of the application, there are roughly 2 steps.
+
+###### 1. Build the application
+This is done by running the npm script:
+```
+npm run buildCF (Mac/Linux)
+npm run buildCFWindows (Windows)
+```
+The above two commands are custom npm scripts which translate into the following respectively:
+```
+react-scripts build && rm -rf ./cf/build && mv ./build ./cf/build
+react-scripts build && DEL /F/Q/S cf\\build > NUL && RMDIR /Q/S cf\\build && move build cf\\
+```
+##### 2. Push the application
+```
+cf push
+```
+The above command will push the application to the cloud, adopting its configurations from the ```manifest.yml``` file. More information on how to configure the manifest attributes can be found [here](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html).
