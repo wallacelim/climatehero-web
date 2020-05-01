@@ -12,7 +12,6 @@ import React from "react";
 import "./App.css";
 
 /* Local imports */
-import "bootstrap/dist/css/bootstrap.min.css";
 import ClimateHeroApp from "./ClimateHeroApp";
 
 function App() {

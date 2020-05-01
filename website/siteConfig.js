@@ -10,49 +10,49 @@
 
 // List of projects/orgs using your project for the users page.
 const users = [
-  {
-    caption: 'User1',
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: '/img/undraw_open_source.svg',
-    infoLink: 'https://www.facebook.com',
-    pinned: true,
-  },
+    {
+        caption: "User1",
+        // You will need to prepend the image path with your baseUrl
+        // if it is not '/', like: '/test-site/img/image.jpg'.
+        image: "/img/undraw_open_source.svg",
+        infoLink: "https://www.facebook.com",
+        pinned: true,
+    },
 ];
 
 const siteConfig = {
-  title: 'ClimateHero', 
-  tagline: 'Project Documentation - Developer Guide',
-  url: 'https://github.wdf.sap.corp', 
-  baseUrl: '/climatehero-web/',
+    title: "ClimateHero",
+    tagline: "Project Documentation - Developer Guide",
+    url: "https://github.wdf.sap.corp",
+    baseUrl: "/climatehero-web/",
 
-  // Used for publishing and more
-  projectName: 'climatehero-web',
-  organizationName: 'IE-CoE-SGP',
+    // Used for publishing and more
+    projectName: "climatehero-web",
+    organizationName: "IE-CoE-SGP",
 
-  // For no header links in the top nav bar -> headerLinks: [],
-  headerLinks: [
-    {doc: 'doc1', label: 'Web'},
-    {doc: 'doc2', label: 'API'},
-    {page: 'help', label: 'Help'},
-  ],
+    // For no header links in the top nav bar -> headerLinks: [],
+    headerLinks: [
+        { doc: "web_application_documentation", label: "Web" },
+        { doc: "doc2", label: "API" },
+        { page: "help", label: "Help" },
+    ],
 
-  // If you have users set above, you add it here:
-  users,
+    // If you have users set above, you add it here:
+    users,
 
-  /* path to images for header/footer */
-  headerIcon: 'img/favicon.png',
-  footerIcon: 'img/favicon.png',
-  favicon: 'img/favicon.png',
+    /* path to images for header/footer */
+    headerIcon: "img/favicon.png",
+    footerIcon: "img/favicon.png",
+    favicon: "img/favicon.png",
 
-  /* Colors for website */
-  colors: {
-    primaryColor: '#5e519a',
-    secondaryColor: '#41386b',
-  },
+    /* Colors for website */
+    colors: {
+        primaryColor: "#5e519a",
+        secondaryColor: "#41386b",
+    },
 
-  /* Custom fonts for website */
-  /*
+    /* Custom fonts for website */
+    /*
   fonts: {
     myFont: [
       "Times New Roman",
@@ -65,25 +65,25 @@ const siteConfig = {
   },
   */
 
-  // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} SAP`,
+    // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
+    copyright: `Copyright © ${new Date().getFullYear()} SAP`,
 
-  highlight: {
-    // Highlight.js theme to use for syntax highlighting in code blocks.
-    theme: 'default',
-  },
+    highlight: {
+        // Highlight.js theme to use for syntax highlighting in code blocks.
+        theme: "default",
+    },
 
-  // Add custom scripts here that would be placed in <script> tags.
-  scripts: ['https://buttons.github.io/buttons.js'],
+    // Add custom scripts here that would be placed in <script> tags.
+    scripts: ["https://buttons.github.io/buttons.js"],
 
-  // On page navigation for the current documentation page.
-  onPageNav: 'separate',
-  // No .html extensions for paths.
-  cleanUrl: true,
+    // On page navigation for the current documentation page.
+    onPageNav: "separate",
+    // No .html extensions for paths.
+    cleanUrl: true,
 
-  // Open Graph and Twitter card images.
-  ogImage: 'img/undraw_online.svg',
-  twitterImage: 'img/undraw_tweetstorm.svg',
+    // Open Graph and Twitter card images.
+    ogImage: "img/undraw_online.svg",
+    twitterImage: "img/undraw_tweetstorm.svg",
 };
 
 module.exports = siteConfig;

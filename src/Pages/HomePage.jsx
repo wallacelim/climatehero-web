@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { spacing } from "@ui5/webcomponents-react-base";
 // import { UI } from "../redux/actionCreators";
 import DraggableCard from "../Components/Containers/DraggableCard";
-import Climate from '../Assets/Images/Climate.png';
+import Climate from "../Assets/Images/Climate.png";
 
 function HomePage({ user }) {
     return (

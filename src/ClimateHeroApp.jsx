@@ -19,12 +19,12 @@ export default function ClimateHeroApp() {
                 <Route exact strict path="/" component={HomePage} />
                 <Redirect from="/" to="/" />
             </Switch>
-            <AddActivityModal />
-            <AddSeriesModal />
-            <AddGoalModal />
             <WelcomeModal />
+            <AddActivityModal />
             <EditActivityModal />
+            <AddGoalModal />
             <EditGoalModal />
+            <AddSeriesModal />
         </Router>
     );
 }
