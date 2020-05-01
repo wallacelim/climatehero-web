@@ -11,7 +11,5 @@
   "devDependencies": {
     "docusaurus": "^1.14.4"
   },
-  "dependencies": {
-    "react": "^16.13.1"
-  }
+  "dependencies": {}
 }
