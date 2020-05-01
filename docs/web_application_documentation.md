@@ -56,11 +56,11 @@ Broadly speaking, the application consists of two parts - the Redux state machin
 
 Here is a UML class diagram demonstrating their attributes and the associations between them:
 
-![alt text](../website/static/diagrams/state_class.png "UML Class Diagram")
+![UML Class Diagram](./assets/diagrams/state_class.png "UML Class Diagram")
 
-The above would be a repesentation of the "Model" in the MVC framework. We now move on to discuss the view layer. This is what our React component tree roughly looks like:
+The above is a repesentation of the "Model" in the [MVC framework](https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm). We now move on to discuss the view layer. This is what our React component tree roughly looks like:
 
-![alt text](../website/static/diagrams/component_tree.png "Component Tree Diagram")
+![Component Tree Diagram](./assets/diagrams/component_tree.png "Component Tree Diagram")
 
 ## Current State of Development
 
