@@ -42,8 +42,20 @@ function Help(props) {
                     </header>
                     <p>
                         This project is maintained by the SAP IE CoE. For
-                        enquiries, please contact{" "}
-                        <a href="mailto:wallace.lim@sap.com">Wallace Lim</a>.
+                        enquiries, please contact{": "}
+                        <hr />
+                        (Frontend)
+                        <br />
+                        <a href="mailto:meijie.he@sap.com">He Meijie</a>
+                        <br />
+                        <a href="mailto:wallace.lim@sap.com">Wallace Lim</a>
+                        <hr />
+                        (Backend)
+                        <br />
+                        <a href="mailto:lucas.rettenmeier@sap.com">
+                            Lucas Rettenmeier
+                        </a>
+                        <hr />
                     </p>
                     <GridBlock contents={supportLinks} layout="threeColumn" />
                 </div>
