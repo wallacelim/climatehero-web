@@ -5,21 +5,8 @@
     "previous": "Previous",
     "tagline": "Project Documentation - Developer Guide",
     "docs": {
-      "doc1": {
-        "title": "Latin-ish",
-        "sidebar_label": "Example Page"
-      },
       "doc2": {
         "title": "API Specification"
-      },
-      "doc3": {
-        "title": "This is document number 3"
-      },
-      "doc4": {
-        "title": "Other Document"
-      },
-      "doc5": {
-        "title": "Fifth Document"
       },
       "web_application_documentation": {
         "title": "Documentation for the Web Application (Front End)",
