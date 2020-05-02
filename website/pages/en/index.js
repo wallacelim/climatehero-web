@@ -77,10 +77,10 @@ class HomeSplash extends React.Component {
                         <Button
                             href={docUrl("web_application_documentation.html")}
                         >
-                            Web Application
+                            Web Docs
                         </Button>
                         <Button href={docUrl("api_documentation.html")}>
-                            API
+                            API Docs
                         </Button>
                     </PromoSection>
                 </div>

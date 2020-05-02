@@ -193,7 +193,7 @@ One of the initial inspirations for ClimateHero was the [Fit@SAP](https://fioril
 
 Allow users to share and receive goals with other users.
 
-_Prerequisites_: Some form of social graph which connects users and user groups must be established prior.
+_Prerequisites_: Some form of social network graph which connects users and user groups must be established prior.
 
 ##### [Use case #1: Sharing of goals](#use-case-1-sharing-of-goals)
 
