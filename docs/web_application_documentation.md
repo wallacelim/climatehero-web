@@ -163,11 +163,63 @@ This is what our React component tree roughly looks like:
 
 ## Current State of Development
 
-As of the writing of this document (1 May 2020), the application is in its MVP (Minimum Viable Product) stage.
+As of the writing of this document (1 May 2020), the application is in its MVP (Minimum Viable Product) stage. All of the actions described above are available to users in a controlled and safe way, allowing them to track their carbon reductions in a simple and effective manner.
 
 ## Future Improvements
 
-## [Deployment](#deployment)
+The following are some recommendations for the further development of the application, in order of priority.
+
+### Testing
+
+At present, theres is little to no automated testing scripts. It is highly recommended that unit and integration tests be set-up before the application is deployed into production. To this end, two popular and recommended testing frameworks are [Jest](https://jestjs.io/) and [Mocha](https://mochajs.org/).
+
+### Enhancing User-related Functionalities
+
+Up until now, our development focus has been largely centred on fleshing out the main functionalities - the adding, editing, deleting and fetching of _activities_ and _goals_. With these features having working implementations, and with the authorization for the application now up and running (as of 22 April 2020), there is ample headroom for the development of more user-specific features. Here are a few suggestions:
+
+#### Tailored Recommendations Based on User's Activity History
+
+Recommendations can be made to users as to which types of _activities_ they should be doing more of. Consequently, recommended _goals_ may be generated for the user to accept at the click of a button.
+
+##### Suggested Approach
+
+Conditional scripts, or more more ambitiously, machine learning algorithms.
+
+### Enabling Social Aspects
+
+One of the initial inspirations for ClimateHero was the [Fit@SAP](https://fiorilaunchpad.sap.com/sites#fitsap-Display) application, which has various social aspects to it, from allowing users to join fitness groups to sharing custom fitness challenges with colleagues. In a similar fashion, ClimateHero ultimately aims to utilize social aspects as a motivator for SAP employees to become more environmentally conscious and to reduce their carboon footprints. Below are a few suggestions as to how this might be achieved:
+
+#### Sharing of goals
+
+Allow users to share and receive goals with other users.
+
+_Prerequisites_: Some form of social graph which connects users and user groups must be established prior.
+
+##### [Use case #1: Sharing of goals](#use-case-1-sharing-of-goals)
+
+1. User logs into ClimateHero
+2. User clicks on a particular goal in the GoalsCard
+3. User clicks "Share" button
+4. A checklist of the user's colleagues/working groups appears
+5. User checks options as is appropriate
+6. Goal is sent to the selected users
+
+##### Use case #2: Receiving of goals
+
+1. User logs into ClimateHero
+2. User receives a pop-up modal, with a descriptive receipt of goal, as well as the option to "Add to My Goals" or "Ignore".
+3. The goal is added or discarded accordingly.
+
+##### Suggested Approach
+
+1. Create a new _Notification_ class, with enumerated types.  
+   Some suggested class types:
+    - NOTIFICATION_GOAL_SHARED for incoming shared goals. For instance, "John Newton has shared the following goal with you...".
+    - NOTIFICATION_GOAL_RECOMMENDED for recommended goals from the server. For instance, "Hey! We see you haven't been... Would you like to set a goal to...?"
+2. Have notification creators which can either be user-triggered, such as via [Use Case #1](#use-case-1-sharing-of-goalsuse-case-1-sharing-of-goals), or automatically triggered by the backend, such as in the case of recommendations made by the server
+3. Add a new attribute to the existing User schema: a list of incoming notifications which have yet to be dismissed by the User, to be rendered in a popup modal whenever the user first logs in, or according to a set interval
+
+## Deployment
 
 As mentioned at the beginning of the page, ClimateHero is hosted on the SAP Cloud Platform, via the Cloud Foundry CLI. To deploy an updated version of the application, there are roughly 2 steps.
 
