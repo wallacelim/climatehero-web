@@ -41,10 +41,10 @@ const TrendsCard = ({ activities }) => {
         setData([
             {
                 label: "Carbon Footprint Reductions",
-                data: Object.values(timeToActivityMapping).map(x =>
+                data: Object.values(timeToActivityMapping).map((x) =>
                     x.toFixed(2)
-                )
-            }
+                ),
+            },
         ]);
     }, [timeToActivityMapping]);
 
