@@ -56,7 +56,7 @@ Broadly speaking, the application consists of two parts - the Redux state machin
 
 ![Flux Architecture Digram](docs/../assets/diagrams/flux-diagram.png)
 
-> Do note that Redux, while inspired by the Flux architecture, omits the _dispatcher_ entirely. However, it is greatly inspired by, and _"...is true to the Flux Architecture, but makes it simpler thanks to pure functions."_
+> Do note that Redux, while inspired by the Flux architecture, omits the _dispatcher_ entirely. However, it is inspired by, and _"...is true to the Flux Architecture, but makes it simpler thanks to pure functions."_
 >
 > Find out more [here](https://redux.js.org/introduction/prior-art#flux).
 
@@ -87,9 +87,9 @@ _Goals_ are user-defined targets which represent the user's intention to fulfill
 
 #### Users
 
-_Users_ are representations of the user.
+A _User_ object is a representation of the application's user.
 
-Here is a UML class diagram demonstrating their attributes and their associations with the other classes:
+Here is a UML class diagram demonstrating its attributes and associations with the other classes:
 
 ![UML Class Diagram](./assets/diagrams/state_class.png "UML Class Diagram")
 
@@ -163,7 +163,7 @@ This is what our React component tree roughly looks like:
 
 ## Current State of Development
 
-As of the writing of this document (1 May 2020), the application is in its MVP (Minimum Viable Product) stage. All of the actions described above are available to users in a controlled and safe way, allowing them to track their carbon reductions in a simple and effective manner.
+As of 1 May 2020, the application is in its MVP ([Minimum Viable Product](https://en.wikipedia.org/wiki/Minimum_viable_product)) stage. All of the actions described above are available to users in a controlled and safe manner, allowing them to track their carbon reductions in a simple and effective way.
 
 ## Future Improvements
 
@@ -197,27 +197,28 @@ _Prerequisites_: Some form of social network graph which connects users and user
 
 ##### [Use case #1: Sharing of goals](#use-case-1-sharing-of-goals)
 
-1. User logs into ClimateHero
+1. User logs into the ClimateHero App
 2. User clicks on a particular goal in the GoalsCard
 3. User clicks "Share" button
 4. A checklist of the user's colleagues/working groups appears
 5. User checks options as is appropriate
+    > Consider limiting number of checked user/groups to prevent spam
 6. Goal is sent to the selected users
 
 ##### Use case #2: Receiving of goals
 
-1. User logs into ClimateHero
-2. User receives a pop-up modal, with a descriptive receipt of goal, as well as the option to "Add to My Goals" or "Ignore".
+1. User logs into the ClimateHero App
+2. User receives a pop-up modal, containing a descriptive receipt of shared goal(s), as well as the option to "Add to My Goals" or "Ignore".
 3. The goal is added or discarded accordingly.
 
 ##### Suggested Approach
 
-1. Create a new _Notification_ class, with enumerated types.  
+1. Create a new _Notification_ class, with enumerated types.
    Some suggested class types:
     - NOTIFICATION_GOAL_SHARED for incoming shared goals. For instance, "John Newton has shared the following goal with you...".
     - NOTIFICATION_GOAL_RECOMMENDED for recommended goals from the server. For instance, "Hey! We see you haven't been... Would you like to set a goal to...?"
-2. Have notification creators which can either be user-triggered, such as via [Use Case #1](#use-case-1-sharing-of-goalsuse-case-1-sharing-of-goals), or automatically triggered by the backend, such as in the case of recommendations made by the server
-3. Add a new attribute to the existing User schema: a list of incoming notifications which have yet to be dismissed by the User, to be rendered in a popup modal whenever the user first logs in, or according to a set interval
+2. Enable notification creators which can either be user-triggered, such as via [Use Case #1](#use-case-1-sharing-of-goalsuse-case-1-sharing-of-goals), or automatically triggered by the backend, such as in the case of recommendations made by the application (server).
+3. Add a new attribute to the existing User schema: a list of incoming notifications which have yet to be dismissed by the User, to be rendered in a popup modal whenever the user first logs in, or according to a set time interval.
 
 ## Deployment
 
@@ -225,7 +226,7 @@ As mentioned at the beginning of the page, ClimateHero is hosted on the SAP Clou
 
 ### 1. Build the application
 
-This is done by running the npm script:
+This is done by running the following npm script:
 
 ```bash
 npm run buildCF (Mac/Linux)
@@ -246,3 +247,5 @@ cf push
 ```
 
 The above command will push the application to the cloud, adopting its configurations from the `manifest.yml` file. More information on how to configure the manifest attributes can be found [here](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html).
+
+Happy hacking!
