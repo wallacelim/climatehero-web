@@ -11,7 +11,6 @@
 const siteConfig = {
     title: "ClimateHero",
     tagline: "Project Documentation - Developer Guide",
-    baseUrl: "/",
     // For no header links in the top nav bar -> headerLinks: [],
     headerLinks: [
         { doc: "web_application_documentation", label: "Web" },
