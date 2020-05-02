@@ -1,6 +1,6 @@
 {
     "docs": {
         "Frontend": ["web_application_documentation"],
-        "Backend": ["doc2"]
+        "Backend": ["api_documentation"]
     }
 }

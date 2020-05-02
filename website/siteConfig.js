@@ -8,18 +8,6 @@
 // See https://docusaurus.io/docs/site-config for all the possible
 // site configuration options.
 
-// List of projects/orgs using your project for the users page.
-const users = [
-    {
-        caption: "User1",
-        // You will need to prepend the image path with your baseUrl
-        // if it is not '/', like: '/test-site/img/image.jpg'.
-        image: "/img/undraw_open_source.svg",
-        infoLink: "https://www.facebook.com",
-        pinned: true,
-    },
-];
-
 const siteConfig = {
     title: "ClimateHero",
     tagline: "Project Documentation - Developer Guide",
@@ -33,12 +21,9 @@ const siteConfig = {
     // For no header links in the top nav bar -> headerLinks: [],
     headerLinks: [
         { doc: "web_application_documentation", label: "Web" },
-        { doc: "doc2", label: "API" },
+        { doc: "api_documentation", label: "API" },
         { page: "help", label: "Help" },
     ],
-
-    // If you have users set above, you add it here:
-    users,
 
     /* path to images for header/footer */
     headerIcon: "img/favicon.png",
@@ -50,20 +35,6 @@ const siteConfig = {
         primaryColor: "#5e519a",
         secondaryColor: "#41386b",
     },
-
-    /* Custom fonts for website */
-    /*
-  fonts: {
-    myFont: [
-      "Times New Roman",
-      "Serif"
-    ],
-    myOtherFont: [
-      "-apple-system",
-      "system-ui"
-    ]
-  },
-  */
 
     // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
     copyright: `Copyright © ${new Date().getFullYear()} SAP`,
@@ -80,10 +51,6 @@ const siteConfig = {
     onPageNav: "separate",
     // No .html extensions for paths.
     cleanUrl: true,
-
-    // Open Graph and Twitter card images.
-    ogImage: "img/undraw_online.svg",
-    twitterImage: "img/undraw_tweetstorm.svg",
 };
 
 module.exports = siteConfig;
