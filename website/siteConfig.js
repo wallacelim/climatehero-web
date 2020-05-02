@@ -11,6 +11,12 @@
 const siteConfig = {
     title: "ClimateHero",
     tagline: "Project Documentation - Developer Guide",
+    baseUrl: "/",
+
+    // Used for publishing and more
+    projectName: "climatehero-web",
+    organizationName: "IE-CoE-SGP",
+
     // For no header links in the top nav bar -> headerLinks: [],
     headerLinks: [
         { doc: "web_application_documentation", label: "Web" },
