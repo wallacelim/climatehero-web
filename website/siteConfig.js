@@ -11,13 +11,7 @@
 const siteConfig = {
     title: "ClimateHero",
     tagline: "Project Documentation - Developer Guide",
-    url: "https://github.wdf.sap.corp",
-    baseUrl: "/climatehero-web/",
-
-    // Used for publishing and more
-    projectName: "climatehero-web",
-    organizationName: "IE-CoE-SGP",
-
+    baseUrl: "/",
     // For no header links in the top nav bar -> headerLinks: [],
     headerLinks: [
         { doc: "web_application_documentation", label: "Web" },
