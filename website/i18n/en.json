@@ -8,6 +8,10 @@
       "api_documentation": {
         "title": "API Specification"
       },
+      "docs_documentation": {
+        "title": "Maintaining The Docs",
+        "sidebar_label": "Maintaining The Docs"
+      },
       "web_application_documentation": {
         "title": "Documentation for the Web Application (Front End)",
         "sidebar_label": "Web Application"
@@ -16,11 +20,13 @@
     "links": {
       "Web": "Web",
       "API": "API",
+      "Docs": "Docs",
       "Help": "Help"
     },
     "categories": {
       "Frontend": "Frontend",
-      "Backend": "Backend"
+      "Backend": "Backend",
+      "Documentation": "Documentation"
     }
   },
   "pages-strings": {
