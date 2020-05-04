@@ -28,6 +28,8 @@ function Help(props) {
                 "web_application_documentation.html"
             )})\n\nLearn more about the [Backend](${docUrl(
                 "api_documentation.html"
+            )})\n\n Learn more about the [Docs](${docUrl(
+                "docs_documentation.html"
             )})`,
             title: "Browse Docs",
         },

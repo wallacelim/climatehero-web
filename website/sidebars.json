@@ -1,6 +1,7 @@
 {
     "docs": {
         "Frontend": ["web_application_documentation"],
-        "Backend": ["api_documentation"]
+        "Backend": ["api_documentation"],
+        "Documentation": ["docs_documentation"]
     }
 }
