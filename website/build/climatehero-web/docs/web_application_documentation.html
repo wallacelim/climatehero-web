@@ -93,9 +93,9 @@ xs-security.json (app security configs)
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="application-architecture"></a><a href="#application-architecture" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Application Architecture</h2>
 <p>Broadly speaking, the application consists of two parts - the Redux state machine and the React view layer, with a one-way data flow from the former to the latter - true to the <a href="https://reactjs.org/docs/thinking-in-react.html">React Core Principles</a>. More specifically, the application models Facebook's client-side web application architecture, <a href="https://facebook.github.io/flux/docs/in-depth-overview">Flux</a>. A high-level view is shown below:</p>
-<p><img src="docs/../assets/diagrams/flux-diagram.png" alt="Flux Architecture Digram"></p>
+<p><img src="/docs/assets/diagrams/flux_diagram.png" alt="Flux Architecture Digram"></p>
 <blockquote>
-<p>Do note that Redux, while inspired by the Flux architecture, omits the <em>dispatcher</em> entirely. However, it is greatly inspired by, and <em>&quot;...is true to the Flux Architecture, but makes it simpler thanks to pure functions.&quot;</em></p>
+<p>Do note that Redux, while inspired by the Flux architecture, omits the <em>dispatcher</em> entirely. However, it is inspired by, and <em>&quot;...is true to the Flux Architecture, but makes it simpler thanks to pure functions.&quot;</em></p>
 <p>Find out more <a href="https://redux.js.org/introduction/prior-art#flux">here</a>.</p>
 </blockquote>
 <p>We now move on to discuss each component in further detail, with the exception of the <em>dispatcher</em>.</p>
@@ -117,9 +117,9 @@ xs-security.json (app security configs)
 <h4><a class="anchor" aria-hidden="true" id="goals"></a><a href="#goals" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Goals</h4>
 <p><em>Goals</em> are user-defined targets which represent the user's intention to fulfill a set <code>measurement</code> of a particular type of <em>activity</em> within a specific time period (e.g. Eat 20 vegetarian meals in the month of March 2020).</p>
 <h4><a class="anchor" aria-hidden="true" id="users"></a><a href="#users" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Users</h4>
-<p><em>Users</em> are representations of the user.</p>
-<p>Here is a UML class diagram demonstrating their attributes and their associations with the other classes:</p>
-<p><img src="./assets/diagrams/state_class.png" alt="UML Class Diagram" title="UML Class Diagram"></p>
+<p>A <em>User</em> object is a representation of the application's user.</p>
+<p>Here is a UML class diagram demonstrating its attributes and associations with the other classes:</p>
+<p><img src="/docs/assets/diagrams/state_class.png" alt="UML Class Diagram"></p>
 <blockquote>
 <p>If we were to take a leaf from the popular <a href="https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm">MVC framework</a>, the above would roughly translate to repesentation of the &quot;Model&quot;.</p>
 </blockquote>
@@ -183,9 +183,9 @@ xs-security.json (app security configs)
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="view"></a><a href="#view" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>View</h3>
 <p>This is what our React component tree roughly looks like:</p>
-<p><img src="./assets/diagrams/component_tree.png" alt="Component Tree Diagram" title="Component Tree Diagram"></p>
+<p><img src="/docs/assets/diagrams/component_tree.png" alt="Component Tree Diagram"></p>
 <h2><a class="anchor" aria-hidden="true" id="current-state-of-development"></a><a href="#current-state-of-development" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Current State of Development</h2>
-<p>As of the writing of this document (1 May 2020), the application is in its MVP (Minimum Viable Product) stage. All of the actions described above are available to users in a controlled and safe way, allowing them to track their carbon reductions in a simple and effective manner.</p>
+<p>As of 1 May 2020, the application is in its MVP (<a href="https://en.wikipedia.org/wiki/Minimum_viable_product">Minimum Viable Product</a>) stage. All of the actions described above are available to users in a controlled and safe manner, allowing them to track their carbon reductions in a simple and effective way.</p>
 <h2><a class="anchor" aria-hidden="true" id="future-improvements"></a><a href="#future-improvements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Future Improvements</h2>
 <p>The following are some recommendations for the further development of the application, in order of priority.</p>
 <h3><a class="anchor" aria-hidden="true" id="testing"></a><a href="#testing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Testing</h3>
@@ -203,34 +203,37 @@ xs-security.json (app security configs)
 <p><em>Prerequisites</em>: Some form of social network graph which connects users and user groups must be established prior.</p>
 <h5><a class="anchor" aria-hidden="true" id="use-case-1-sharing-of-goalsuse-case-1-sharing-of-goals"></a><a href="#use-case-1-sharing-of-goalsuse-case-1-sharing-of-goals" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><a href="#use-case-1-sharing-of-goals">Use case #1: Sharing of goals</a></h5>
 <ol>
-<li>User logs into ClimateHero</li>
+<li>User logs into the ClimateHero App</li>
 <li>User clicks on a particular goal in the GoalsCard</li>
 <li>User clicks &quot;Share&quot; button</li>
 <li>A checklist of the user's colleagues/working groups appears</li>
-<li>User checks options as is appropriate</li>
+<li>User checks options as is appropriate
+<blockquote>
+<p>Consider limiting number of checked user/groups to prevent spam</p>
+</blockquote></li>
 <li>Goal is sent to the selected users</li>
 </ol>
 <h5><a class="anchor" aria-hidden="true" id="use-case-2-receiving-of-goals"></a><a href="#use-case-2-receiving-of-goals" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Use case #2: Receiving of goals</h5>
 <ol>
-<li>User logs into ClimateHero</li>
-<li>User receives a pop-up modal, with a descriptive receipt of goal, as well as the option to &quot;Add to My Goals&quot; or &quot;Ignore&quot;.</li>
+<li>User logs into the ClimateHero App</li>
+<li>User receives a pop-up modal, containing a descriptive receipt of shared goal(s), as well as the option to &quot;Add to My Goals&quot; or &quot;Ignore&quot;.</li>
 <li>The goal is added or discarded accordingly.</li>
 </ol>
 <h5><a class="anchor" aria-hidden="true" id="suggested-approach-1"></a><a href="#suggested-approach-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Suggested Approach</h5>
 <ol>
-<li>Create a new <em>Notification</em> class, with enumerated types.<br>
+<li>Create a new <em>Notification</em> class, with enumerated types.
 Some suggested class types:
 <ul>
 <li>NOTIFICATION_GOAL_SHARED for incoming shared goals. For instance, &quot;John Newton has shared the following goal with you...&quot;.</li>
 <li>NOTIFICATION_GOAL_RECOMMENDED for recommended goals from the server. For instance, &quot;Hey! We see you haven't been... Would you like to set a goal to...?&quot;</li>
 </ul></li>
-<li>Have notification creators which can either be user-triggered, such as via <a href="#use-case-1-sharing-of-goalsuse-case-1-sharing-of-goals">Use Case #1</a>, or automatically triggered by the backend, such as in the case of recommendations made by the server</li>
-<li>Add a new attribute to the existing User schema: a list of incoming notifications which have yet to be dismissed by the User, to be rendered in a popup modal whenever the user first logs in, or according to a set interval</li>
+<li>Enable notification creators which can either be user-triggered, such as via <a href="#use-case-1-sharing-of-goalsuse-case-1-sharing-of-goals">Use Case #1</a>, or automatically triggered by the backend, such as in the case of recommendations made by the application (server).</li>
+<li>Add a new attribute to the existing User schema: a list of incoming notifications which have yet to be dismissed by the User, to be rendered in a popup modal whenever the user first logs in, or according to a set time interval.</li>
 </ol>
 <h2><a class="anchor" aria-hidden="true" id="deployment"></a><a href="#deployment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deployment</h2>
 <p>As mentioned at the beginning of the page, ClimateHero is hosted on the SAP Cloud Platform, via the Cloud Foundry CLI. To deploy an updated version of the application, there are roughly 2 steps.</p>
 <h3><a class="anchor" aria-hidden="true" id="1-build-the-application"></a><a href="#1-build-the-application" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. Build the application</h3>
-<p>This is done by running the npm script:</p>
+<p>This is done by running the following npm script:</p>
 <pre><code class="hljs css language-bash">npm run buildCF (Mac/Linux)
 npm run buildCFWindows (Windows)
 </code></pre>
@@ -242,4 +245,5 @@ react-scripts build &amp;&amp; DEL /F/Q/S cf\\build &gt; NUL &amp;&amp; RMDIR /Q
 <pre><code class="hljs css language-bash">cf push
 </code></pre>
 <p>The above command will push the application to the cloud, adopting its configurations from the <code>manifest.yml</code> file. More information on how to configure the manifest attributes can be found <a href="https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html">here</a>.</p>
+<p>Happy hacking!</p>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/api_documentation"><span>API Specification</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#an-overview-of-the-client-application">An Overview of the Client Application</a></li><li><a href="#technologies-used">Technologies Used</a></li><li><a href="#an-overview-of-the-file-structure">An Overview of the File Structure</a></li><li><a href="#application-architecture">Application Architecture</a><ul class="toc-headings"><li><a href="#store">Store</a></li><li><a href="#action">Action</a></li><li><a href="#view">View</a></li></ul></li><li><a href="#current-state-of-development">Current State of Development</a></li><li><a href="#future-improvements">Future Improvements</a><ul class="toc-headings"><li><a href="#testing">Testing</a></li><li><a href="#enhancing-user-related-functionalities">Enhancing User-related Functionalities</a></li><li><a href="#enabling-social-aspects">Enabling Social Aspects</a></li></ul></li><li><a href="#deployment">Deployment</a><ul class="toc-headings"><li><a href="#1-build-the-application">1. Build the application</a></li><li><a href="#2-push-the-application">2. Push the application</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/favicon.png" alt="ClimateHero" width="66" height="58"/></a><div><h5>Try the app</h5><a href="https://climatehero-web.cfapps.sap.hana.ondemand.com">ClimateHero</a></div><div><h5>Docs</h5><a href="/docs/en/web_application_documentation.html">Web Application</a><a href="/docs/en/api_documentation.html">API</a></div><div><h5>GitHub</h5><a href="https://github.wdf.sap.corp/IE-CoE-SGP/climatehero-web">Frontend</a><a href="https://github.wdf.sap.corp/IE-CoE-SGP/climatehero-server">Backend</a></div></section><section class="copyright">Copyright © 2020 SAP</section></footer></div></body></html>

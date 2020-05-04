@@ -54,7 +54,7 @@ xs-security.json (app security configs)
 
 Broadly speaking, the application consists of two parts - the Redux state machine and the React view layer, with a one-way data flow from the former to the latter - true to the [React Core Principles](https://reactjs.org/docs/thinking-in-react.html). More specifically, the application models Facebook's client-side web application architecture, [Flux](https://facebook.github.io/flux/docs/in-depth-overview). A high-level view is shown below:
 
-![Flux Architecture Digram](docs/../assets/diagrams/flux-diagram.png)
+![Flux Architecture Digram](/docs/assets/diagrams/flux_diagram.png)
 
 > Do note that Redux, while inspired by the Flux architecture, omits the _dispatcher_ entirely. However, it is inspired by, and _"...is true to the Flux Architecture, but makes it simpler thanks to pure functions."_
 >
@@ -91,7 +91,7 @@ A _User_ object is a representation of the application's user.
 
 Here is a UML class diagram demonstrating its attributes and associations with the other classes:
 
-![UML Class Diagram](./assets/diagrams/state_class.png "UML Class Diagram")
+![UML Class Diagram](/docs/assets/diagrams/state_class.png)
 
 > If we were to take a leaf from the popular [MVC framework](https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm), the above would roughly translate to repesentation of the "Model".
 
@@ -159,7 +159,7 @@ For each of the 4 object classes constituting the store, either some or all of t
 
 This is what our React component tree roughly looks like:
 
-![Component Tree Diagram](./assets/diagrams/component_tree.png "Component Tree Diagram")
+![Component Tree Diagram](/docs/assets/diagrams/component_tree.png)
 
 ## Current State of Development
 

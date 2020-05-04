@@ -34,8 +34,7 @@ yarn-error.log*
 /coverage
 
 # production
-/build
-/cf/build
+build/
 
 # misc
 .DS_Store

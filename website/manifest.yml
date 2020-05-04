@@ -1,0 +1,7 @@
+---
+applications:
+- name: climatehero-docs
+  path: /build/climatehero-web
+  memory: 64M
+  buildpacks: 
+    - staticfile_buildpack
