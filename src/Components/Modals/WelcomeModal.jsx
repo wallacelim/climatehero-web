@@ -11,7 +11,7 @@ import {
 } from "@ui5/webcomponents-react";
 import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 
-import { UI } from "../redux/actionCreators";
+import { UI } from "../../redux/actionCreators";
 
 const WelcomeModal = ({ welcomeModal, toggleWelcomeModal }) => {
     const handleWelcomeModalClose = () => {

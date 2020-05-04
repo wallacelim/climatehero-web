@@ -31,10 +31,10 @@ import {
     COMMUTE_BUS,
     COMMUTE_TRAIN,
     MEAL_VEGETARIAN,
-} from "../constants/activityTypes";
-import { Activity, UI } from "../redux/actionCreators";
-import { getActivityTypeFromString } from "../util/activities";
-import { DATE_FORMAT } from "../constants/stringFormats";
+} from "../../constants/activityTypes";
+import { Activity, UI } from "../../redux/actionCreators";
+import { getActivityTypeFromString } from "../../util/activities";
+import { DATE_FORMAT } from "../../constants/stringFormats";
 
 const EditActivityModal = ({
     activity,

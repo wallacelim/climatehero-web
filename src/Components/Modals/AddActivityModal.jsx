@@ -31,15 +31,15 @@ import {
     COMMUTE_BUS,
     COMMUTE_TRAIN,
     MEAL_VEGETARIAN,
-} from "../constants/activityTypes";
-import { Activity, UI } from "../redux/actionCreators";
+} from "../../constants/activityTypes";
+import { Activity, UI } from "../../redux/actionCreators";
 import {
     getCurrentDateTimeString,
     getCurrentDateString,
     getCurrentTimeString,
-} from "../util/datetime";
-import { getActivityTypeFromString } from "../util/activities";
-import { DATE_FORMAT } from "../constants/stringFormats";
+} from "../../util/datetime";
+import { getActivityTypeFromString } from "../../util/activities";
+import { DATE_FORMAT } from "../../constants/stringFormats";
 
 const AddActivityModal = ({
     addActivityModal,

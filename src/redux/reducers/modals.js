@@ -12,7 +12,7 @@ const initialState = {
     id: null,
 };
 
-export function welcomeModal(state = { isOpen: true, id: null }, action) {
+export function welcomeModal(state = { ...initialState, id: null }, action) {
     switch (action.type) {
         case TOGGLE_WELCOME_MODAL:
             return {

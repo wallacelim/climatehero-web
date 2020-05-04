@@ -30,15 +30,15 @@ import {
     COMMUTE_BUS,
     COMMUTE_TRAIN,
     MEAL_VEGETARIAN,
-} from "../constants/activityTypes";
-import { Series, UI } from "../redux/actionCreators";
+} from "../../constants/activityTypes";
+import { Series, UI } from "../../redux/actionCreators";
 import {
     getCurrentDateString,
     getDateFromString,
     getDateAsString,
-} from "../util/datetime";
-import { getActivityTypeFromString } from "../util/activities";
-import { DATE_FORMAT } from "../constants/stringFormats";
+} from "../../util/datetime";
+import { getActivityTypeFromString } from "../../util/activities";
+import { DATE_FORMAT } from "../../constants/stringFormats";
 import "@ui5/webcomponents-icons/dist/icons/calendar";
 import "@ui5/webcomponents-icons/dist/icons/legend";
 

@@ -3,12 +3,12 @@ import { Switch, Route, Redirect, Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import "@ui5/webcomponents-icons/dist/icons/add";
 import HomePage from "./Pages/HomePage";
-import AddActivityModal from "./Components/AddActivityModal";
-import AddSeriesModal from "./Components/AddSeriesModal";
-import AddGoalModal from "./Components/AddGoalModal";
-import WelcomeModal from "./Components/WelcomeModal";
-import EditActivityModal from "./Components/EditActivityModal";
-import EditGoalModal from "./Components/EditGoalModal";
+import AddActivityModal from "./Components/Modals/AddActivityModal";
+import AddSeriesModal from "./Components/Modals/AddSeriesModal";
+import AddGoalModal from "./Components/Modals/AddGoalModal";
+import WelcomeModal from "./Components/Modals/WelcomeModal";
+import EditActivityModal from "./Components/Modals/EditActivityModal";
+import EditGoalModal from "./Components/Modals/EditGoalModal";
 
 export default function ClimateHeroApp() {
     const history = createBrowserHistory();

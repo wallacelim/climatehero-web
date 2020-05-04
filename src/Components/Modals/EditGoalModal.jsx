@@ -27,16 +27,16 @@ import {
     COMMUTE_TRAIN,
     COMMUTE_BIKE,
     MEAL_VEGETARIAN,
-} from "../constants/activityTypes";
-import { Goal, UI } from "../redux/actionCreators";
+} from "../../constants/activityTypes";
+import { Goal, UI } from "../../redux/actionCreators";
 import "@ui5/webcomponents-icons/dist/icons/meal";
 import "@ui5/webcomponents-icons/dist/icons/passenger-train";
 import "@ui5/webcomponents-icons/dist/icons/physical-activity";
 import "@ui5/webcomponents-icons/dist/icons/bus-public-transport";
 import "@ui5/webcomponents-icons/dist/icons/supplier";
-import { getActivityTypeFromString } from "../util/activities";
-import { DATE_FORMAT } from "../constants/stringFormats";
-import { getDateFromString } from "../util/datetime";
+import { getActivityTypeFromString } from "../../util/activities";
+import { DATE_FORMAT } from "../../constants/stringFormats";
+import { getDateFromString } from "../../util/datetime";
 
 const EditGoalModal = ({
     goal,
