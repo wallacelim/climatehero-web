@@ -8,13 +8,13 @@ sidebar_label: Maintaining The Docs
 
 This documentation site was built using [Docusaurus](https://docusaurus.io/), which is maintained by [Facebook Open Source](https://opensource.facebook.com/).
 
-Effectively, all that is required for editing this site can be found in the [docs for Docusaurus](https://docusaurus.io/docs/en/installation).
+Effectively, all that is required for editing this site can be found in the [Docusaurus documentation](https://docusaurus.io/docs/en/installation).
 
 Nevertheless, here is a short walkthrough for minor changes:
 
 ### Editing
 
-All content here is either written chiefly in [Markdown](https://www.markdownguide.org/) (for Documents such as this one) and HTML (for webpages). To edit a document, navigate to the `docs/` directory from the root of the `climatehero-web` project. There, you will find the markdown documents for the various domains (`api_documentation.md`, `web_application_documentation.md`, etc). Simply open and edit those files as required.
+All content here is either written chiefly in [Markdown](https://www.markdownguide.org/) (for documents such as this one) and HTML (for webpages). To edit a document, navigate to the `docs/` directory from the root of the `climatehero-web` project. There, you will find the markdown documents for the various topics (`api_documentation.md`, `web_application_documentation.md`, etc). Simply open and edit those files as required.
 
 ### Deployment
 
