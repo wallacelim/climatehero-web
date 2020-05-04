@@ -631,8 +631,11 @@ export const UI = {
         },
     }),
 
-    toggleWelcomeModal: () => ({
+    toggleWelcomeModal: (id) => ({
         type: TOGGLE_WELCOME_MODAL,
+        payload: {
+            id,
+        },
     }),
 
     toggleEditGoalModal: (id) => ({

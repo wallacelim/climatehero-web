@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {
     Text,
@@ -13,7 +13,16 @@ import { sapUiContentPadding } from "@ui5/webcomponents-react-base/lib/spacing";
 
 import { UI } from "../../redux/actionCreators";
 
-const WelcomeModal = ({ welcomeModal, toggleWelcomeModal }) => {
+const WelcomeModal = ({ welcomeModal, toggleWelcomeModal, userData }) => {
+    useEffect(() => {
+        let toggleOnLoad = true;
+        if (toggleOnLoad) {
+            setTimeout(() => toggleWelcomeModal(userData.id), 0);
+        }
+        return () => {
+            toggleOnLoad = false;
+        };
+    }, [userData, toggleWelcomeModal]);
     const handleWelcomeModalClose = () => {
         toggleWelcomeModal();
     };
@@ -32,6 +41,8 @@ const WelcomeModal = ({ welcomeModal, toggleWelcomeModal }) => {
                     direction={FlexBoxDirection.Column}
                     justifyContent={FlexBoxJustifyContent.Start}
                 >
+                    <Text>Hello {userData.firstName},</Text>
+                    <br />
                     <Text>
                         Great to have you on board. With this app we would like
                         to motivate colleagues to do some good for the
@@ -42,7 +53,7 @@ const WelcomeModal = ({ welcomeModal, toggleWelcomeModal }) => {
                         app since they likely have a positive effect on your
                         personal health, too.
                     </Text>
-                    <Text>{"\n"}</Text>
+                    <br />
                     <Text>
                         So how does it work? Basically, we want you to record
                         all your CO2 reducing activities which you do
@@ -55,7 +66,7 @@ const WelcomeModal = ({ welcomeModal, toggleWelcomeModal }) => {
                         achieve a certain amount of savings in a given
                         timeframe.
                     </Text>
-                    <Text>{"\n"}</Text>
+                    <br />
                     <Text>Start being a Climate Hero today and have fun!</Text>
                 </FlexBox>
             </section>
@@ -63,12 +74,13 @@ const WelcomeModal = ({ welcomeModal, toggleWelcomeModal }) => {
     );
 };
 
-const mapStateToProps = ({ welcomeModal }) => ({
+const mapStateToProps = ({ user, welcomeModal }) => ({
     welcomeModal,
+    userData: user.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleWelcomeModal: () => dispatch(UI.toggleWelcomeModal()),
+    toggleWelcomeModal: (userId) => dispatch(UI.toggleWelcomeModal(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomeModal);
