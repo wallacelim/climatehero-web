@@ -10,7 +10,7 @@ The front end of ClimateHero was designed to be a convenient and safe means for 
 
 ## Technologies Used
 
-The frontend is a [Single Page Application](https://medium.com/@NeotericEU/single-page-application-vs-multiple-page-application-2591588efe58) built mainly using [React](https://reactjs.org/docs/getting-started.html), while in-app states are managed using [React-Redux](https://react-redux.js.org/introduction/quick-start). Thus, a good grasp of the two technologies will go a long way towards contributing to this project. The application is hosted on the SAP Cloud Platform, via the [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html). This documentation is written using [Docusaurus](https://docusaurus.io/docs/en/installation).
+The frontend is a [Single Page Application](https://medium.com/@NeotericEU/single-page-application-vs-multiple-page-application-2591588efe58) built mainly using [React](https://reactjs.org/docs/getting-started.html), while in-app states are managed using [React-Redux](https://react-redux.js.org/introduction/quick-start). Thus, a good grasp of the two technologies will go a long way towards contributing to this project. The application is hosted on the SAP Cloud Platform, via the [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html).
 
 On a more detailed note, the application uses the following libraries/packages:
 
@@ -221,6 +221,8 @@ _Prerequisites_: Some form of social network graph which connects users and user
 3. Add a new attribute to the existing User schema: a list of incoming notifications which have yet to be dismissed by the User, to be rendered in a popup modal whenever the user first logs in, or according to a set time interval.
 
 ## Deployment
+
+> You need to be authenticated with the appropriate SAP Cloud Platform organisation/space to perform the following successfully.
 
 As mentioned at the beginning of the page, ClimateHero is hosted on the SAP Cloud Platform, via the Cloud Foundry CLI. To deploy an updated version of the application, there are roughly 2 steps.
 
