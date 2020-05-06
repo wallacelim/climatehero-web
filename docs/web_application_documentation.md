@@ -38,6 +38,9 @@ Currently the file/folder structure looks roughly like this:
 /src
     /Assets
     /Components (React components)
+        /Containers
+        /Modals
+        ... other components
     /constants (app-wide constants)
     /Pages
     /redux
@@ -48,6 +51,7 @@ Currently the file/folder structure looks roughly like this:
 manifest.yml
 package.json
 xs-security.json (app security configs)
+... additional config files
 ```
 
 ## Application Architecture
