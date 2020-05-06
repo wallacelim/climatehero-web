@@ -167,15 +167,40 @@ This is what our React component tree roughly looks like:
 
 ## Current State of Development
 
-As of 1 May 2020, the application is in its MVP ([Minimum Viable Product](https://en.wikipedia.org/wiki/Minimum_viable_product)) stage. All of the actions described above are available to users in a controlled and safe manner, allowing them to track their carbon reductions in a simple and effective way.
+As of 1 May 2020, the application is in its MVP ([Minimum Viable Product](https://en.wikipedia.org/wiki/Minimum_viable_product)) stage. Most of the actions described above are available to users in a controlled and safe manner, allowing them to track their carbon reductions in a simple and effective way.
 
 ## Future Improvements
 
 The following are some recommendations for the further development of the application, in order of priority.
 
+### Ease of Use
+
+The following enhancements will greatly improve the user's ease of using the application, and as of yet, are considered the most critical features to be developed as they are key to user adoption.
+
+#### Enabling Deletion of Series
+
+Currently, the `EDIT_SERIES` and `DELETE_SERIES` classes are the only classes of actions which are yet unavailable to the user. The implementation of this feature will allow users to edit/remove all instances of a recurring activity with ease.
+
+##### Suggested User Flow
+
+1. User clicks on an activity to edit it.
+
+    - If the activity is a recurring one, the details of its associated `Series` is also displayed, with the additional option to perform the `EDIT_SERIES` and `DELETE_SERIES` classes of actions.
+
+2. User edits/deletes the `Series`.
+3. All `Activities` associated with the `Series` are updated/removed accordingly from the database (this should be handled by the server).
+
+#### Merging the `ADD_ACTIVITY` and `ADD_SERIES` User Flows
+
+Currently, the application presents to the user two seperate buttons which trigger two independent user flows for the `ADD_ACTIVITY` and `ADD_SERIES` classes of actions.
+
+![Add Activity/Series Buttons](assets/images/add_activity_buttons.png)
+
+Ultimately, for simplicity of the UI/UX, it is recommended that the two user flows, along with all relevant assets (e.g. buttons, modals), be merged. This is further justified by the similarity of their assets, and will result in significant code deduplication as well.
+
 ### Testing
 
-At present, theres is little to no automated testing scripts. It is highly recommended that unit and integration tests be set-up before the application is deployed into production. To this end, two popular and recommended testing frameworks are [Jest](https://jestjs.io/) and [Mocha](https://mochajs.org/).
+At present, theres is little to no automated testing being performed. It is highly recommended that unit and integration tests be set-up before the application is deployed into production. To this end, two popular and recommended testing frameworks are [Jest](https://jestjs.io/) and [Mocha](https://mochajs.org/).
 
 ### Enhancing User-related Functionalities
 
