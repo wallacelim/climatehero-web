@@ -11,6 +11,18 @@ import DatePicker from "react-datepicker";
 import { DATE_FORMAT } from "../constants/stringFormats";
 import "react-datepicker/dist/react-datepicker.css";
 
+const popperModifiers = {
+    flip: {
+        behavior: ["bottom"] // don't allow it to flip to be above
+    },
+    preventOverflow: {
+        enabled: false
+    },
+    hide: {
+        enabled: false // turn off since needs preventOverflow to be enabled
+    }
+}
+
 export default ({
     selectedStartDate,
     setSelectedStartDate,
@@ -31,6 +43,8 @@ export default ({
                     console.log(date);
                     setSelectedStartDate(date);
                 }}
+                popperPlacement="bottom-start"
+                popperModifiers={popperModifiers}
                 selected={selectedStartDate}
                 style={{ width: "30%" }}
                 placeholderText="  Select Start Date"
@@ -42,6 +56,8 @@ export default ({
                     console.log(date);
                     setSelectedEndDate(date);
                 }}
+                popperModifiers={popperModifiers}
+                popperPlacement="bottom-start"
                 selected={selectedEndDate}
                 style={{ width: "30%" }}
                 placeholderText="  Select End Date"
