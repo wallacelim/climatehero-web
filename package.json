@@ -9,7 +9,7 @@
         "@ui5/webcomponents-react": "^0.7.3",
         "@ui5/webcomponents-react-base": "^0.8.4",
         "@ui5/webcomponents-react-charts": "^0.8.2",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "framer-motion": "^1.8.4",
         "history": "^4.10.1",
         "lodash": "^4.17.15",
